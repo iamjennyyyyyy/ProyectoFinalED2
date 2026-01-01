@@ -7,6 +7,7 @@ public class Enfermedad {
 	private String nombre;
 	private LocalDate fechaDiagnostico;
 	
+	
 	public Enfermedad(String nombre, LocalDate fechaDiagnostico) {
 		setNombre(nombre);
 		setFechaDiagnostico(fechaDiagnostico);
