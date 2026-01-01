@@ -9,12 +9,15 @@ public class Minsap {
 	private GeneralTree<NodoSalud> minsap;
 	
 	public Minsap(){
-		
+		Inicializar();
 	}
+	
+	public GeneralTree<NodoSalud> getMinsap(){ return minsap;}
 	
 	public void Inicializar(){
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial("HAB-000", "Direccion_Provincial_La_Habana", "La Habana"));
-		minsap.setRoot(habana);
+		minsap.setRoot(new BinaryTreeNode<NodoSalud>());
+		minsap.insertNode(habana, (BinaryTreeNode<NodoSalud>) minsap.getRoot());
 		BinaryTreeNode<NodoSalud> laLisa = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-001", "Direccion_Municipal_La_Lisa", 132135, "La Lisa"));
 		BinaryTreeNode<NodoSalud> cerro = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-002", "Direccion_Municipal_Cerro", 126851, "Cerro"));
 		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-003", "Direccion_Municipal_Plaza", 136634, "Plaza de la Revolución"));
