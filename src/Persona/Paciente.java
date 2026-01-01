@@ -1,5 +1,6 @@
 package Persona;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Salud.ConsejoPopular;
@@ -24,7 +25,7 @@ public class Paciente {
 		setDireccion(direccion);
 		enfermedades = new LinkedList<Enfermedad>();
 		sintomas = new LinkedList<Sintomas>();
-	}
+    
 	public Paciente(){
 		enfermedades = new LinkedList<Enfermedad>();
 		sintomas = new LinkedList<Sintomas>();
@@ -42,10 +43,20 @@ public class Paciente {
 	public ConsejoPopular getDireccion() {return direccion;}
 	public void setDireccion(ConsejoPopular direccion) {this.direccion = direccion;}
 	public LinkedList<Enfermedad> getEnfermedades() {return enfermedades;}
+	public ArrayList<Enfermedad> getEnfermedades() {return enfermedades;}
 
 	public void agregarEnfermedad(Enfermedad enfermedad) {
         if (!enfermedades.contains(enfermedad)) {
             enfermedades.add(enfermedad);
         }
     }
+	public String getConsultorio() {
+		return consultorio;
+	}
+	public void setConsultorio(String consultorio) {
+		this.consultorio = consultorio;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 }

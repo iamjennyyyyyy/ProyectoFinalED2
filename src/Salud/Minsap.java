@@ -1,18 +1,19 @@
 package Salud;
 
-import cu.edu.cujae.ceis.tree.TreeNode;
+
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
+import cu.edu.cujae.ceis.tree.iterators.general.InBreadthIterator;
 
 public class Minsap {
 
 	private GeneralTree<NodoSalud> minsap;
+	private static Minsap instancia;
 	
 	public Minsap(){
+    minsap = new GeneralTree<NodoSalud>();
 		Inicializar();
 	}
-	
-	public GeneralTree<NodoSalud> getMinsap(){ return minsap;}
 	
 	public void Inicializar(){
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial("HAB-000", "Direccion_Provincial_La_Habana", "La Habana"));
@@ -20,7 +21,7 @@ public class Minsap {
 		minsap.insertNode(habana, (BinaryTreeNode<NodoSalud>) minsap.getRoot());
 		BinaryTreeNode<NodoSalud> laLisa = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-001", "Direccion_Municipal_La_Lisa", 132135, "La Lisa"));
 		BinaryTreeNode<NodoSalud> cerro = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-002", "Direccion_Municipal_Cerro", 126851, "Cerro"));
-		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-003", "Direccion_Municipal_Plaza", 136634, "Plaza de la Revolución"));
+		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-003", "Direccion_Municipal_Plaza", 136634, "Plaza de la RevoluciÃ³n"));
 		BinaryTreeNode<NodoSalud> playa = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-004", "Direccion_Municipal_Playa", 186148, "Playa"));
 		minsap.insertNode(laLisa, habana);
 		minsap.insertNode(cerro, habana);
@@ -34,11 +35,25 @@ public class Minsap {
 		minsap.insertNode(pAleidaF, laLisa);
 		minsap.insertNode(p19Abril, plaza);
 		minsap.insertNode(p28Enero, plaza);
-		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40));
-		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_40", 41));
-		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_40", 42));
+		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "mmm"));
+		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_40", 41,"nnnn"));
+		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_40", 42,"gggg"));
 		minsap.insertNode(c40, pCristL);
 		minsap.insertNode(c41, pCristL);
 		minsap.insertNode(c42, pCristL);
+	}
+	
+	public Consultorio buscarConsultorio(String consultorio){
+		InBreadthIterator<NodoSalud> it = minsap.inBreadthIterator();
+		Consultorio con = null;
+		
+		while(it.hasNext() && con == null){
+			NodoSalud nodo = it.next();
+			if(nodo instanceof Consultorio && ((Consultorio)nodo).getNombre().equals(consultorio)){
+				con = (Consultorio)nodo;
+			}
+		}
+		
+		return con;
 	}
 }

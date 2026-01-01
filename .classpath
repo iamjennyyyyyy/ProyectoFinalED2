@@ -6,5 +6,8 @@
 	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/src/Librerias/flatlaf-theme-editor-3.6.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/src/Librerias/LinkedGraph_1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/src/Librerias/tree-package-v3.0.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/LinkedGraph_1.0.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/tree-package-v3.0.jar"/>
+	<classpathentry kind="lib" path="D:/jgraphx-4.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
