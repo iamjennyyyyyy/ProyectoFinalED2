@@ -34,6 +34,7 @@ import Persona.Paciente;
 import Salud.Consultorio;
 import Salud.Minsap;
 import Salud.NodoSalud;
+import Utiles.Enfermedades;
 import Utiles.JTextFieldCarnet;
 import Utiles.JTextFieldMejorado;
 import Utiles.Sintomas;
@@ -58,8 +59,8 @@ public class Diagnostico extends JDialog {
 	private JLabel lblEdad;
 	private JLabel lblCi;
 	private JLabel lblSexo;
-	private int pos = -1;
 	private Sintomas[] sintomasSel;
+	private Enfermedades[] enfermedadesSel;
 	private JScrollPane scrollSintomas;
 	private JTextFieldMejorado textNombre;
 	private JTextFieldCarnet textId;
@@ -72,17 +73,20 @@ public class Diagnostico extends JDialog {
 	private JSeparator separator_3;
 	private JLabel lblDireccin;
 	private JSeparator separator_4;
-	private JComboBox comboBox;
 	private JLabel lblSntomaspresioneCtrl;
 	private JLabel lblDatosPersonales;
 	private JButton btnSalir;
 	private JButton btnGuardar;
 	private JTextPane textPaneSint;
 	private JList list;
-	private JButton btnRealizarDiagnstico;
+	private JButton btnRegistrar;
 	private JTextField textDireccion;
 	private JTextField textCorreo;
 	private JTextField textField_1;
+	private JButton btnAtras;
+	private JScrollPane scrollEnfermedadess;
+	private JButton btnDiagnostico;
+	private Paciente pac;
 
 
 	public static void main(String[] args) {
@@ -104,8 +108,8 @@ public class Diagnostico extends JDialog {
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPanel.setLayout(null);
 		contentPanel.setBounds(0, 0, 1071, 559);
+		contentPanel.setLayout(null);
 		contentPanel.add(getLblNombre());
 		contentPanel.add(getLblEdad());
 		contentPanel.add(getLblSexo());
@@ -128,17 +132,20 @@ public class Diagnostico extends JDialog {
 		contentPanel.add(getBtnSalir());
 		contentPanel.add(getBtnGuardar());
 		contentPanel.add(getTextPaneSint());
-		contentPanel.add(getBtnRealizarDiagnstico());
+		contentPanel.add(getBtnRegistrar());
 		contentPanel.add(getTextDireccion());
 		contentPanel.add(getTextCorreo());
 		contentPanel.add(getTextField_1());
+		contentPanel.add(getBtnAtras());
+		contentPanel.add(getScrollEnfermedadess());
+		contentPanel.add(getBtnDiagnostico());
 	}
 
 	private JLabel getLblNombre() {
 		if (lblNombre == null) {
 			lblNombre = new JLabel("Nombre:");
-			lblNombre.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblNombre.setBounds(58, 170, 85, 27);
+			lblNombre.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblNombre;
 	}
@@ -146,8 +153,8 @@ public class Diagnostico extends JDialog {
 	private JLabel getLblEdad() {
 		if (lblEdad == null) {
 			lblEdad = new JLabel("Edad:");
-			lblEdad.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblEdad.setBounds(90, 409, 114, 27);
+			lblEdad.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblEdad;
 	}
@@ -155,8 +162,8 @@ public class Diagnostico extends JDialog {
 	private JLabel getLblCi() {
 		if (lblCi == null) {
 			lblCi = new JLabel("CI:");
-			lblCi.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblCi.setBounds(108, 114, 40, 27);
+			lblCi.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblCi;
 	}
@@ -164,8 +171,8 @@ public class Diagnostico extends JDialog {
 	private JLabel getLblSexo() {
 		if (lblSexo == null) {
 			lblSexo = new JLabel("Sexo:");
-			lblSexo.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblSexo.setBounds(90, 463, 114, 27);
+			lblSexo.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblSexo;
 	}
@@ -173,10 +180,10 @@ public class Diagnostico extends JDialog {
 	private JTextFieldMejorado getTextNombre() {
 		if (textNombre == null) {
 			textNombre = new JTextFieldMejorado();
+			textNombre.setBounds(168, 158, 315, 30);
 			textNombre.setBackground(Color.WHITE);
 			textNombre.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			textNombre.setBorder(null);
-			textNombre.setBounds(168, 158, 315, 30);
 			textNombre.putClientProperty("JTextField.placeholderText", "Ingrese su nombre");
 		}
 		return textNombre;
@@ -184,6 +191,7 @@ public class Diagnostico extends JDialog {
 	private JTextFieldCarnet getTextId() {
 		if (textId == null) {
 			textId = new JTextFieldCarnet();
+			textId.setBounds(168, 104, 315, 30);
 			textId.setBackground(Color.WHITE);
 			textId.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			textId.setBorder(null);
@@ -223,7 +231,6 @@ public class Diagnostico extends JDialog {
 
 				}
 			});
-			textId.setBounds(168, 104, 315, 30);
 			textId.setLimite(11);
 			textId.putClientProperty("JTextField.placeholderText", "Ingrese su carnet");
 		}
@@ -243,42 +250,49 @@ public class Diagnostico extends JDialog {
 
 		Paciente u = new Paciente();
 
-		try{
-			lblNombre.setForeground(Color.BLACK);
-			u.setNombreCompleto(nombre);
-		}catch(IllegalArgumentException e){
-			lblNombre.setForeground(Color.RED);
+		if(textNombre.getText().isEmpty() || textId.getText().isEmpty() || textCorreo.getText().isEmpty() || textTelefono.getText().isEmpty() || textDireccion.getText().isEmpty())
 			agregado = false;
-			textNombre.setText("");
+		if(agregado){
+			try{
+				lblNombre.setForeground(Color.BLACK);
+				u.setNombreCompleto(nombre);
+			}catch(IllegalArgumentException e){
+				lblNombre.setForeground(Color.RED);
+				agregado = false;
+				textNombre.setText("");
+			}
+			try{
+				lblCi.setForeground(Color.BLACK);
+				u.setId(idUsuario);
+			}catch(IllegalArgumentException e){
+				lblCi.setForeground(Color.RED);
+				textId.setText("");
+				agregado = false;
+			}
+			try{
+				lblCorreo.setForeground(Color.BLACK);
+				u.setCorreo(correo);
+			}catch(IllegalArgumentException e){
+				lblCorreo.setForeground(Color.RED);
+				agregado = false;
+				textCorreo.setText("");
+			}
+			try{
+				lblTelfono.setForeground(Color.BLACK);
+				u.setNumero(telefono);
+			}catch(IllegalArgumentException e){
+				lblTelfono.setForeground(Color.RED);
+				agregado = false;
+				textTelefono.setText("");
+			}
+
+			if(sintomasSel == null){
+				agregado = false;
+				JOptionPane.showMessageDialog(Diagnostico.this, "No ha seleccionado síntomas", "Alerta", JOptionPane.WARNING_MESSAGE);
+			}
 		}
-		try{
-			lblCi.setForeground(Color.BLACK);
-			u.setId(idUsuario);
-		}catch(IllegalArgumentException e){
-			lblCi.setForeground(Color.RED);
-			textId.setText("");
-			agregado = false;
-		}
-		try{
-			lblCorreo.setForeground(Color.BLACK);
-			u.setCorreo(correo);
-		}catch(IllegalArgumentException e){
-			lblCorreo.setForeground(Color.RED);
-			agregado = false;
-			textCorreo.setText("");
-		}
-		try{
-			lblTelfono.setForeground(Color.BLACK);
-			u.setNumero(telefono);
-		}catch(IllegalArgumentException e){
-			lblTelfono.setForeground(Color.RED);
-			agregado = false;
-			textTelefono.setText("");
-		}
-		if(sintomasSel == null){
-			agregado = false;
-			JOptionPane.showMessageDialog(Diagnostico.this, "No ha seleccionado síntomas", "Alerta", JOptionPane.WARNING_MESSAGE);
-		}
+		else
+			JOptionPane.showMessageDialog(Diagnostico.this, "Rellene todos los campos, por favor", "Alerta", JOptionPane.WARNING_MESSAGE);
 		if(!agregado){
 			u = null;
 		}
@@ -373,89 +387,76 @@ public class Diagnostico extends JDialog {
 	private JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
-			separator.setForeground(Color.BLACK);
 			separator.setBounds(168, 188, 315, 27);
+			separator.setForeground(Color.BLACK);
 		}
 		return separator;
 	}
 	private JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
-			separator_1.setForeground(Color.BLACK);
 			separator_1.setBounds(168, 134, 315, 27);
+			separator_1.setForeground(Color.BLACK);
 		}
 		return separator_1;
 	}
 	private JLabel getLblCorreo() {
 		if (lblCorreo == null) {
 			lblCorreo = new JLabel("Correo:");
-			lblCorreo.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblCorreo.setBounds(76, 347, 83, 27);
+			lblCorreo.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblCorreo;
 	}
 	private JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
-			separator_2.setForeground(Color.BLACK);
 			separator_2.setBounds(168, 371, 317, 27);
+			separator_2.setForeground(Color.BLACK);
 		}
 		return separator_2;
 	}
 	private JTextFieldCarnet getTextTelefono() {
 		if (textTelefono == null) {
 			textTelefono = new JTextFieldCarnet();
+			textTelefono.setBounds(168, 278, 317, 30);
 			textTelefono.setBackground(Color.WHITE);
 			textTelefono.setLimite(11);
 			textTelefono.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			textTelefono.setBorder(null);
-			textTelefono.setBounds(168, 278, 317, 30);
 		}
 		return textTelefono;
 	}
 	private JLabel getLblTelfono() {
 		if (lblTelfono == null) {
 			lblTelfono = new JLabel("Tel\u00E9fono:");
-			lblTelfono.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblTelfono.setBounds(53, 289, 83, 27);
+			lblTelfono.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblTelfono;
 	}
 	private JSeparator getSeparator_3() {
 		if (separator_3 == null) {
 			separator_3 = new JSeparator();
-			separator_3.setForeground(Color.BLACK);
 			separator_3.setBounds(168, 308, 317, 27);
+			separator_3.setForeground(Color.BLACK);
 		}
 		return separator_3;
 	}
-	private ArrayList<Consultorio> obtenerListaConsultorios(){
-		GeneralTree<NodoSalud> tree = Minsap.getInstancia().getArbol();
-		List<TreeNode<NodoSalud>> c = tree.getLeaves();
-		Iterator<TreeNode<NodoSalud>> it = c.iterator();
-		ArrayList<Consultorio> consultorios = new ArrayList<Consultorio>();
-		while(it.hasNext()){
-			BinaryTreeNode<NodoSalud> nodo = (BinaryTreeNode<NodoSalud>)it.next();
-			if(nodo.getInfo() instanceof Consultorio){
-				Consultorio con = (Consultorio)nodo.getInfo();
-				consultorios.add(con);
-			}
-		}
-		return consultorios;
-	}
+
 	private JLabel getLblDireccin() {
 		if (lblDireccin == null) {
 			lblDireccin = new JLabel("Direcci\u00F3n:");
-			lblDireccin.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblDireccin.setBounds(47, 228, 96, 27);
+			lblDireccin.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblDireccin;
 	}
 	private JSeparator getSeparator_4() {
 		if (separator_4 == null) {
 			separator_4 = new JSeparator();
-			separator_4.setForeground(Color.BLACK);
 			separator_4.setBounds(168, 245, 315, 27);
+			separator_4.setForeground(Color.BLACK);
 		}
 		return separator_4;
 	}
@@ -480,31 +481,33 @@ public class Diagnostico extends JDialog {
 			list.setVisibleRowCount(8);
 
 			scrollSintomas = new JScrollPane(list);
-			scrollSintomas.setBounds(600, 105, 371, 195);
+			scrollSintomas.setBounds(600, 105, 371, 167);
 			scrollSintomas.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 			scrollSintomas.setBorder(new LineBorder(new Color(0, 0, 0)));
 		}
 		return scrollSintomas;
 	}
+
 	private JLabel getLblSntomaspresioneCtrl() {
 		if (lblSntomaspresioneCtrl == null) {
 			lblSntomaspresioneCtrl = new JLabel("S\u00EDntomas:      (Ctrl + Clic para selecci\u00F3n m\u00FAltiple)");
+			lblSntomaspresioneCtrl.setBounds(600, 53, 430, 27);
 			lblSntomaspresioneCtrl.setFont(new Font("Sylfaen", Font.PLAIN, 19));
-			lblSntomaspresioneCtrl.setBounds(600, 53, 406, 27);
 		}
 		return lblSntomaspresioneCtrl;
 	}
 	private JLabel getLblDatosPersonales() {
 		if (lblDatosPersonales == null) {
 			lblDatosPersonales = new JLabel("Datos personales:");
-			lblDatosPersonales.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblDatosPersonales.setBounds(43, 53, 192, 27);
+			lblDatosPersonales.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblDatosPersonales;
 	}
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("");
+			btnSalir.setBounds(1021, 0, 50, 50);
 			btnSalir.setBorder(null);
 			btnSalir.setHorizontalTextPosition(SwingConstants.CENTER);
 			btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -512,7 +515,6 @@ public class Diagnostico extends JDialog {
 			btnSalir.setBackground(Color.WHITE);
 			btnSalir.setForeground(Color.WHITE);
 			btnSalir.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
-			btnSalir.setBounds(1021, 0, 50, 50);
 			btnSalir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					dispose();
@@ -524,25 +526,40 @@ public class Diagnostico extends JDialog {
 	private JButton getBtnGuardar() {
 		if (btnGuardar == null) {
 			btnGuardar = new JButton("Guardar");
+			btnGuardar.setBounds(990, 102, 71, 39);
 			btnGuardar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					sintomasSel = guardarSintomasSeleccionados();
-					String sintomasM = "";
-					for(int i = 0; i < sintomasSel.length; i++){
-						if (i == sintomasSel.length-1)
-							sintomasM += sintomasSel[i].getDescripcion() + ".";
-						else
-							sintomasM += sintomasSel[i].getDescripcion() + ", ";
+					if(scrollSintomas.isVisible()){
+						guardarSintomasSeleccionados();
+						String sintomasM = "";
+						for(int i = 0; i < sintomasSel.length; i++){
+							if (i == sintomasSel.length-1)
+								sintomasM += sintomasSel[i].getDescripcion() + ".";
+							else
+								sintomasM += sintomasSel[i].getDescripcion() + ", ";
+						}
+						textPaneSint.setText(sintomasM);
+						btnRegistrar.setEnabled(true);
 					}
-					textPaneSint.setText(sintomasM);
+					else{
+						guardarEnfermedadesSeleccionadas();
+						String enferM = "";
+						for(int i = 0; i < enfermedadesSel.length; i++){
+							if (i == sintomasSel.length-1)
+								enferM += enfermedadesSel[i].getNombre() + ".";
+							else
+								enferM += enfermedadesSel[i].getNombre() + ", ";
+						}
+						textPaneSint.setText(enferM);
+						btnDiagnostico.setEnabled(true);
+					}
 				}
 			});
-			btnGuardar.setBounds(990, 102, 40, 39);
 		}
 		return btnGuardar;
 	}
 
-	public Sintomas[] guardarSintomasSeleccionados(){
+	public void guardarSintomasSeleccionados(){
 
 		int[] posiciones = list.getSelectedIndices();
 		Sintomas[] sintomasSeleccionados = new Sintomas[posiciones.length];
@@ -550,39 +567,62 @@ public class Diagnostico extends JDialog {
 		for(int i = 0; i < posiciones.length; i++){
 			sintomasSeleccionados[i] = sintomas[posiciones[i]];
 		}
-		return sintomasSeleccionados;
+		sintomasSel = sintomasSeleccionados;
+	}
+
+	public void guardarEnfermedadesSeleccionadas(){
+
+		int[] posiciones = list.getSelectedIndices();
+		Enfermedades[] enfermedadesSeleccionadas = new Enfermedades[posiciones.length];
+		Enfermedades[] enfermedades = Enfermedades.values();
+		for(int i = 0; i < posiciones.length; i++){
+			enfermedadesSeleccionadas[i] = enfermedades[posiciones[i]];
+		}
+		enfermedadesSel = enfermedadesSeleccionadas;
 	}
 	private JTextPane getTextPaneSint() {
 		if (textPaneSint == null) {
 			textPaneSint = new JTextPane();
+			textPaneSint.setBounds(600, 289, 371, 106);
 			textPaneSint.setBorder(new LineBorder(new Color(0, 0, 0)));
 			textPaneSint.setFont(new Font("Sylfaen", Font.PLAIN, 17));
-			textPaneSint.setBounds(600, 320, 371, 130);
 		}
 		return textPaneSint;
 	}
-	private JButton getBtnRealizarDiagnstico() {
-		if (btnRealizarDiagnstico == null) {
-			btnRealizarDiagnstico = new JButton("Realizar diagn\u00F3stico");
-			btnRealizarDiagnstico.addActionListener(new ActionListener() {
+	private JButton getBtnRegistrar() {
+		if (btnRegistrar == null) {
+			btnRegistrar = new JButton("Registrar");
+			btnRegistrar.setEnabled(false);
+			btnRegistrar.setBounds(706, 457, 186, 39);
+			btnRegistrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Paciente p = agregarPaciente();
-					if(p != null){
-						JOptionPane.showMessageDialog(Diagnostico.this, p.getNombreCompleto() + " agregado con éxito", "Info", JOptionPane.WARNING_MESSAGE);
+					pac = agregarPaciente();
+					if(pac != null){
+						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " agregado con éxito", "Info", JOptionPane.WARNING_MESSAGE);
+						//AGREGAR AL REGISTRO DEL CONSULTORIO
+						scrollSintomas.setVisible(false);
+						scrollEnfermedadess.setVisible(true);
+						btnRegistrar.setVisible(false);
+						btnDiagnostico.setVisible(true);
+						textId.setEnabled(false);
+						textNombre.setEnabled(false);
+						textDireccion.setEnabled(false);
+						textTelefono.setEnabled(false);
+						textCorreo.setEnabled(false);
+						lblSntomaspresioneCtrl.setText("Enfermedades:   (Ctrl + Clic para selección múltiple)");
 					}
 				}
 			});
-			btnRealizarDiagnstico.setFont(new Font("Sylfaen", Font.PLAIN, 18));
-			btnRealizarDiagnstico.setBounds(688, 483, 215, 39);
+			btnRegistrar.setFont(new Font("Sylfaen", Font.PLAIN, 18));
 		}
-		return btnRealizarDiagnstico;
+		return btnRegistrar;
 	}
 	private JTextField getTextDireccion() {
 		if (textDireccion == null) {
 			textDireccion = new JTextField();
+			textDireccion.setBounds(168, 215, 315, 30);
 			textDireccion.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			textDireccion.setBorder(null);
-			textDireccion.setBounds(168, 215, 315, 30);
 			textDireccion.setColumns(10);
 		}
 		return textDireccion;
@@ -590,21 +630,83 @@ public class Diagnostico extends JDialog {
 	private JTextField getTextCorreo() {
 		if (textCorreo == null) {
 			textCorreo = new JTextField();
+			textCorreo.setBounds(168, 340, 315, 30);
 			textCorreo.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			textCorreo.setFocusTraversalKeysEnabled(false);
 			textCorreo.setColumns(10);
 			textCorreo.setBorder(null);
-			textCorreo.setBounds(168, 340, 315, 30);
 		}
 		return textCorreo;
 	}
 	private JTextField getTextField_1() {
 		if (textField_1 == null) {
 			textField_1 = new JTextField();
+			textField_1.setBounds(170, 319, 315, 30);
 			textField_1.setColumns(10);
 			textField_1.setBorder(null);
-			textField_1.setBounds(170, 319, 315, 30);
 		}
 		return textField_1;
+	}
+	private JButton getBtnAtras() {
+		if (btnAtras == null) {
+			btnAtras = new JButton("Atras");
+			btnAtras.setBounds(600, 457, 65, 39);
+		}
+		return btnAtras;
+	}
+	private JScrollPane getScrollEnfermedadess() {
+		if (scrollEnfermedadess == null) {
+			DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
+			for(Enfermedades s : Enfermedades.values()) {
+				modeloEnfermedades.addElement(s.getNombre());
+			}
+
+			list = new JList<>(modeloEnfermedades);
+			list.addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent arg0) {
+					enfermedadesSel = null;
+				}
+			});
+			list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			list.setFont(new Font("Sylfaen", Font.PLAIN, 17));
+			list.setVisibleRowCount(8);
+
+			scrollEnfermedadess = new JScrollPane(list);
+			scrollEnfermedadess.setBounds(600, 105, 371, 167);
+			scrollEnfermedadess.setVisible(false);
+			scrollEnfermedadess.setBorder(new LineBorder(new Color(0, 0, 0)));
+			scrollEnfermedadess.setFont(new Font("Segoe UI", Font.PLAIN, 25));
+			scrollEnfermedadess.setBounds(600, 104, 371, 168);
+		}
+		return scrollEnfermedadess;
+	}
+	private JButton getBtnDiagnostico() {
+		if (btnDiagnostico == null) {
+			btnDiagnostico = new JButton("Diagn\u00F3stico");
+			btnDiagnostico.setEnabled(false);
+			btnDiagnostico.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					guardarEnfermedadesSeleccionadas();
+					if(enfermedadesSel != null){
+						String enfermedadesDiagnosticadas = "";
+						for(int i = 0; i < enfermedadesSel.length; i++){
+							enfermedadesDiagnosticadas += enfermedadesSel[i];
+							if(i != enfermedadesSel.length-1)
+								enfermedadesDiagnosticadas += ", ";
+						}
+						pac.setEnfermedades(enfermedadesSel);
+						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " diagnosticado con " + enfermedadesDiagnosticadas, "Info", JOptionPane.WARNING_MESSAGE);
+						dispose();
+					}
+					else{
+						JOptionPane.showMessageDialog(Diagnostico.this, "No ha seleccionado enfermedades", "Alerta", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			});
+			btnDiagnostico.setVisible(false);
+			btnDiagnostico.setFont(new Font("Sylfaen", Font.PLAIN, 18));
+			btnDiagnostico.setBounds(706, 457, 186, 39);
+		}
+		return btnDiagnostico;
 	}
 }

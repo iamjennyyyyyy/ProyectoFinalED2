@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Salud.Enfermedad;
+import Utiles.Enfermedades;
 import Utiles.Sintomas;
 
 public class Paciente {
@@ -15,7 +16,7 @@ public class Paciente {
 	private String direccion;
 	private String consultorio;
 	private ArrayList<Sintomas> sintomas;
-	private ArrayList<Enfermedad> enfermedades;
+	private ArrayList<Enfermedades> enfermedades;
 
 	public Paciente(String id, String nombre, String numero, String correo, String direccion ) {
 		setId(id);
@@ -23,12 +24,12 @@ public class Paciente {
 		setNumero(numero);
 		setCorreo(correo);
 		setDireccion(direccion);
-		enfermedades = new ArrayList<Enfermedad>();
+		enfermedades = new ArrayList<Enfermedades>();
 		sintomas = new ArrayList<Sintomas>();
 	}
     
 	public Paciente(){
-		enfermedades = new ArrayList<Enfermedad>();
+		enfermedades = new ArrayList<Enfermedades>();
 		sintomas = new ArrayList<Sintomas>();
 	}
 
@@ -45,15 +46,20 @@ public class Paciente {
 	public void setDireccion(String direccion) {this.direccion = direccion;}
 	public String getConsultorio() {return consultorio;}
 	public void setConsultorio(String consultorio) {this.consultorio = consultorio;}
-	public ArrayList<Enfermedad> getEnfermedades() {return enfermedades;}
+	public ArrayList<Enfermedades> getEnfermedades() {return enfermedades;}
 	public ArrayList<Sintomas> getSintomas() {return sintomas;}
 	public void setSintomas(Sintomas[] sintomasN) {
 		for(int i = 0; i < sintomasN.length; i++){
 			sintomas.add(sintomasN[i]);
 		}
 	}
+	public void setEnfermedades(Enfermedades[] enfermedadesN) {
+		for(int i = 0; i < enfermedadesN.length; i++){
+			enfermedades.add(enfermedadesN[i]);
+		}
+	}
 
-	public void agregarEnfermedad(Enfermedad enfermedad) {
+	public void agregarEnfermedad(Enfermedades enfermedad) {
 		if (!enfermedades.contains(enfermedad)) {
 			enfermedades.add(enfermedad);
 		}
