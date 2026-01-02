@@ -1,5 +1,6 @@
 package Persona;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Salud.ConsejoPopular;
@@ -48,4 +49,13 @@ public class Paciente {
             enfermedades.add(enfermedad);
         }
     }
+	public String getConsultorio() {
+		return consultorio;
+	}
+	public void setConsultorio(String consultorio) {
+		this.consultorio = consultorio;
+	}
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 }
