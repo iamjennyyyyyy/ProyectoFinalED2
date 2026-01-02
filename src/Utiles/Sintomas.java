@@ -36,6 +36,7 @@ public enum Sintomas {
     ERUPCION_CUTANEA("Erupción cutánea", Categoria.DERMATOLOGICO, Gravedad.LEVE),
     PICOR("Picor/Prurito", Categoria.DERMATOLOGICO, Gravedad.LEVE),
     URTICARIA("Urticaria", Categoria.DERMATOLOGICO, Gravedad.MODERADA),
+    CONJUNTIVITIS("Conjuntivitis", Categoria.DERMATOLOGICO, Gravedad.MODERADA),
     
     // Síntomas neurológicos
     MAREO("Mareo/Vértigo", Categoria.NEUROLOGICO, Gravedad.MODERADA),

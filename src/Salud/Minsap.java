@@ -11,10 +11,20 @@ public class Minsap {
 	private static Minsap instancia;
 	
 	public Minsap(){
-    minsap = new GeneralTree<NodoSalud>();
+		minsap = new GeneralTree<NodoSalud>();
 		Inicializar();
 	}
 	
+	public static Minsap getInstancia(){
+		if(instancia == null){
+			instancia = new Minsap();
+		}
+		return instancia;
+	}
+	
+	public GeneralTree<NodoSalud> getArbol(){
+		return minsap;
+	}
 	public void Inicializar(){
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial("HAB-000", "Direccion_Provincial_La_Habana", "La Habana"));
 		minsap.setRoot(new BinaryTreeNode<NodoSalud>());
