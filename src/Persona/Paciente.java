@@ -26,6 +26,7 @@ public class Paciente {
 		enfermedades = new ArrayList<Enfermedad>();
 		sintomas = new ArrayList<Sintomas>();
 	}
+    
 	public Paciente(){
 		enfermedades = new ArrayList<Enfermedad>();
 		sintomas = new ArrayList<Sintomas>();
