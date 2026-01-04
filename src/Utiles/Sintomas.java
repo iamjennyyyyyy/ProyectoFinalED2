@@ -202,6 +202,15 @@ public enum Sintomas {
         );
     }
     
+    public static ArrayList<Sintomas> obtenerSintomasPorIndices(int[] pos){
+    	ArrayList<Sintomas> arr = new ArrayList<Sintomas>();
+    	Sintomas[] sintomas = Sintomas.values();
+    	for(int i = 0; i < pos.length; i++){
+    		arr.add(sintomas[pos[i]]);
+    	}
+    	return arr;
+    }
+    
     /**
      * Método auxiliar para verificar si un síntoma está en una lista
      */

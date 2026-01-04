@@ -48,17 +48,8 @@ public class Paciente {
 	public void setConsultorio(String consultorio) {this.consultorio = consultorio;}
 	public ArrayList<Enfermedades> getEnfermedades() {return enfermedades;}
 	public ArrayList<Sintomas> getSintomas() {return sintomas;}
-	public void setSintomas(Sintomas[] sintomasN) {
-		for(int i = 0; i < sintomasN.length; i++){
-			sintomas.add(sintomasN[i]);
-		}
-	}
-	public void setEnfermedades(Enfermedades[] enfermedadesN) {
-		for(int i = 0; i < enfermedadesN.length; i++){
-			enfermedades.add(enfermedadesN[i]);
-		}
-	}
-
+	public void setSintomas(ArrayList<Sintomas> sintomasN) {sintomas = sintomasN;}
+	public void setEnfermedades(ArrayList<Enfermedades> enfermedadesN) {enfermedades = enfermedadesN;}
 	public void agregarEnfermedad(Enfermedades enfermedad) {
 		if (!enfermedades.contains(enfermedad)) {
 			enfermedades.add(enfermedad);
