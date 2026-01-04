@@ -3,7 +3,7 @@ package Persona;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import Utiles.Enfermedades;
+import Utiles.Enfermedad;
 import Utiles.Sintomas;
 
 public class Paciente {

@@ -10,7 +10,7 @@ import java.util.List;
  * basándose en los síntomas presentados por el paciente.
  * Versión compatible con Java 1.8.0
  */
-public class Enfermedades {
+public class Enfermedad {
 
 	// Atributos
 	private String nombre;
@@ -22,12 +22,12 @@ public class Enfermedades {
 	private LocalDate fechaDiagnostico;
 
 	// Enfermedades predefinidas (simulando el enum)
-	private static ArrayList<Enfermedades> enfermedadesPredefinidas;
+	private static ArrayList<Enfermedad> enfermedadesPredefinidas;
 
 	/**
 	 * Constructor completo
 	 */
-	public Enfermedades(String nombre, Categoria categoria, Gravedad gravedadTipica, 
+	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion, LocalDate fechaDiagnostico) {
 		setNombre(nombre);
 		setCategoria(categoria);
@@ -37,7 +37,7 @@ public class Enfermedades {
 		setDuracion(duracion);
 		setFechaDiagnostico(fechaDiagnostico);
 	}
-	public Enfermedades(String nombre, Categoria categoria, Gravedad gravedadTipica, 
+	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion) {
 		setNombre(nombre);
 		setCategoria(categoria);
@@ -50,7 +50,7 @@ public class Enfermedades {
 	/**
 	 * Constructor vacío
 	 */
-	public Enfermedades() {
+	public Enfermedad() {
 		this.sintomasComunes = new ArrayList<>();
 	}
 
@@ -63,7 +63,7 @@ public class Enfermedades {
 		enfermedadesPredefinidas = new ArrayList<>();
 
 		// Enfermedades respiratorias
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
@@ -71,7 +71,7 @@ public class Enfermedades {
 						"SARS-CoV-2", "7-14 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Influenza (Gripe)", Categoria.RESPIRATORIA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
@@ -79,7 +79,7 @@ public class Enfermedades {
 						"Virus de la influenza", "5-7 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Resfriado común", Categoria.RESPIRATORIA, Gravedad.LEVE,
 				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
 						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
@@ -87,7 +87,7 @@ public class Enfermedades {
 						"Rhinovirus/Coronavirus", "3-10 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Neumonía", Categoria.RESPIRATORIA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
@@ -95,42 +95,42 @@ public class Enfermedades {
 						"Bacterias/Virus", "2-3 semanas"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Bronquitis aguda", Categoria.RESPIRATORIA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.TOS, Sintomas.CONGESTION_NASAL, Sintomas.CANSANCIO,
 						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
 						"Virus/Bacterias", "1-3 semanas"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
 				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
 				"Trastorno inflamatorio crónico", "Crónica (controlable)"
 				));
 
 		// Enfermedades gastrointestinales
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
 						"Virus/Bacterias/Parásitos", "1-3 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Intoxicación alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
 						Sintomas.NAUSEAS, Sintomas.FIEBRE),
 						"Bacterias/Toxinas", "24-48 horas"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
 						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
 						"Inflamación del colon", "Variable (aguda/crónica)"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
@@ -138,7 +138,7 @@ public class Enfermedades {
 				));
 
 		// Enfermedades transmitidas por vectores
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Dengue", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
@@ -146,14 +146,14 @@ public class Enfermedades {
 						"Virus del dengue (Aedes aegypti)", "7-10 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
 						"Virus Zika (Aedes aegypti)", "2-7 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Chikungunya", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
@@ -161,7 +161,7 @@ public class Enfermedades {
 						"Virus Chikungunya (Aedes aegypti)", "3-10 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Malaria", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
@@ -170,21 +170,21 @@ public class Enfermedades {
 				));
 
 		// Enfermedades dermatológicas
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
 						"Virus varicela-zóster", "10-21 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Sarampión", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
 						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
 						"Virus del sarampión", "7-14 días"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Rubéola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
 						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
@@ -192,7 +192,7 @@ public class Enfermedades {
 				));
 
 		// Enfermedades neurológicas
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Meningitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.RIGIDEZ,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.CONFUSION,
@@ -200,7 +200,7 @@ public class Enfermedades {
 						"Bacterias/Virus", "Variable (urgente)"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Encefalitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
 						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
@@ -208,7 +208,7 @@ public class Enfermedades {
 						"Virus", "Variable (urgente)"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Migraña", Categoria.NEUROLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
@@ -216,21 +216,21 @@ public class Enfermedades {
 				));
 
 		// Enfermedades crónicas
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Hipertensión arterial", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
 						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
 						"Trastorno cardiovascular", "Crónica"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
 						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
 						"Trastorno metabólico", "Crónica"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO, Sintomas.FIEBRE),
@@ -238,7 +238,7 @@ public class Enfermedades {
 				));
 
 		// Enfermedades infecciosas específicas
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Tuberculosis", Categoria.INFECCIOSA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.TOS, Sintomas.FIEBRE, Sintomas.CANSANCIO,
 						Sintomas.PERDIDA_APETITO, Sintomas.DOLOR_TORACICO,
@@ -246,7 +246,7 @@ public class Enfermedades {
 						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)"
 				));
 
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Hepatitis viral", Categoria.INFECCIOSA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
@@ -255,7 +255,7 @@ public class Enfermedades {
 				));
 
 		// Síndrome clínico
-		enfermedadesPredefinidas.add(new Enfermedades(
+		enfermedadesPredefinidas.add(new Enfermedad(
 				"Síndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
@@ -269,7 +269,7 @@ public class Enfermedades {
 	/**
 	 * Obtiene todas las enfermedades predefinidas
 	 */
-	public static ArrayList<Enfermedades> getEnfermedadesPredefinidas() {
+	public static ArrayList<Enfermedad> getEnfermedadesPredefinidas() {
 		if (enfermedadesPredefinidas == null) {
 			inicializarEnfermedadesPredefinidas();
 		}
@@ -279,9 +279,9 @@ public class Enfermedades {
 	/**
 	 * Obtiene enfermedades por categoría
 	 */
-	public static ArrayList<Enfermedades> getEnfermedadesPorCategoria(Categoria categoria) {
-		ArrayList<Enfermedades> resultado = new ArrayList<>();
-		for (Enfermedades e : getEnfermedadesPredefinidas()) {
+	public static ArrayList<Enfermedad> getEnfermedadesPorCategoria(Categoria categoria) {
+		ArrayList<Enfermedad> resultado = new ArrayList<>();
+		for (Enfermedad e : getEnfermedadesPredefinidas()) {
 			if (e.getCategoria() == categoria) {
 				resultado.add(e);
 			}
@@ -292,9 +292,9 @@ public class Enfermedades {
 	/**
 	 * Obtiene enfermedades por gravedad
 	 */
-	public static ArrayList<Enfermedades> getEnfermedadesPorGravedad(Gravedad gravedad) {
-		ArrayList<Enfermedades> resultado = new ArrayList<>();
-		for (Enfermedades e : getEnfermedadesPredefinidas()) {
+	public static ArrayList<Enfermedad> getEnfermedadesPorGravedad(Gravedad gravedad) {
+		ArrayList<Enfermedad> resultado = new ArrayList<>();
+		for (Enfermedad e : getEnfermedadesPredefinidas()) {
 			if (e.getGravedadTipica() == gravedad) {
 				resultado.add(e);
 			}
@@ -305,10 +305,10 @@ public class Enfermedades {
 	/**
 	 * Busca enfermedades por nombre
 	 */
-	public static List<Enfermedades> buscarPorNombre(String texto) {
+	public static List<Enfermedad> buscarPorNombre(String texto) {
 		String textoBusqueda = texto.toLowerCase();
-		List<Enfermedades> resultado = new ArrayList<>();
-		for (Enfermedades e : getEnfermedadesPredefinidas()) {
+		List<Enfermedad> resultado = new ArrayList<>();
+		for (Enfermedad e : getEnfermedadesPredefinidas()) {
 			if (e.getNombre().toLowerCase().contains(textoBusqueda)) {
 				resultado.add(e);
 			}
@@ -319,14 +319,14 @@ public class Enfermedades {
 	/**
 	 * Obtiene enfermedades epidémicas comunes
 	 */
-	public static List<Enfermedades> getEnfermedadesEpidemicasComunes() {
+	public static List<Enfermedad> getEnfermedadesEpidemicasComunes() {
 		List<String> nombresComunes = Arrays.asList(
 				"COVID-19", "Influenza (Gripe)", "Dengue", 
 				"Gastroenteritis", "Varicela", "Resfriado común"
 				);
 
-		List<Enfermedades> resultado = new ArrayList<>();
-		for (Enfermedades e : getEnfermedadesPredefinidas()) {
+		List<Enfermedad> resultado = new ArrayList<>();
+		for (Enfermedad e : getEnfermedadesPredefinidas()) {
 			if (nombresComunes.contains(e.getNombre())) {
 				resultado.add(e);
 			}
@@ -337,9 +337,9 @@ public class Enfermedades {
 	/**
 	 * Obtiene enfermedades por índices (para JList)
 	 */
-	public static ArrayList<Enfermedades> obtenerEnfermedadesPorIndices(int[] pos) {
-		ArrayList<Enfermedades> todas = getEnfermedadesPredefinidas();
-		ArrayList<Enfermedades> resultado = new ArrayList<>();
+	public static ArrayList<Enfermedad> obtenerEnfermedadesPorIndices(int[] pos) {
+		ArrayList<Enfermedad> todas = getEnfermedadesPredefinidas();
+		ArrayList<Enfermedad> resultado = new ArrayList<>();
 		for (int i = 0; i < pos.length; i++) {
 			if (pos[i] >= 0 && pos[i] < todas.size()) {
 				resultado.add(todas.get(pos[i]));
@@ -358,7 +358,7 @@ public class Enfermedades {
 			return diagnosticos;
 		}
 
-		for (Enfermedades enfermedad : getEnfermedadesPredefinidas()) {
+		for (Enfermedad enfermedad : getEnfermedadesPredefinidas()) {
 			double probabilidad = enfermedad.calcularProbabilidad(sintomasPaciente);
 			if (probabilidad > 30.0) { // Umbral mínimo del 30%
 				diagnosticos.add(new DiagnosticoEnfermedad(enfermedad, probabilidad));
@@ -513,7 +513,7 @@ public class Enfermedades {
 			 public boolean equals(Object obj) {
 				 if (this == obj) return true;
 				 if (obj == null || getClass() != obj.getClass()) return false;
-				 Enfermedades that = (Enfermedades) obj;
+				 Enfermedad that = (Enfermedad) obj;
 				 return nombre != null ? nombre.equals(that.nombre) : that.nombre == null;
 			 }
 
@@ -579,15 +579,15 @@ public class Enfermedades {
 			  * Clase auxiliar para diagnósticos con probabilidad
 			  */
 			 public static class DiagnosticoEnfermedad {
-				 private final Enfermedades enfermedad;
+				 private final Enfermedad enfermedad;
 				 private final double probabilidad;
 
-				 public DiagnosticoEnfermedad(Enfermedades enfermedad, double probabilidad) {
+				 public DiagnosticoEnfermedad(Enfermedad enfermedad, double probabilidad) {
 					 this.enfermedad = enfermedad;
 					 this.probabilidad = probabilidad;
 				 }
 
-				 public Enfermedades getEnfermedad() {
+				 public Enfermedad getEnfermedad() {
 					 return enfermedad;
 				 }
 
