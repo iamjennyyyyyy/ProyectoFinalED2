@@ -1,5 +1,13 @@
 package Salud;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
+import Auxiliar.Estado;
+import Auxiliar.Mes;
+import Auxiliar.Registro;
 import Persona.Paciente;
 import Sistema.GrafoConsejos;
 
@@ -20,8 +28,8 @@ public class DireccionMunicipal extends NodoSalud {
 	}
 	
 	// anadir enfermo al consejo teniendo el nombre del consejo al que pertenece 
-	public void anadirEnfermo(Paciente p){
-		grafo.agregarEnfermoAlConsejo(p);
+	public void anadirEnfermo(Paciente p, Consultorio c){
+		grafo.agregarEnfermoAlConsejo(p, c.getConsejoPopular());
 		
 	}
 	
@@ -31,6 +39,13 @@ public class DireccionMunicipal extends NodoSalud {
 	public void setMunicipio(String municipio) {this.municipio = municipio;}
 	public int getPoblacion() {return poblacion;}	
 	public void setPoblacion(int poblacion) {this.poblacion = poblacion;}
+
+	
+
+	public GrafoConsejos getGrafo() {
+		// TODO Auto-generated method stub
+		return grafo;
+	}
 	
 	
 	
