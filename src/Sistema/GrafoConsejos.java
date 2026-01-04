@@ -16,7 +16,7 @@ import Auxiliar.Sistema;
 import Persona.Paciente;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
-import Salud.Enfermedad;
+import Utiles.Enfermedades;
 import Salud.Minsap;
 
 public class GrafoConsejos {
@@ -35,7 +35,7 @@ public class GrafoConsejos {
 	public void agregarEnfermoAlConsejo(Paciente paciente, String consejo){ // agregar enfermo al registro d las enfermedades que tenga 
 				
 		ConsejoPopular con = consejosPorPosicion.get(posiciones.get(consejo));
-		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();		
+		ArrayList<Enfermedades> finDeEpidemis = new ArrayList<Enfermedades> ();		
 		if(con.anadirPacienteEnfermo(paciente,finDeEpidemis) == Estado.Epidemia){
 			ponerEnAlerta(consejo);
 		}
@@ -50,12 +50,12 @@ public class GrafoConsejos {
 		return posiciones.get(s);
 	}
 	
-	private void finAlerta(ArrayList<Enfermedad> fin, String consejo){// quitar la alerta de epidemia a consejos populares cercanos al que actualmente se declaro libre de epidemia 
+	private void finAlerta(ArrayList<Enfermedades> fin, String consejo){// quitar la alerta de epidemia a consejos populares cercanos al que actualmente se declaro libre de epidemia 
 		Vertex enEpidemia=  grafo.getVerticesList().get(posiciones.get(consejo));
 		ConsejoPopular c = (ConsejoPopular)enEpidemia.getInfo();
 		for(Vertex o : enEpidemia.getAdjacents()){
 			ConsejoPopular con = (ConsejoPopular)o.getInfo();
-			for(Enfermedad e : fin)
+			for(Enfermedades e : fin)
 				if(con.obtenerEnfermedadesEnAlerta().contains(e))// verificar que el consejo tenga esa enfermedad en alerta, es decir descartar q este en epidemia
 					if(sePuedeEliminarDeAlerta(o, e)){ // verificar que los otros consejos adyacentes a este no tengan tambien epidemia de la misma enfermedad que la alerta tambien los afecta 
 						con.declararNormalParaEnfermeda(e);
@@ -76,7 +76,7 @@ public class GrafoConsejos {
 
 	}
 
-	private boolean sePuedeEliminarDeAlerta(Vertex v, Enfermedad e){
+	private boolean sePuedeEliminarDeAlerta(Vertex v, Enfermedades e){
 		boolean si = true;
 		ConsejoPopular c = (ConsejoPopular)v.getInfo();
 		Iterator<Vertex> it = v.getAdjacents().iterator();

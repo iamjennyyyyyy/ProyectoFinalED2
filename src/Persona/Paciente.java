@@ -3,7 +3,6 @@ package Persona;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import Salud.Enfermedad;
 import Utiles.Enfermedades;
 import Utiles.Sintomas;
 

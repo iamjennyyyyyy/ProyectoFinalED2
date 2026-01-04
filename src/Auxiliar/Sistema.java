@@ -27,7 +27,11 @@ public class Sistema {
 		sistema.setRoot(habana);
 		BinaryTreeNode<NodoSalud> laLisa = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-001", "Direccion_Municipal_La_Lisa", 132135, "La Lisa"));
 		BinaryTreeNode<NodoSalud> cerro = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-002", "Direccion_Municipal_Cerro", 126851, "Cerro"));
+<<<<<<< HEAD
 		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-003", "Direccion_Municipal_Plaza", 136634, "Plaza de la Revolución"));
+=======
+		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-003", "Direccion_Municipal_Plaza", 136634, "Plaza de la Revoluciï¿½n"));
+>>>>>>> origin/Jenny
 		BinaryTreeNode<NodoSalud> playa = new BinaryTreeNode<NodoSalud>(new DireccionMunicipal("HAB-004", "Direccion_Municipal_Playa", 186148, "Playa"));
 		sistema.insertNode(laLisa, habana);
 		sistema.insertNode(cerro, habana);
