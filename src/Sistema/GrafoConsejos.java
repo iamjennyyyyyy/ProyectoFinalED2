@@ -17,6 +17,7 @@ import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 import Salud.Enfermedad;
 import Salud.Minsap;
+import Salud.Sistema;
 
 public class GrafoConsejos {
 	private ILinkedNotDirectedGraph grafo;
@@ -31,8 +32,8 @@ public class GrafoConsejos {
 	}
 
 	// teniendo en cuenta el nombre del consejo 
-	public void agregarEnfermoAlConsejo(Paciente paciente){ // agregar enfermo al registro d las enfermedades que tenga 
-		String consejo = Minsap.getInstancia().buscarConsultorio(paciente.getConsultorio()).getConsejoPopular();		
+	public void agregarEnfermoAlConsejo(Paciente paciente, String consejo){ // agregar enfermo al registro d las enfermedades que tenga 
+				
 		ConsejoPopular con = consejosPorPosicion.get(posiciones.get(consejo));
 		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();		
 		if(con.anadirPacienteEnfermo(paciente,finDeEpidemis) == Estado.Epidemia){
@@ -45,6 +46,10 @@ public class GrafoConsejos {
 
 
 	}
+	public int obtenerPosicion(String s){
+		return posiciones.get(s);
+	}
+	
 	private void finAlerta(ArrayList<Enfermedad> fin, String consejo){// quitar la alerta de epidemia a consejos populares cercanos al que actualmente se declaro libre de epidemia 
 		Vertex enEpidemia=  grafo.getVerticesList().get(posiciones.get(consejo));
 		ConsejoPopular c = (ConsejoPopular)enEpidemia.getInfo();

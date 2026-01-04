@@ -36,6 +36,20 @@ public class ConsejoPopular {
 		inicializarEstados();
 		
 	}
+	public ConsejoPopular(String string, String string2, String string3, int i,
+			Estado normal, Map<Estado, ArrayList<Enfermedad>> estadosLatino,
+			Map<Enfermedad, ArrayList<Registro>> registrosLatino) {
+		 nombre= string;
+		codigo= string2;
+		 municipio= string3;
+		 totalPoblacion=i;
+		estado= normal;// necesito agregar para que enfermedad es la alerta
+		estados= estadosLatino;
+		
+		registros = registrosLatino; // Enfermedad -> Registr
+		
+		
+	}
 	private void inicializarEstados(){
 		for(Estado e: Estado.values()){
 			estados.put(e, new ArrayList<Enfermedad>());

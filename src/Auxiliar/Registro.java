@@ -45,6 +45,13 @@ public Registro() {
 }
 
 
+public Registro(int anno, ArrayList<Mes> meses) {
+	super();
+	this.anno = anno;
+	this.meses = meses;
+}
+
+
 
 
 }

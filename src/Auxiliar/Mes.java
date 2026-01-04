@@ -11,6 +11,12 @@ public class Mes {
 		cantidadCasos=0;
 		estado = Estado.Normal;
 	}
+	public Mes(String mes, int cantidadCasos, Estado estado) {
+		super();
+		this.mes = mes;
+		this.cantidadCasos = cantidadCasos;
+		this.estado = estado;
+	}
 	public String getMes() {
 		return mes;
 	}
