@@ -5,7 +5,7 @@ import javax.swing.*;
 import cu.edu.cujae.ceis.graph.vertex.Vertex;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
-import Sistema.Inicializar;
+import Auxiliar.Inicializar;
 
 import java.awt.*;
 import java.awt.event.*;

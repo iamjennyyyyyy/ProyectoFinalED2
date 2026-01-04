@@ -314,6 +314,14 @@ public class Diagnostico extends JDialog {
 				agregado = false;
 				textTelefono.setText("");
 			}
+			try{
+				lblDireccin.setForeground(Color.BLACK);
+				u.setDireccion(direccion);
+			}catch(IllegalArgumentException e){
+				lblDireccin.setForeground(Color.RED);
+				agregado = false;
+				textDireccion.setText("");
+			}
 
 			if(sintomasSel == null){
 				agregado = false;

@@ -9,7 +9,7 @@ import java.util.Map;
 import Auxiliar.Estado;
 import Auxiliar.Registro;
 import Persona.Paciente;
-
+import Utiles.Enfermedades;
 
 
 public class ConsejoPopular { 
@@ -19,9 +19,9 @@ public class ConsejoPopular {
 	private String municipio;
 	private int totalPoblacion;
 	private Estado estado;// necesito agregar para que enfermedad es la alerta
-	private Map<Estado, ArrayList<Enfermedad>> estados;
+	private Map<Estado, ArrayList<Enfermedades>> estados;
 	private LinkedList<Paciente> casos;
-	private Map<Enfermedad, ArrayList<Registro> > registros; // Enfermedad -> Registro
+	private Map<Enfermedades, ArrayList<Registro> > registros; // Enfermedad -> Registro
 	
 	
 	public ConsejoPopular(String codigo, String nombre, String municipio, int pob) {
@@ -29,16 +29,16 @@ public class ConsejoPopular {
 		setCodigo(codigo);
 		setMunicipio(municipio);
 		this.casos = new LinkedList<Paciente>();
-		registros= new HashMap<Enfermedad, ArrayList<Registro>>();
+		registros= new HashMap<Enfermedades, ArrayList<Registro>>();
 		setTotalPoblacion(pob);
 		estado = Estado.Normal;
-		estados= new HashMap<Estado, ArrayList<Enfermedad>>();
+		estados= new HashMap<Estado, ArrayList<Enfermedades>>();
 		inicializarEstados();
 		
 	}
 	public ConsejoPopular(String string, String string2, String string3, int i,
-			Estado normal, Map<Estado, ArrayList<Enfermedad>> estadosLatino,
-			Map<Enfermedad, ArrayList<Registro>> registrosLatino) {
+			Estado normal, Map<Estado, ArrayList<Enfermedades>> estadosLatino,
+			Map<Enfermedades, ArrayList<Registro>> registrosLatino) {
 		 nombre= string;
 		codigo= string2;
 		 municipio= string3;
@@ -52,7 +52,7 @@ public class ConsejoPopular {
 	}
 	private void inicializarEstados(){
 		for(Estado e: Estado.values()){
-			estados.put(e, new ArrayList<Enfermedad>());
+			estados.put(e, new ArrayList<Enfermedades>());
 		}
 		
 	}
@@ -60,25 +60,25 @@ public class ConsejoPopular {
 		return estado;
 	}
 	
-	public ArrayList<Enfermedad> obtenerEnfermedadesEnEpidemia(){// obtener las enfermedades declaradas como epidemias 
+	public ArrayList<Enfermedades> obtenerEnfermedadesEnEpidemia(){// obtener las enfermedades declaradas como epidemias 
 		return estados.get(Estado.Epidemia);
 	}
-	public ArrayList<Enfermedad> obtenerEnfermedadesEnAlerta(){// obtener las enfermedades declaradas como epidemias 
+	public ArrayList<Enfermedades> obtenerEnfermedadesEnAlerta(){// obtener las enfermedades declaradas como epidemias 
 		return estados.get(Estado.Alerta_Epidemica);
 	}
 
-	public void declararAlerta(ArrayList<Enfermedad>enf ){// declarar alerta por un consejo popular cercano infectado
+	public void declararAlerta(ArrayList<Enfermedades>enf ){// declarar alerta por un consejo popular cercano infectado
 		if(estado != Estado.Epidemia)
 		estado = Estado.Alerta_Epidemica;
 		
-		for(Enfermedad e: enf){
+		for(Enfermedades e: enf){
 			
 			if(!estados.get(Estado.Epidemia).contains(e)){// no tener en cuenta la enfermedad si ya hay epidemia 
 			registros.get(e).get(registros.size()-1).getMeses().get((LocalDate.now().getDayOfMonth())- 1).declararAlerta();
 			}
 		}
 	}
-	 public void declararNormalParaEnfermeda(Enfermedad enf){
+	 public void declararNormalParaEnfermeda(Enfermedades enf){
 		 estados.get(Estado.Alerta_Epidemica).remove(enf);
 		 estados.get(Estado.Normal).add(enf);
 			if(estados.get(Estado.Epidemia).size()==0){
@@ -95,9 +95,9 @@ public class ConsejoPopular {
 		return registros.get(enfermedad);
 	}
 	
-	public Estado anadirPacienteEnfermo(Paciente p, ArrayList<Enfermedad> finDeEpidemia){
-		ArrayList<Enfermedad> e = p.getEnfermedades();
-		for(Enfermedad enf: e){
+	public Estado anadirPacienteEnfermo(Paciente p, ArrayList<Enfermedades> finDeEpidemia){
+		ArrayList<Enfermedades> e = p.getEnfermedades();
+		for(Enfermedades enf: e){
 			
 			if(!registros.containsKey(enf)){ // si no existe esa enfermedad agregarla y crear un registro
 				registros.put(enf, new ArrayList<Registro>());
@@ -119,7 +119,7 @@ public class ConsejoPopular {
 	}
 	
 	
-	private boolean verificarEpidemia(Enfermedad enf, ArrayList<Registro> reg, ArrayList<Enfermedad> finDeEpidemia){
+	private boolean verificarEpidemia(Enfermedades enf, ArrayList<Registro> reg, ArrayList<Enfermedades> finDeEpidemia){
 		boolean focoEpidemico = false;
 		int promedio = 0;
 		int noIncluidas =0;
@@ -153,7 +153,7 @@ public class ConsejoPopular {
 	
 	// anadir metodo de verificacion del fin d la epidemia 
 	
-	private void finEpidemia(Enfermedad enf){
+	private void finEpidemia(Enfermedades enf){
 		estados.get(Estado.Epidemia).remove(enf);
 		 estados.get(Estado.Normal).add(enf);
 		if(estados.get(Estado.Epidemia).size()==0){

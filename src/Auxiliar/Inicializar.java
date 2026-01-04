@@ -1,4 +1,4 @@
-package Sistema;
+package Auxiliar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +8,7 @@ import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 import Utiles.Enfermedades;
+import Sistema.GrafoConsejos;
 import Auxiliar.Estado;
 import Auxiliar.Mes;
 import Auxiliar.Registro;
@@ -47,7 +48,7 @@ public class Inicializar {
         ConsejoPopular rampa = new ConsejoPopular(
             "Rampa",
             "CP101",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             18000,
             Estado.Alerta_Epidemica,
             estadosRampa,
@@ -83,7 +84,7 @@ public class Inicializar {
         ConsejoPopular vedadoMalecon = new ConsejoPopular(
             "Vedado Malecon",
             "CP102",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             15000,
             Estado.Normal,
             estadosVedadoMalecon,
@@ -119,7 +120,7 @@ public class Inicializar {
         ConsejoPopular vedado = new ConsejoPopular(
             "Vedado",
             "CP103",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             22000,
             Estado.Epidemia,
             estadosVedado,
@@ -155,7 +156,7 @@ public class Inicializar {
         ConsejoPopular principe = new ConsejoPopular(
             "Principe",
             "CP104",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             12000,
             Estado.Alerta_Epidemica,
             estadosPrincipe,
@@ -191,7 +192,7 @@ public class Inicializar {
         ConsejoPopular caramelo = new ConsejoPopular(
             "Caramelo",
             "CP105",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             16000,
             Estado.Epidemia,
             estadosCaramelo,
@@ -227,7 +228,7 @@ public class Inicializar {
         ConsejoPopular colon = new ConsejoPopular(
             "Colon",
             "CP106",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             14000,
             Estado.Normal,
             estadosColon,
@@ -263,7 +264,7 @@ public class Inicializar {
         ConsejoPopular plaza = new ConsejoPopular(
             "Plaza",
             "CP107",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             20000,
             Estado.Epidemia,
             estadosPlaza,
@@ -299,7 +300,7 @@ public class Inicializar {
         ConsejoPopular puentesGrandes = new ConsejoPopular(
             "Puentes Grandes",
             "CP108",
-            "Plaza de la Revoluci髇",
+            "Plaza de la Revoluci贸n",
             11000,
             Estado.Normal,
             estadosPuentes,
@@ -309,16 +310,16 @@ public class Inicializar {
         // Crear Direccion Municipal
         DireccionMunicipal municipioPlaza = new DireccionMunicipal(
             "DM002",
-            "Direcci髇 Municipal Plaza de la Revoluci髇",
+            "Direcci贸n Municipal Plaza de la Revoluci贸n",
             128000,
-            "Plaza de la Revoluci髇"
+            "Plaza de la Revoluci贸n"
         );
 
-        // Obtener grafo y agregar v閞tices
+        // Obtener grafo y agregar v茅rtices
         GrafoConsejos grafoConsejos = municipioPlaza.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
-        // Insertar v閞tices en el orden especificado
+        // Insertar v茅rtices en el orden especificado
         grafo.insertVertex(rampa);
         grafoConsejos.getPosiciones().put(rampa.getNombre(), 0);
         grafo.insertVertex(vedadoMalecon);
@@ -336,7 +337,7 @@ public class Inicializar {
         grafo.insertVertex(puentesGrandes);
         grafoConsejos.getPosiciones().put(puentesGrandes.getNombre(), 7);
 
-        // Crear conexiones (aristas no dirigidas) seg鷑 las relaciones especificadas
+        // Crear conexiones (aristas no dirigidas) seg煤n las relaciones especificadas
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(vedadoMalecon.getNombre()));        // Rampa - Vedado Malecon
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(vedado.getNombre()));               // Rampa - Vedado
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(principe.getNombre()));             // Rampa - Principe
@@ -478,7 +479,7 @@ public class Inicializar {
             registrosCerro
         );
 
-        // 4. LAS CA袮S
+        // 4. LAS CA脩AS
         ArrayList<Mes> mesesCanas = new ArrayList<>();
         mesesCanas.add(new Mes("Enero", 25, Estado.Normal));
         mesesCanas.add(new Mes("Febrero", 40, Estado.Normal));
@@ -505,7 +506,7 @@ public class Inicializar {
         estadosCanas.put(Estado.Normal, enfermedadesNormalCanas);
 
         ConsejoPopular lasCanas = new ConsejoPopular(
-            "Las Ca馻s",
+            "Las Ca帽as",
             "CP004",
             "Cerro",
             10000,
@@ -625,16 +626,16 @@ public class Inicializar {
         // Crear Direccion Municipal
         DireccionMunicipal municipioCerro = new DireccionMunicipal(
             "DM001",
-            "Direcci髇 Municipal Cerro",
+            "Direcci贸n Municipal Cerro",
             150000,
             "Cerro"
         );
 
-        // Obtener grafo y agregar v閞tices
+        // Obtener grafo y agregar v茅rtices
         GrafoConsejos grafoConsejos = municipioCerro.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
-        // Insertar v閞tices en el orden especificado
+        // Insertar v茅rtices en el orden especificado
          grafo.insertVertex(latinoamericano);
          grafoConsejos.getPosiciones().put(latinoamericano.getNombre(), 0);
          grafo.insertVertex(pilarAtares);
@@ -654,9 +655,9 @@ public class Inicializar {
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));        // Latinoamericano - Cerro
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(pilarAtares.getNombre()));        // Latinoamericano - Pilar Atares
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(pilarAtares.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));         // Pilar Atares - Cerro
-        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(lasCanas.getNombre()));         // Cerro - Las Ca馻s
+        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(lasCanas.getNombre()));         // Cerro - Las Ca帽as
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(elCanal.getNombre()));         // Cerro - El Canal
-        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(lasCanas.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // Las Ca馻s - Palatino
+        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(lasCanas.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // Las Ca帽as - Palatino
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(elCanal.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // El Canal - Palatino
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(palatino.getNombre()), grafoConsejos.obtenerPosicion(armada.getNombre()));     // Palatino - Armada
         
@@ -739,7 +740,7 @@ public class Inicializar {
             registrosDragones
         );
 
-        // 3. COL覰
+        // 3. COL脫N
         ArrayList<Mes> mesesColon = new ArrayList<>();
         mesesColon.add(new Mes("Enero", 40, Estado.Normal));
         mesesColon.add(new Mes("Febrero", 60, Estado.Normal));
@@ -766,7 +767,7 @@ public class Inicializar {
         estadosColon.put(Estado.Normal, enfermedadesNormalColon);
 
         ConsejoPopular colon = new ConsejoPopular(
-            "Col髇",
+            "Col贸n",
             "CP203",
             "Centro Habana",
             19000,
@@ -850,16 +851,16 @@ public class Inicializar {
         // Crear Direccion Municipal para Centro Habana
         DireccionMunicipal municipioCentroHabana = new DireccionMunicipal(
             "DM003",
-            "Direcci髇 Municipal Centro Habana",
+            "Direcci贸n Municipal Centro Habana",
             105000,  // Suma de las poblaciones: 22k + 25k + 19k + 21k + 18k = 105k
             "Centro Habana"
         );
 
-        // Obtener grafo y agregar v閞tices
+        // Obtener grafo y agregar v茅rtices
         GrafoConsejos grafoConsejos = municipioCentroHabana.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
-        // Insertar v閞tices
+        // Insertar v茅rtices
         grafo.insertVertex(cayoHueso);
         grafoConsejos.getPosiciones().put(cayoHueso.getNombre(), 0);
         grafo.insertVertex(dragones);
@@ -871,7 +872,7 @@ public class Inicializar {
         grafo.insertVertex(losSitios);
         grafoConsejos.getPosiciones().put(losSitios.getNombre(), 4);
 
-        // Crear conexiones (aristas no dirigidas) seg鷑 las relaciones especificadas
+        // Crear conexiones (aristas no dirigidas) seg煤n las relaciones especificadas
         // Cayo Hueso - Dragones
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cayoHueso.getNombre()), 
                             grafoConsejos.obtenerPosicion(dragones.getNombre()));
@@ -892,11 +893,11 @@ public class Inicializar {
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(puebloNuevo.getNombre()), 
                             grafoConsejos.obtenerPosicion(losSitios.getNombre()));
         
-        // Los Sitios - Col髇
+        // Los Sitios - Col贸n
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(losSitios.getNombre()), 
                             grafoConsejos.obtenerPosicion(colon.getNombre()));
         
-        // Col髇 - Dragones
+        // Col贸n - Dragones
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(colon.getNombre()), 
                             grafoConsejos.obtenerPosicion(dragones.getNombre()));
 
@@ -1018,16 +1019,16 @@ public class Inicializar {
         // Crear Direccion Municipal para Regla
         DireccionMunicipal municipioRegla = new DireccionMunicipal(
             "DM002",
-            "Direcci髇 Municipal Regla",
+            "Direcci贸n Municipal Regla",
             30000,
             "Regla"
         );
 
-        // Obtener grafo y agregar v閞tices
+        // Obtener grafo y agregar v茅rtices
         GrafoConsejos grafoConsejos = municipioRegla.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
-        // Insertar v閞tices
+        // Insertar v茅rtices
         grafo.insertVertex(casablanca);
         grafoConsejos.getPosiciones().put(casablanca.getNombre(), 0);
         grafo.insertVertex(guaicanamar);
