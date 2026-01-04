@@ -15,6 +15,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 
 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
@@ -27,6 +28,8 @@ import javax.swing.JSeparator;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
+
+import Utiles.Colores;
 
 public class Login extends JDialog {
 
@@ -67,28 +70,28 @@ public class Login extends JDialog {
 		setTitle("Inicio Sesi\u00F3n");
 		setBounds(0, 0, 1366, 768);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 255, 255));
 		contentPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		contentPanel.add(getLblNewLabel());
+		contentPanel.add(getPasswordField());
+		contentPanel.add(getTxtIngreseUnNombre());
 		contentPanel.add(getLblIniciarSesion());
 		contentPanel.add(getLblUsuario());
 		contentPanel.add(getLblContrasea());
-		contentPanel.add(getTxtIngreseUnNombre());
 		contentPanel.add(getSeparator());
 		contentPanel.add(getBtnIniciarSesion());
 		contentPanel.add(getBtnSalir());
-		contentPanel.add(getPasswordField());
 		contentPanel.add(getSeparator_1());
+		contentPanel.add(getLblNewLabel());
 		contentPanel.add(getLblNewLabel_1());
 	}
 
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("");
-			lblNewLabel.setBounds(0, 0, 540, 768);
-			lblNewLabel.setIcon(new ImageIcon("src/images/loginBien.png"));
+			lblNewLabel.setBounds(0, 0, 1366, 768);
+			lblNewLabel.setIcon(new ImageIcon("src/Images/Posters/loginN.png"));
 		}
 		return lblNewLabel;
 	}
@@ -123,7 +126,7 @@ public class Login extends JDialog {
 		if (txtIngreseUnNombre == null) {
 			txtIngreseUnNombre = new JTextField();
 			txtIngreseUnNombre.setFont(new Font("SansSerif", Font.PLAIN, 19));
-			txtIngreseUnNombre.putClientProperty("JTextField.placeholderText", "Ingrese su nombre de usuario");
+			txtIngreseUnNombre.putClientProperty("JTextField.placeholderText", "Ingrese su usuario");
 			txtIngreseUnNombre.setForeground(Color.BLACK);
 			txtIngreseUnNombre.setBorder(new CompoundBorder());
 			txtIngreseUnNombre.setBounds(656, 311, 576, 48);
@@ -154,6 +157,7 @@ public class Login extends JDialog {
 	private JButton getBtnIniciarSesion() {
 		if (btnIniciarSesion == null) {
 			btnIniciarSesion = new JButton("Entrar");
+			btnIniciarSesion.setBackground(Colores.getAzulLogin());
 			btnIniciarSesion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					char[] contrasenna = passwordField.getPassword();
@@ -185,6 +189,7 @@ public class Login extends JDialog {
 	private JButton getBtnSalir() {
 		if (btnSalir == null) {
 			btnSalir = new JButton("Salir");
+			btnSalir.setBackground(Colores.getAzulLogin());
 			btnSalir.setForeground(Color.BLACK);
 			//btnSalir.setBackground(Colores.getBeigetabla());
 			btnSalir.addActionListener(new ActionListener() {
@@ -215,5 +220,4 @@ public class Login extends JDialog {
 		}
 		return lblNewLabel_1;
 	}
-
 }
