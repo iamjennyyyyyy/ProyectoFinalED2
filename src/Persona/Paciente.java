@@ -16,7 +16,7 @@ public class Paciente {
 	private String direccion;
 	private String consultorio;
 	private ArrayList<Sintomas> sintomas;
-	private ArrayList<Enfermedades> enfermedades;
+	private ArrayList<Enfermedad> enfermedades;
 
 	public Paciente(String id, String nombre, String numero, String correo, String direccion ) {
 		setId(id);
@@ -24,12 +24,15 @@ public class Paciente {
 		setNumero(numero);
 		setCorreo(correo);
 		setDireccion(direccion);
-		enfermedades = new ArrayList<Enfermedades>();
+		enfermedades = new ArrayList<Enfermedad>();
 		sintomas = new ArrayList<Sintomas>();
+	}
+	public ArrayList<Enfermedad> getEnfermedad(){
+		return enfermedades;
 	}
     
 	public Paciente(){
-		enfermedades = new ArrayList<Enfermedades>();
+		enfermedades = new ArrayList<Enfermedad>();
 		sintomas = new ArrayList<Sintomas>();
 	}
 
@@ -46,11 +49,11 @@ public class Paciente {
 	public void setDireccion(String direccion) {this.direccion = direccion;}
 	public String getConsultorio() {return consultorio;}
 	public void setConsultorio(String consultorio) {this.consultorio = consultorio;}
-	public ArrayList<Enfermedades> getEnfermedades() {return enfermedades;}
+	public ArrayList<Enfermedad> getEnfermedades() {return enfermedades;}
 	public ArrayList<Sintomas> getSintomas() {return sintomas;}
 	public void setSintomas(ArrayList<Sintomas> sintomasN) {sintomas = sintomasN;}
-	public void setEnfermedades(ArrayList<Enfermedades> enfermedadesN) {enfermedades = enfermedadesN;}
-	public void agregarEnfermedad(Enfermedades enfermedad) {
+	public void setEnfermedades(ArrayList<Enfermedad> enfermedadesN) {enfermedades = enfermedadesN;}
+	public void agregarEnfermedad(Enfermedad enfermedad) {
 		if (!enfermedades.contains(enfermedad)) {
 			enfermedades.add(enfermedad);
 		}
