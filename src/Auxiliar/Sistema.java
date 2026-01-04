@@ -1,10 +1,14 @@
-package Salud;
+package Auxiliar;
 
 import Persona.Paciente;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import cu.edu.cujae.ceis.tree.iterators.general.InBreadthIterator;
+import Salud.Consultorio;
 import Salud.DireccionMunicipal;
+import Salud.DireccionProvincial;
+import Salud.NodoSalud;
+import Salud.Policlinico;
 
 public class Sistema {
 	

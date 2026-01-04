@@ -1,4 +1,4 @@
-package Sistema;
+package Auxiliar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 import Salud.Enfermedad;
+import Sistema.GrafoConsejos;
 import Auxiliar.Estado;
 import Auxiliar.Mes;
 import Auxiliar.Registro;
