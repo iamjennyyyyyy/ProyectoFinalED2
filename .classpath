@@ -2,16 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-<<<<<<< HEAD
 	<classpathentry kind="lib" path="D:/EdFinalproject/librerias/flatlaf-demo-3.6.jar"/>
 	<classpathentry kind="lib" path="D:/EdFinalproject/librerias/flatlaf-theme-editor-3.6.jar"/>
 	<classpathentry kind="lib" path="D:/EdFinalproject/librerias/LinkedGraph_1.0.jar"/>
 	<classpathentry kind="lib" path="D:/EdFinalproject/librerias/tree-package-v3.0.jar"/>
-=======
-	<classpathentry kind="lib" path="lib/flatlaf-demo-3.6.jar"/>
-	<classpathentry kind="lib" path="lib/flatlaf-theme-editor-3.6.jar"/>
-	<classpathentry kind="lib" path="lib/LinkedGraph_1.0.jar"/>
-	<classpathentry kind="lib" path="lib/tree-package-v3.0.jar"/>
->>>>>>> a92e4cab306e926b411eb9bbb215351ac812b98c
 	<classpathentry kind="output" path="bin"/>
 </classpath>

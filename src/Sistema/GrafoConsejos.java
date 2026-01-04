@@ -12,12 +12,12 @@ import cu.edu.cujae.ceis.graph.LinkedGraph;
 import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import cu.edu.cujae.ceis.graph.vertex.Vertex;
 import Auxiliar.Estado;
+import Auxiliar.Sistema;
 import Persona.Paciente;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 import Salud.Enfermedad;
 import Salud.Minsap;
-import Salud.Sistema;
 
 public class GrafoConsejos {
 	private ILinkedNotDirectedGraph grafo;
