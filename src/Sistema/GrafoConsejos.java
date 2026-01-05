@@ -16,7 +16,7 @@ import Auxiliar.Sistema;
 import Persona.Paciente;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
-import Salud.Enfermedad;
+import Utiles.Enfermedad;
 import Salud.Minsap;
 
 public class GrafoConsejos {

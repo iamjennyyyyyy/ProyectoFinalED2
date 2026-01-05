@@ -9,7 +9,7 @@ import java.util.Map;
 import Auxiliar.Estado;
 import Auxiliar.Registro;
 import Persona.Paciente;
-
+import Utiles.Enfermedad;
 
 
 public class ConsejoPopular { 
