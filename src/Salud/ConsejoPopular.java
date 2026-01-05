@@ -50,6 +50,9 @@ public class ConsejoPopular {
 		
 		
 	}
+	public ConsejoPopular() {
+		// TODO Auto-generated constructor stub
+	}
 	private void inicializarEstados(){
 		for(Estado e: Estado.values()){
 			estados.put(e, new ArrayList<Enfermedad>());
@@ -211,6 +214,10 @@ public class ConsejoPopular {
 
 	public void setTotalPoblacion(int totalPoblacion) {
 		this.totalPoblacion = totalPoblacion;
+	}
+	public void setEstado(Estado normal) {
+		estado= normal;
+		
 	}
 
 	

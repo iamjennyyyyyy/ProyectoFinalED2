@@ -1,5 +1,7 @@
 package Auxiliar;
 
+import java.util.ArrayList;
+
 import Persona.Paciente;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
@@ -12,13 +14,13 @@ import Salud.Policlinico;
 
 public class Sistema {
 	
-	private GeneralTree<NodoSalud> sistema;
+	private static GeneralTree<NodoSalud> sistema;
 	private static Sistema instancia;
 	
 	public static Sistema getInstancia(){
 		if(instancia==null){
 			instancia = new Sistema();
-		}
+			sistema = Inicializar.inicializarArbol();		}
 		return instancia;
 	}
 	 
@@ -77,5 +79,22 @@ public class Sistema {
 	public DireccionMunicipal buscarMunicipioPorConsultori(BinaryTreeNode<NodoSalud> con){
 		return (DireccionMunicipal)(sistema.getFather(sistema.getFather(con)).getInfo());
 		
+	}
+	
+	public ArrayList<DireccionMunicipal> getMunicipiosHabana(){
+		ArrayList <DireccionMunicipal> lista = new ArrayList<DireccionMunicipal>();
+	    BinaryTreeNode <NodoSalud > nodo = null;
+	    InBreadthIterator<NodoSalud> it = sistema.inBreadthIterator();
+		 while (it.hasNext() && nodo ==null){
+			 BinaryTreeNode<NodoSalud> este = it.nextNode();
+			 if(este.getInfo() instanceof DireccionProvincial && ((DireccionProvincial)(este.getInfo())).getProvincia().equalsIgnoreCase("La Habana")){
+				 nodo = este;
+			 }
+		 }
+		 
+		 for (NodoSalud s: sistema.getSonsInfo(nodo)){
+			 lista.add((DireccionMunicipal)s);
+		 }
+		 return lista;
 	}
 }

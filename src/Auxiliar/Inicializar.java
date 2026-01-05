@@ -5,22 +5,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
+import cu.edu.cujae.ceis.tree.binary.BinaryTree;
+import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
+import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 
 
+import Salud.DireccionProvincial;
+import Salud.Minsap;
+import Salud.NodoSalud;
 import Sistema.GrafoConsejos;
 import Utiles.Enfermedad;
-
 import Utiles.Enfermedad;
 import Sistema.GrafoConsejos;
-
 import Auxiliar.Estado;
 import Auxiliar.Mes;
 import Auxiliar.Registro;
 
 
 public class Inicializar {
+	
+	public static GeneralTree<NodoSalud> inicializarArbol(){
+		GeneralTree<NodoSalud> arbol = new GeneralTree<>();
+		BinaryTreeNode<NodoSalud> minsap = new BinaryTreeNode<NodoSalud>(new Minsap(" ","Ministerio de Salud Publica"));
+		arbol.setRoot(minsap);
+		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial(" "," ","La Habana"));
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCentroHabana()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCerro()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		
+		return arbol;
+	}
+	
+	
+	
+	
     public static DireccionMunicipal inicializarPlazaRevolucion(){
         // Crear enfermedad base para todos los registros
         Enfermedad enfermedadBase = new Enfermedad("COVID-19", null, null, null, null, null);
