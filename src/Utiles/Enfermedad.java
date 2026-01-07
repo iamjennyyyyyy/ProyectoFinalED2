@@ -19,7 +19,7 @@ public class Enfermedad {
 	private List<Sintomas> sintomasComunes;
 	private String agenteEtiologico;
 	private String duracion; // Nuevo atributo
-	private LocalDate fechaDiagnostico;
+	
 
 	// Enfermedades predefinidas (simulando el enum)
 	private static ArrayList<Enfermedad> enfermedadesPredefinidas;
@@ -35,7 +35,7 @@ public class Enfermedad {
 		this.sintomasComunes = new ArrayList<>(sintomasComunes);
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
-		setFechaDiagnostico(fechaDiagnostico);
+		
 	}
 	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion) {
@@ -417,9 +417,7 @@ public class Enfermedad {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
-	public void setFechaDiagnostico(LocalDate now){
-		fechaDiagnostico = now;
-	}
+	
 
 	// ========== MÉTODOS DE INSTANCIA ==========
 

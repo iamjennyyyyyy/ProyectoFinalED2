@@ -3,6 +3,7 @@ package Interfaz;
 import javax.swing.*;
 
 import cu.edu.cujae.ceis.graph.vertex.Vertex;
+import Auxiliar.Inicializar;
 import Auxiliar.Sistema;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
@@ -125,6 +126,7 @@ public class MapaHabana extends JDialog {
                     MunicipioShape municipio = municipios.get(i);
                     if (municipio.shape.contains(x, y)) {
                     	
+                    	//buscarMunicipio(municipio.nombre);
                     	crearMapa(buscarMunicipio(municipio.nombre));
 //                        JOptionPane.showMessageDialog(MapaHabana.this, 
 //                            municipio.nombre, 
@@ -374,13 +376,17 @@ public class MapaHabana extends JDialog {
     
     private void crearMapa(DireccionMunicipal mun){
     	JDialog j = null;
+
     	 LinkedList<ConsejoPopular> c = new LinkedList<>();
          for(Vertex v : mun.getGrafo().getGrafo().getVerticesList()){
              c.addFirst((ConsejoPopular)v.getInfo());
              
         }  	
-    	switch(mun.getNombre()){
-    	case "Regla": j = new MapaRegla(c); j.setVisible(true); 
+    	switch(mun.getMunicipio()){
+    	case "Regla": j = new MapaRegla(c); j.setVisible(true); System.out.print("jjj"); break;
+    	case "Plaza de la Revolución": j = new MapaPlaza(c); j.setVisible(true); break;
+    	case "Centro Habana": j = new MapaCentroHabana(c); j.setVisible(true); break;
+    	case "Cerro": j = new MapaCerro(c); j.setVisible(true); break;
     	}
     }
     
@@ -400,9 +406,12 @@ public class MapaHabana extends JDialog {
     
     private DireccionMunicipal buscarMunicipio(String nombre){
     	DireccionMunicipal mun = null;
+    	System.out.print(nombresMunicipios.size());
+    	
     	for(int i = 0; i<nombresMunicipios.size() && mun == null ; i++){
-    		if(nombresMunicipios.get(i).getNombre().equalsIgnoreCase(nombre)){
+    		if(nombresMunicipios.get(i).getMunicipio().equalsIgnoreCase(nombre)){
     			mun = nombresMunicipios.get(i);
+    			
     		}
     		
     	}
@@ -438,7 +447,10 @@ public class MapaHabana extends JDialog {
     
     // Método main para probar el diálogo directamente
     public static void main(String[] args) {
-        ArrayList<DireccionMunicipal> municipios= Sistema.getInstancia().getMunicipiosHabana();
+    	Sistema sis = Sistema.getInstancia();
+    	Sistema.setSistema(Inicializar.inicializarArbol());
+        ArrayList<DireccionMunicipal> municipios= sis.getMunicipiosHabana();
+       
         
         
       MapaHabana dialog = new MapaHabana( municipios);

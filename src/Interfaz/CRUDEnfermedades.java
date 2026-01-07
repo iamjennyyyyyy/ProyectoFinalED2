@@ -249,7 +249,7 @@ public class CRUDEnfermedades extends JDialog {
 			u.setGravedadTipica(grav);
 			u.setCategoria(cat);
 			u.setDuracion(duracion);
-			u.setFechaDiagnostico(LocalDate.now());
+			
 		}
 		return u;
 	}

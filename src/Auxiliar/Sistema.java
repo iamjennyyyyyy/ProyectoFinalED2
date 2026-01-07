@@ -20,10 +20,18 @@ public class Sistema {
 	public static Sistema getInstancia(){
 		if(instancia==null){
 			instancia = new Sistema();
-			sistema = Inicializar.inicializarArbol();		}
+					}
 		return instancia;
 	}
 	 
+	public static GeneralTree<NodoSalud> getSistema() {
+		return sistema;
+	}
+
+	public static void setSistema(GeneralTree<NodoSalud> sistema) {
+		Sistema.sistema = sistema;
+	}
+
 	public void Inicializar(){
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial("HAB-000", "Direccion_Provincial_La_Habana", "La Habana"));
 		sistema.setRoot(habana);
@@ -83,17 +91,20 @@ public class Sistema {
 	
 	public ArrayList<DireccionMunicipal> getMunicipiosHabana(){
 		ArrayList <DireccionMunicipal> lista = new ArrayList<DireccionMunicipal>();
-	    BinaryTreeNode <NodoSalud > nodo = null;
+	    BinaryTreeNode <NodoSalud > habana = null;
 	    InBreadthIterator<NodoSalud> it = sistema.inBreadthIterator();
-		 while (it.hasNext() && nodo ==null){
+		 while (it.hasNext() && habana ==null){
+			 
 			 BinaryTreeNode<NodoSalud> este = it.nextNode();
 			 if(este.getInfo() instanceof DireccionProvincial && ((DireccionProvincial)(este.getInfo())).getProvincia().equalsIgnoreCase("La Habana")){
-				 nodo = este;
+				 habana = este;
+
 			 }
 		 }
 		 
-		 for (NodoSalud s: sistema.getSonsInfo(nodo)){
+		 for (NodoSalud s: sistema.getSonsInfo(habana)){
 			 lista.add((DireccionMunicipal)s);
+			 
 		 }
 		 return lista;
 	}
