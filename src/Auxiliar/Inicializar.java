@@ -45,7 +45,211 @@ public class Inicializar {
 		return arbol;
 	}
 	
-	
+	public static ArrayList<Enfermedad> inicializarEnfermedadesPredefinidas() {
+		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<>();
+
+		// Enfermedades respiratorias
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Influenza (Gripe)", Categoria.RESPIRATORIA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
+						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
+						"Virus de la influenza", "5-7 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Resfriado com�n", Categoria.RESPIRATORIA, Gravedad.LEVE,
+				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
+						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
+						Sintomas.DOLOR_CABEZA),
+						"Rhinovirus/Coronavirus", "3-10 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Neumon�a", Categoria.RESPIRATORIA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
+						Sintomas.ESCALOFRIOS),
+						"Bacterias/Virus", "2-3 semanas"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Bronquitis aguda", Categoria.RESPIRATORIA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.TOS, Sintomas.CONGESTION_NASAL, Sintomas.CANSANCIO,
+						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
+						"Virus/Bacterias", "1-3 semanas"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
+				"Trastorno inflamatorio cr�nico", "Cr�nica (controlable)"
+				));
+
+		// Enfermedades gastrointestinales
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
+						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
+						"Virus/Bacterias/Par�sitos", "1-3 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Intoxicaci�n alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
+						Sintomas.NAUSEAS, Sintomas.FIEBRE),
+						"Bacterias/Toxinas", "24-48 horas"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
+						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
+						"Inflamaci�n del colon", "Variable (aguda/cr�nica)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
+						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
+						"Inflamaci�n del ap�ndice", "Urgente (requiere cirug�a)"
+				));
+
+		// Enfermedades transmitidas por vectores
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Dengue", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
+						"Virus del dengue (Aedes aegypti)", "7-10 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
+						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
+						"Virus Zika (Aedes aegypti)", "2-7 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Chikungunya", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
+						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
+						"Virus Chikungunya (Aedes aegypti)", "3-10 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Malaria", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.CANSANCIO),
+						"Plasmodium (Anopheles)", "Variable (con tratamiento)"
+				));
+
+		// Enfermedades dermatol�gicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
+						"Virus varicela-z�ster", "10-21 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Sarampi�n", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
+						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
+						"Virus del sarampi�n", "7-14 d�as"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Rub�ola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
+						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
+						"Virus de la rub�ola", "3-7 d�as"
+				));
+
+		// Enfermedades neurol�gicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Meningitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.RIGIDEZ,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.CONFUSION,
+						Sintomas.FOTOSENSIBILIDAD),
+						"Bacterias/Virus", "Variable (urgente)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Encefalitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
+						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
+						Sintomas.MAREO),
+						"Virus", "Variable (urgente)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Migra�a", Categoria.NEUROLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
+						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
+						"Trastorno neurol�gico", "4-72 horas"
+				));
+
+		// Enfermedades cr�nicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Hipertensi�n arterial", Categoria.CRONICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
+						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
+						"Trastorno cardiovascular", "Cr�nica"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
+						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
+						"Trastorno metab�lico", "Cr�nica"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.CANSANCIO, Sintomas.FIEBRE),
+						"Enfermedad autoinmune", "Cr�nica"
+				));
+
+		// Enfermedades infecciosas espec�ficas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Tuberculosis", Categoria.INFECCIOSA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.TOS, Sintomas.FIEBRE, Sintomas.CANSANCIO,
+						Sintomas.PERDIDA_APETITO, Sintomas.DOLOR_TORACICO,
+						Sintomas.DIFICULTAD_RESPIRAR),
+						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Hepatitis viral", Categoria.INFECCIOSA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
+						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
+						Sintomas.FIEBRE),
+						"Virus de la hepatitis", "Variable (aguda/cr�nica)"
+				));
+
+		// S�ndrome cl�nico
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"S�ndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
+						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
+						"Conjunto de s�ntomas respiratorios", "5-7 d�as"
+				));
+		return enfermedadesPredefinidas;
+	}
 	
 	
     public static DireccionMunicipal inicializarPlazaRevolucion(){

@@ -724,7 +724,7 @@ public class Diagnostico extends JDialog {
 	private JScrollPane getScrollEnfermedadess() {
 		if (scrollEnfermedadess == null) {
 			DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
-			for(Enfermedad s : Enfermedad.getEnfermedadesPredefinidas()) {
+			for(Enfermedad s : Minsap.getEnfermedadesActuales()) {
 				modeloEnfermedades.addElement(s.getNombre());
 			}
 
@@ -733,7 +733,7 @@ public class Diagnostico extends JDialog {
 				public void valueChanged(ListSelectionEvent arg0) {
 					String mensaje = "";
 					int[] pos = listEnf.getSelectedIndices();
-					ArrayList<Enfermedad> arr = Enfermedad.obtenerEnfermedadesPorIndices(pos);
+					ArrayList<Enfermedad> arr = Minsap.obtenerEnfermedadesPorIndices(pos);
 					for(int i = 0; i < arr.size(); i++){
 						if(i != arr.size()-1)
 							mensaje += arr.get(i).getNombre() + ", ";
@@ -765,7 +765,7 @@ public class Diagnostico extends JDialog {
 			btnDiagnostico.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int[] pos = listSint.getSelectedIndices();
-					enfermedadesSel = Enfermedad.obtenerEnfermedadesPorIndices(pos);
+					enfermedadesSel = Minsap.obtenerEnfermedadesPorIndices(pos);
 					if(enfermedadesSel != null){
 						String enfermedadesDiagnosticadas = "";
 						for(int i = 0; i < enfermedadesSel.size(); i++){
