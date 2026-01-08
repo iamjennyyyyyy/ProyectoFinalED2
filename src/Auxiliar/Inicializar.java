@@ -31,6 +31,7 @@ import Auxiliar.Registro;
 public class Inicializar {
 	
 	public static GeneralTree<NodoSalud> inicializarArbol(){
+		
 		GeneralTree<NodoSalud> arbol = new GeneralTree<>();
 		BinaryTreeNode<NodoSalud> minsap = new BinaryTreeNode<NodoSalud>(new Minsap(" ","Ministerio de Salud Publica"));
 		arbol.setRoot(minsap);
