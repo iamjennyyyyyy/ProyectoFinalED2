@@ -110,6 +110,7 @@ public class Diagnostico extends JDialog {
 	public Diagnostico() {
 		setBounds(296, 164, 1070, 558);
 		setUndecorated(true);
+		setModal(true);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

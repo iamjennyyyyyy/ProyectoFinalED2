@@ -91,6 +91,7 @@ public class CRUDEnfermedades extends JDialog {
 	private JLabel lblDuracin;
 	private JLabel lblCategora;
 	private JLabel lblGravedad;
+	private JButton btnEditar;
 
 
 	public static void main(String[] args) {
@@ -109,6 +110,7 @@ public class CRUDEnfermedades extends JDialog {
 	public CRUDEnfermedades() {
 		setBounds(296, 164, 1070, 558);
 		setUndecorated(true);
+		setModal(true);
 		getContentPane().setLayout(null);
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -138,6 +140,7 @@ public class CRUDEnfermedades extends JDialog {
 		contentPanel.add(getLblDuracin());
 		contentPanel.add(getLblCategora());
 		contentPanel.add(getLblGravedad());
+		contentPanel.add(getBtnEditar());
 	}
 
 	private JLabel getLblNombre() {
@@ -228,7 +231,7 @@ public class CRUDEnfermedades extends JDialog {
 				agregado = false;
 				textAgente.setText("");
 			}
-			if(min > max || min < 0 || min > 1000 || max < 0 || max > 1000){
+			if(min > max || min < 0 || min > 1000 || max <= 0 || max > 1000){
 				lblDuracin.setForeground(Color.RED);
 				agregado = false;
 			}
@@ -266,7 +269,7 @@ public class CRUDEnfermedades extends JDialog {
 	private JLabel getLblAgente() {
 		if (lblAgente == null) {
 			lblAgente = new JLabel("Agente:");
-			lblAgente.setBounds(68, 183, 85, 27);
+			lblAgente.setBounds(66, 185, 85, 27);
 			lblAgente.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblAgente;
@@ -328,8 +331,8 @@ public class CRUDEnfermedades extends JDialog {
 	}
 	private JLabel getLblDatosPersonales() {
 		if (lblDatosPersonales == null) {
-			lblDatosPersonales = new JLabel("Datos personales:");
-			lblDatosPersonales.setBounds(43, 53, 192, 27);
+			lblDatosPersonales = new JLabel("Datos:");
+			lblDatosPersonales.setBounds(58, 65, 192, 27);
 			lblDatosPersonales.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblDatosPersonales;
@@ -422,6 +425,7 @@ public class CRUDEnfermedades extends JDialog {
 		comboBox_2.setSelectedIndex(0);
 		comboCat.setSelectedIndex(0);
 		comboGrav.setSelectedIndex(0);
+		btnRegistrar.setEnabled(false);
 	}
 
 	private JButton getBtnReiniciar() {
@@ -538,5 +542,25 @@ public class CRUDEnfermedades extends JDialog {
 			lblGravedad.setBounds(52, 336, 85, 27);
 		}
 		return lblGravedad;
+	}
+	private JButton getBtnEditar() {
+		if (btnEditar == null) {
+			btnEditar = new JButton("Editar");
+			btnEditar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					textPaneSint.setEnabled(false);
+					textNombre.setEnabled(false);
+					textAgente.setEnabled(false);
+					spinner.setEnabled(false);
+					spinner_1.setEnabled(false);
+					comboBox_2.setEnabled(false);
+					comboCat.setEnabled(false);
+					comboGrav.setEnabled(false);
+					
+				}
+			});
+			btnEditar.setBounds(996, 105, 50, 39);
+		}
+		return btnEditar;
 	}
 }
