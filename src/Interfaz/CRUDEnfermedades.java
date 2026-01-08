@@ -35,9 +35,9 @@ import Salud.Consultorio;
 import Salud.Minsap;
 import Salud.NodoSalud;
 import Utiles.Colores;
-import Utiles.Enfermedades;
-import Utiles.Enfermedades.Categoria;
-import Utiles.Enfermedades.Gravedad;
+import Utiles.Enfermedad;
+import Utiles.Enfermedad.Categoria;
+import Utiles.Enfermedad.Gravedad;
 import Utiles.JTextFieldCarnet;
 import Utiles.JTextFieldMejorado;
 import Utiles.Sintomas;
@@ -80,7 +80,7 @@ public class CRUDEnfermedades extends JDialog {
 	private JButton btnRegistrar;
 	private JTextField textAgente;
 	private JButton btnReiniciar;
-	private Enfermedades enf;
+	private Enfermedad enf;
 	private JComboBox comboCat;
 	private JComboBox comboGrav;
 	private JSpinner spinner;
@@ -188,17 +188,17 @@ public class CRUDEnfermedades extends JDialog {
 	}
 
 	//Métodos CRUD
-	public Enfermedades agregarEnfermedades(){
+	public Enfermedad agregarEnfermedades(){
 
 		boolean agregado = true;
 
 		String nombre = textNombre.getText();
 		String agente = textAgente.getText();
 		int posCat = comboCat.getSelectedIndex();
-		Categoria[] categorias = Enfermedades.Categoria.values();
+		Categoria[] categorias = Enfermedad.Categoria.values();
 		Categoria cat = categorias[posCat];
 		int posGrav = comboGrav.getSelectedIndex();
-		Gravedad[] gravedad = Enfermedades.Gravedad.values();
+		Gravedad[] gravedad = Enfermedad.Gravedad.values();
 		Gravedad grav = gravedad[posGrav];
 		int min = Integer.parseInt(spinner.getValue().toString());
 		int max = Integer.parseInt(spinner_1.getValue().toString());
@@ -210,7 +210,7 @@ public class CRUDEnfermedades extends JDialog {
 		case 2: duracion += min + "-" + max + " " + "meses";
 		}
 
-		Enfermedades u = new Enfermedades();
+		Enfermedad u = new Enfermedad();
 
 		if(textNombre.getText().isEmpty() || textAgente.getText().isEmpty())
 			agregado = false;
@@ -252,7 +252,7 @@ public class CRUDEnfermedades extends JDialog {
 			u.setGravedadTipica(grav);
 			u.setCategoria(cat);
 			u.setDuracion(duracion);
-			u.setFechaDiagnostico(LocalDate.now());
+			
 		}
 		return u;
 	}
@@ -442,7 +442,7 @@ public class CRUDEnfermedades extends JDialog {
 	}
 	private JComboBox getComboCat() {
 		if (comboCat == null) {
-			Categoria[] cat = Enfermedades.Categoria.values();
+			Categoria[] cat = Enfermedad.Categoria.values();
 			String[] arr = new String[cat.length];
 			for(int i = 0; i < cat.length; i++){
 				arr[i] = cat[i].getNombre();
@@ -456,7 +456,7 @@ public class CRUDEnfermedades extends JDialog {
 	}
 	private JComboBox getComboGrav() {
 		if (comboGrav == null) {
-			Gravedad[] grav = Enfermedades.Gravedad.values();
+			Gravedad[] grav = Enfermedad.Gravedad.values();
 			String[] arr = new String[grav.length];
 			for(int i = 0; i < grav.length; i++){
 				arr[i] = grav[i].getNivel();

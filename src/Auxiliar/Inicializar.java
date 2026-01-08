@@ -1,13 +1,27 @@
 package Auxiliar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
+import cu.edu.cujae.ceis.tree.binary.BinaryTree;
+import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
+import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
-import Utiles.Enfermedades;
+
+
+import Salud.DireccionProvincial;
+import Salud.Minsap;
+import Salud.NodoSalud;
+import Sistema.GrafoConsejos;
+import Utiles.Enfermedad;
+import Utiles.Enfermedad;
+import Utiles.Sintomas;
+import Utiles.Enfermedad.Categoria;
+import Utiles.Enfermedad.Gravedad;
 import Sistema.GrafoConsejos;
 import Auxiliar.Estado;
 import Auxiliar.Mes;
@@ -15,9 +29,33 @@ import Auxiliar.Registro;
 
 
 public class Inicializar {
+	
+	public static GeneralTree<NodoSalud> inicializarArbol(){
+		GeneralTree<NodoSalud> arbol = new GeneralTree<>();
+		BinaryTreeNode<NodoSalud> minsap = new BinaryTreeNode<NodoSalud>(new Minsap(" ","Ministerio de Salud Publica"));
+		arbol.setRoot(minsap);
+		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial(" "," ","La Habana"));
+		arbol.insertNode(habana, minsap);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCentroHabana()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCerro()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		
+		return arbol;
+	}
+	
+	
+	
+	
     public static DireccionMunicipal inicializarPlazaRevolucion(){
         // Crear enfermedad base para todos los registros
-        Enfermedades enfermedadBase = new Enfermedades("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. RAMPA
         ArrayList<Mes> mesesRampa = new ArrayList<>();
@@ -35,20 +73,22 @@ public class Inicializar {
         mesesRampa.add(new Mes("Diciembre", 85, Estado.Alerta_Epidemica));
 
         Registro registroRampa2025 = new Registro(2025, mesesRampa);
-        Map<Enfermedades, ArrayList<Registro>> registrosRampa = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosRampa = new HashMap<>();
         ArrayList<Registro> listaRegistrosRampa = new ArrayList<>();
         listaRegistrosRampa.add(registroRampa2025);
         registrosRampa.put(enfermedadBase, listaRegistrosRampa);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosRampa = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesAlertaRampa = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosRampa = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesAlertaRampa = new ArrayList<>();
         enfermedadesAlertaRampa.add(enfermedadBase);
         estadosRampa.put(Estado.Alerta_Epidemica, enfermedadesAlertaRampa);
 
         ConsejoPopular rampa = new ConsejoPopular(
             "Rampa",
             "CP101",
+
             "Plaza de la Revolución",
+
             18000,
             Estado.Alerta_Epidemica,
             estadosRampa,
@@ -71,20 +111,22 @@ public class Inicializar {
         mesesVedadoMalecon.add(new Mes("Diciembre", 60, Estado.Normal));
 
         Registro registroVedadoMalecon2025 = new Registro(2025, mesesVedadoMalecon);
-        Map<Enfermedades, ArrayList<Registro>> registrosVedadoMalecon = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosVedadoMalecon = new HashMap<>();
         ArrayList<Registro> listaRegistrosVedadoMalecon = new ArrayList<>();
         listaRegistrosVedadoMalecon.add(registroVedadoMalecon2025);
         registrosVedadoMalecon.put(enfermedadBase, listaRegistrosVedadoMalecon);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosVedadoMalecon = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalVM = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosVedadoMalecon = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalVM = new ArrayList<>();
         enfermedadesNormalVM.add(enfermedadBase);
         estadosVedadoMalecon.put(Estado.Normal, enfermedadesNormalVM);
 
         ConsejoPopular vedadoMalecon = new ConsejoPopular(
             "Vedado Malecon",
             "CP102",
+
             "Plaza de la Revolución",
+
             15000,
             Estado.Normal,
             estadosVedadoMalecon,
@@ -107,20 +149,23 @@ public class Inicializar {
         mesesVedado.add(new Mes("Diciembre", 95, Estado.Alerta_Epidemica));
 
         Registro registroVedado2025 = new Registro(2025, mesesVedado);
-        Map<Enfermedades, ArrayList<Registro>> registrosVedado = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosVedado = new HashMap<>();
         ArrayList<Registro> listaRegistrosVedado = new ArrayList<>();
         listaRegistrosVedado.add(registroVedado2025);
         registrosVedado.put(enfermedadBase, listaRegistrosVedado);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosVedado = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaVedado = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosVedado = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaVedado = new ArrayList<>();
         enfermedadesEpidemiaVedado.add(enfermedadBase);
         estadosVedado.put(Estado.Epidemia, enfermedadesEpidemiaVedado);
 
         ConsejoPopular vedado = new ConsejoPopular(
             "Vedado",
             "CP103",
+
+
             "Plaza de la Revolución",
+
             22000,
             Estado.Epidemia,
             estadosVedado,
@@ -143,20 +188,22 @@ public class Inicializar {
         mesesPrincipe.add(new Mes("Diciembre", 90, Estado.Alerta_Epidemica));
 
         Registro registroPrincipe2025 = new Registro(2025, mesesPrincipe);
-        Map<Enfermedades, ArrayList<Registro>> registrosPrincipe = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPrincipe = new HashMap<>();
         ArrayList<Registro> listaRegistrosPrincipe = new ArrayList<>();
         listaRegistrosPrincipe.add(registroPrincipe2025);
         registrosPrincipe.put(enfermedadBase, listaRegistrosPrincipe);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPrincipe = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesAlertaPrincipe = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPrincipe = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesAlertaPrincipe = new ArrayList<>();
         enfermedadesAlertaPrincipe.add(enfermedadBase);
         estadosPrincipe.put(Estado.Alerta_Epidemica, enfermedadesAlertaPrincipe);
 
         ConsejoPopular principe = new ConsejoPopular(
             "Principe",
             "CP104",
+
             "Plaza de la Revolución",
+
             12000,
             Estado.Alerta_Epidemica,
             estadosPrincipe,
@@ -179,20 +226,22 @@ public class Inicializar {
         mesesCaramelo.add(new Mes("Diciembre", 75, Estado.Normal));
 
         Registro registroCaramelo2025 = new Registro(2025, mesesCaramelo);
-        Map<Enfermedades, ArrayList<Registro>> registrosCaramelo = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCaramelo = new HashMap<>();
         ArrayList<Registro> listaRegistrosCaramelo = new ArrayList<>();
         listaRegistrosCaramelo.add(registroCaramelo2025);
         registrosCaramelo.put(enfermedadBase, listaRegistrosCaramelo);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCaramelo = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaCaramelo = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCaramelo = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaCaramelo = new ArrayList<>();
         enfermedadesEpidemiaCaramelo.add(enfermedadBase);
         estadosCaramelo.put(Estado.Epidemia, enfermedadesEpidemiaCaramelo);
 
         ConsejoPopular caramelo = new ConsejoPopular(
             "Caramelo",
             "CP105",
+
             "Plaza de la Revolución",
+
             16000,
             Estado.Epidemia,
             estadosCaramelo,
@@ -215,20 +264,22 @@ public class Inicializar {
         mesesColon.add(new Mes("Diciembre", 65, Estado.Normal));
 
         Registro registroColon2025 = new Registro(2025, mesesColon);
-        Map<Enfermedades, ArrayList<Registro>> registrosColon = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosColon = new HashMap<>();
         ArrayList<Registro> listaRegistrosColon = new ArrayList<>();
         listaRegistrosColon.add(registroColon2025);
         registrosColon.put(enfermedadBase, listaRegistrosColon);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosColon = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalColon = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosColon = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalColon = new ArrayList<>();
         enfermedadesNormalColon.add(enfermedadBase);
         estadosColon.put(Estado.Normal, enfermedadesNormalColon);
 
         ConsejoPopular colon = new ConsejoPopular(
             "Colon",
             "CP106",
+
             "Plaza de la Revolución",
+
             14000,
             Estado.Normal,
             estadosColon,
@@ -251,20 +302,22 @@ public class Inicializar {
         mesesPlaza.add(new Mes("Diciembre", 105, Estado.Alerta_Epidemica));
 
         Registro registroPlaza2025 = new Registro(2025, mesesPlaza);
-        Map<Enfermedades, ArrayList<Registro>> registrosPlaza = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPlaza = new HashMap<>();
         ArrayList<Registro> listaRegistrosPlaza = new ArrayList<>();
         listaRegistrosPlaza.add(registroPlaza2025);
         registrosPlaza.put(enfermedadBase, listaRegistrosPlaza);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPlaza = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaPlaza = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPlaza = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaPlaza = new ArrayList<>();
         enfermedadesEpidemiaPlaza.add(enfermedadBase);
         estadosPlaza.put(Estado.Epidemia, enfermedadesEpidemiaPlaza);
 
         ConsejoPopular plaza = new ConsejoPopular(
             "Plaza",
             "CP107",
+
             "Plaza de la Revolución",
+
             20000,
             Estado.Epidemia,
             estadosPlaza,
@@ -287,20 +340,22 @@ public class Inicializar {
         mesesPuentes.add(new Mes("Diciembre", 75, Estado.Normal));
 
         Registro registroPuentes2025 = new Registro(2025, mesesPuentes);
-        Map<Enfermedades, ArrayList<Registro>> registrosPuentes = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPuentes = new HashMap<>();
         ArrayList<Registro> listaRegistrosPuentes = new ArrayList<>();
         listaRegistrosPuentes.add(registroPuentes2025);
         registrosPuentes.put(enfermedadBase, listaRegistrosPuentes);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPuentes = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalPuentes = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPuentes = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalPuentes = new ArrayList<>();
         enfermedadesNormalPuentes.add(enfermedadBase);
         estadosPuentes.put(Estado.Normal, enfermedadesNormalPuentes);
 
         ConsejoPopular puentesGrandes = new ConsejoPopular(
             "Puentes Grandes",
             "CP108",
+
             "Plaza de la Revolución",
+
             11000,
             Estado.Normal,
             estadosPuentes,
@@ -310,10 +365,12 @@ public class Inicializar {
         // Crear Direccion Municipal
         DireccionMunicipal municipioPlaza = new DireccionMunicipal(
             "DM002",
-            "Dirección Municipal Plaza de la Revolución",
+
+            "Direcci�n Municipal Plaza de la Revolución",
             128000,
             "Plaza de la Revolución"
         );
+
 
         // Obtener grafo y agregar vértices
         GrafoConsejos grafoConsejos = municipioPlaza.getGrafo();
@@ -338,6 +395,7 @@ public class Inicializar {
         grafoConsejos.getPosiciones().put(puentesGrandes.getNombre(), 7);
 
         // Crear conexiones (aristas no dirigidas) según las relaciones especificadas
+
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(vedadoMalecon.getNombre()));        // Rampa - Vedado Malecon
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(vedado.getNombre()));               // Rampa - Vedado
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(rampa.getNombre()), grafoConsejos.obtenerPosicion(principe.getNombre()));             // Rampa - Principe
@@ -363,7 +421,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarCerro(){
         // Crear enfermedad base para todos los registros
-        Enfermedades enfermedadBase = new Enfermedades("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. LATINOAMERICANO
         // Crear meses para Latinoamericano usando constructor directo
@@ -385,14 +449,14 @@ public class Inicializar {
         Registro registroLatino2025 = new Registro(2025, mesesLatino);
 
         // Crear mapa de registros para Latinoamericano
-        Map<Enfermedades, ArrayList<Registro>> registrosLatino = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosLatino = new HashMap<>();
         ArrayList<Registro> listaRegistrosLatino = new ArrayList<>();
         listaRegistrosLatino.add(registroLatino2025);
         registrosLatino.put(enfermedadBase, listaRegistrosLatino);
 
         // Crear mapa de estados para Latinoamericano
-        Map<Estado, ArrayList<Enfermedades>> estadosLatino = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalLatino = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosLatino = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalLatino = new ArrayList<>();
         enfermedadesNormalLatino.add(enfermedadBase);
         estadosLatino.put(Estado.Normal, enfermedadesNormalLatino);
 
@@ -423,13 +487,13 @@ public class Inicializar {
         mesesPilar.add(new Mes("Diciembre", 65, Estado.Normal));
 
         Registro registroPilar2025 = new Registro(2025, mesesPilar);
-        Map<Enfermedades, ArrayList<Registro>> registrosPilar = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPilar = new HashMap<>();
         ArrayList<Registro> listaRegistrosPilar = new ArrayList<>();
         listaRegistrosPilar.add(registroPilar2025);
         registrosPilar.put(enfermedadBase, listaRegistrosPilar);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPilar = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalPilar = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPilar = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalPilar = new ArrayList<>();
         enfermedadesNormalPilar.add(enfermedadBase);
         estadosPilar.put(Estado.Normal, enfermedadesNormalPilar);
 
@@ -459,13 +523,13 @@ public class Inicializar {
         mesesCerro.add(new Mes("Diciembre", 100, Estado.Alerta_Epidemica));
 
         Registro registroCerro2025 = new Registro(2025, mesesCerro);
-        Map<Enfermedades, ArrayList<Registro>> registrosCerro = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCerro = new HashMap<>();
         ArrayList<Registro> listaRegistrosCerro = new ArrayList<>();
         listaRegistrosCerro.add(registroCerro2025);
         registrosCerro.put(enfermedadBase, listaRegistrosCerro);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCerro = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaCerro = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCerro = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaCerro = new ArrayList<>();
         enfermedadesEpidemiaCerro.add(enfermedadBase);
         estadosCerro.put(Estado.Epidemia, enfermedadesEpidemiaCerro);
 
@@ -478,6 +542,7 @@ public class Inicializar {
             estadosCerro,
             registrosCerro
         );
+
 
         // 4. LAS CAÑAS
         ArrayList<Mes> mesesCanas = new ArrayList<>();
@@ -495,18 +560,20 @@ public class Inicializar {
         mesesCanas.add(new Mes("Diciembre", 65, Estado.Normal));
 
         Registro registroCanas2025 = new Registro(2025, mesesCanas);
-        Map<Enfermedades, ArrayList<Registro>> registrosCanas = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCanas = new HashMap<>();
         ArrayList<Registro> listaRegistrosCanas = new ArrayList<>();
         listaRegistrosCanas.add(registroCanas2025);
         registrosCanas.put(enfermedadBase, listaRegistrosCanas);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCanas = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalCanas = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCanas = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalCanas = new ArrayList<>();
         enfermedadesNormalCanas.add(enfermedadBase);
         estadosCanas.put(Estado.Normal, enfermedadesNormalCanas);
 
         ConsejoPopular lasCanas = new ConsejoPopular(
+
             "Las Cañas",
+
             "CP004",
             "Cerro",
             10000,
@@ -531,13 +598,13 @@ public class Inicializar {
         mesesCanal.add(new Mes("Diciembre", 100, Estado.Alerta_Epidemica));
 
         Registro registroCanal2025 = new Registro(2025, mesesCanal);
-        Map<Enfermedades, ArrayList<Registro>> registrosCanal = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCanal = new HashMap<>();
         ArrayList<Registro> listaRegistrosCanal = new ArrayList<>();
         listaRegistrosCanal.add(registroCanal2025);
         registrosCanal.put(enfermedadBase, listaRegistrosCanal);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCanal = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesAlertaCanal = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCanal = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesAlertaCanal = new ArrayList<>();
         enfermedadesAlertaCanal.add(enfermedadBase);
         estadosCanal.put(Estado.Alerta_Epidemica, enfermedadesAlertaCanal);
 
@@ -567,13 +634,13 @@ public class Inicializar {
         mesesPalatino.add(new Mes("Diciembre", 85, Estado.Normal));
 
         Registro registroPalatino2025 = new Registro(2025, mesesPalatino);
-        Map<Enfermedades, ArrayList<Registro>> registrosPalatino = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPalatino = new HashMap<>();
         ArrayList<Registro> listaRegistrosPalatino = new ArrayList<>();
         listaRegistrosPalatino.add(registroPalatino2025);
         registrosPalatino.put(enfermedadBase, listaRegistrosPalatino);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPalatino = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaPalatino = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPalatino = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaPalatino = new ArrayList<>();
         enfermedadesEpidemiaPalatino.add(enfermedadBase);
         estadosPalatino.put(Estado.Epidemia, enfermedadesEpidemiaPalatino);
 
@@ -603,13 +670,13 @@ public class Inicializar {
         mesesArmada.add(new Mes("Diciembre", 70, Estado.Normal));
 
         Registro registroArmada2025 = new Registro(2025, mesesArmada);
-        Map<Enfermedades, ArrayList<Registro>> registrosArmada = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosArmada = new HashMap<>();
         ArrayList<Registro> listaRegistrosArmada = new ArrayList<>();
         listaRegistrosArmada.add(registroArmada2025);
         registrosArmada.put(enfermedadBase, listaRegistrosArmada);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosArmada = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalArmada = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosArmada = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalArmada = new ArrayList<>();
         enfermedadesNormalArmada.add(enfermedadBase);
         estadosArmada.put(Estado.Normal, enfermedadesNormalArmada);
 
@@ -626,16 +693,21 @@ public class Inicializar {
         // Crear Direccion Municipal
         DireccionMunicipal municipioCerro = new DireccionMunicipal(
             "DM001",
+
             "Dirección Municipal Cerro",
+
             150000,
             "Cerro"
         );
 
+
+        // Insertar v�rtices en el orden especificado
         // Obtener grafo y agregar vértices
         GrafoConsejos grafoConsejos = municipioCerro.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
         // Insertar vértices en el orden especificado
+
          grafo.insertVertex(latinoamericano);
          grafoConsejos.getPosiciones().put(latinoamericano.getNombre(), 0);
          grafo.insertVertex(pilarAtares);
@@ -655,9 +727,11 @@ public class Inicializar {
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));        // Latinoamericano - Cerro
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(pilarAtares.getNombre()));        // Latinoamericano - Pilar Atares
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(pilarAtares.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));         // Pilar Atares - Cerro
-        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(lasCanas.getNombre()));         // Cerro - Las Cañas
+
+        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(lasCanas.getNombre()));         // Cerro - Las Ca�as
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cerro.getNombre()), grafoConsejos.obtenerPosicion(elCanal.getNombre()));         // Cerro - El Canal
-        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(lasCanas.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // Las Cañas - Palatino
+        grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(lasCanas.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // Las Ca�as - Palatino
+
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(elCanal.getNombre()), grafoConsejos.obtenerPosicion(palatino.getNombre()));      // El Canal - Palatino
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(palatino.getNombre()), grafoConsejos.obtenerPosicion(armada.getNombre()));     // Palatino - Armada
         
@@ -666,7 +740,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarCentroHabana() {
         // Crear enfermedad base para todos los registros
-        Enfermedades enfermedadBase = new Enfermedades("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. CAYO HUESO
         ArrayList<Mes> mesesCayoHueso = new ArrayList<>();
@@ -684,13 +764,13 @@ public class Inicializar {
         mesesCayoHueso.add(new Mes("Diciembre", 90, Estado.Alerta_Epidemica));
 
         Registro registroCayoHueso2025 = new Registro(2025, mesesCayoHueso);
-        Map<Enfermedades, ArrayList<Registro>> registrosCayoHueso = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCayoHueso = new HashMap<>();
         ArrayList<Registro> listaRegistrosCayoHueso = new ArrayList<>();
         listaRegistrosCayoHueso.add(registroCayoHueso2025);
         registrosCayoHueso.put(enfermedadBase, listaRegistrosCayoHueso);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCayoHueso = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesAlertaCayoHueso = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCayoHueso = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesAlertaCayoHueso = new ArrayList<>();
         enfermedadesAlertaCayoHueso.add(enfermedadBase);
         estadosCayoHueso.put(Estado.Alerta_Epidemica, enfermedadesAlertaCayoHueso);
 
@@ -720,13 +800,13 @@ public class Inicializar {
         mesesDragones.add(new Mes("Diciembre", 80, Estado.Normal));
 
         Registro registroDragones2025 = new Registro(2025, mesesDragones);
-        Map<Enfermedades, ArrayList<Registro>> registrosDragones = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosDragones = new HashMap<>();
         ArrayList<Registro> listaRegistrosDragones = new ArrayList<>();
         listaRegistrosDragones.add(registroDragones2025);
         registrosDragones.put(enfermedadBase, listaRegistrosDragones);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosDragones = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaDragones = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosDragones = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaDragones = new ArrayList<>();
         enfermedadesEpidemiaDragones.add(enfermedadBase);
         estadosDragones.put(Estado.Epidemia, enfermedadesEpidemiaDragones);
 
@@ -740,7 +820,8 @@ public class Inicializar {
             registrosDragones
         );
 
-        // 3. COLÓN
+
+        // 3. COL�N
         ArrayList<Mes> mesesColon = new ArrayList<>();
         mesesColon.add(new Mes("Enero", 40, Estado.Normal));
         mesesColon.add(new Mes("Febrero", 60, Estado.Normal));
@@ -756,17 +837,18 @@ public class Inicializar {
         mesesColon.add(new Mes("Diciembre", 95, Estado.Alerta_Epidemica));
 
         Registro registroColon2025 = new Registro(2025, mesesColon);
-        Map<Enfermedades, ArrayList<Registro>> registrosColon = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosColon = new HashMap<>();
         ArrayList<Registro> listaRegistrosColon = new ArrayList<>();
         listaRegistrosColon.add(registroColon2025);
         registrosColon.put(enfermedadBase, listaRegistrosColon);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosColon = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalColon = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosColon = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalColon = new ArrayList<>();
         enfermedadesNormalColon.add(enfermedadBase);
         estadosColon.put(Estado.Normal, enfermedadesNormalColon);
 
         ConsejoPopular colon = new ConsejoPopular(
+
             "Colón",
             "CP203",
             "Centro Habana",
@@ -792,13 +874,13 @@ public class Inicializar {
         mesesPuebloNuevo.add(new Mes("Diciembre", 95, Estado.Alerta_Epidemica));
 
         Registro registroPuebloNuevo2025 = new Registro(2025, mesesPuebloNuevo);
-        Map<Enfermedades, ArrayList<Registro>> registrosPuebloNuevo = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosPuebloNuevo = new HashMap<>();
         ArrayList<Registro> listaRegistrosPuebloNuevo = new ArrayList<>();
         listaRegistrosPuebloNuevo.add(registroPuebloNuevo2025);
         registrosPuebloNuevo.put(enfermedadBase, listaRegistrosPuebloNuevo);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosPuebloNuevo = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaPuebloNuevo = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosPuebloNuevo = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaPuebloNuevo = new ArrayList<>();
         enfermedadesEpidemiaPuebloNuevo.add(enfermedadBase);
         estadosPuebloNuevo.put(Estado.Epidemia, enfermedadesEpidemiaPuebloNuevo);
 
@@ -828,13 +910,13 @@ public class Inicializar {
         mesesLosSitios.add(new Mes("Diciembre", 75, Estado.Normal));
 
         Registro registroLosSitios2025 = new Registro(2025, mesesLosSitios);
-        Map<Enfermedades, ArrayList<Registro>> registrosLosSitios = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosLosSitios = new HashMap<>();
         ArrayList<Registro> listaRegistrosLosSitios = new ArrayList<>();
         listaRegistrosLosSitios.add(registroLosSitios2025);
         registrosLosSitios.put(enfermedadBase, listaRegistrosLosSitios);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosLosSitios = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalLosSitios = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosLosSitios = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalLosSitios = new ArrayList<>();
         enfermedadesNormalLosSitios.add(enfermedadBase);
         estadosLosSitios.put(Estado.Normal, enfermedadesNormalLosSitios);
 
@@ -851,16 +933,20 @@ public class Inicializar {
         // Crear Direccion Municipal para Centro Habana
         DireccionMunicipal municipioCentroHabana = new DireccionMunicipal(
             "DM003",
+
             "Dirección Municipal Centro Habana",
+
             105000,  // Suma de las poblaciones: 22k + 25k + 19k + 21k + 18k = 105k
             "Centro Habana"
         );
+
 
         // Obtener grafo y agregar vértices
         GrafoConsejos grafoConsejos = municipioCentroHabana.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
         // Insertar vértices
+
         grafo.insertVertex(cayoHueso);
         grafoConsejos.getPosiciones().put(cayoHueso.getNombre(), 0);
         grafo.insertVertex(dragones);
@@ -872,7 +958,9 @@ public class Inicializar {
         grafo.insertVertex(losSitios);
         grafoConsejos.getPosiciones().put(losSitios.getNombre(), 4);
 
-        // Crear conexiones (aristas no dirigidas) según las relaciones especificadas
+
+        // Crear conexiones (aristas no dirigidas) seg�n las relaciones especificadas
+
         // Cayo Hueso - Dragones
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(cayoHueso.getNombre()), 
                             grafoConsejos.obtenerPosicion(dragones.getNombre()));
@@ -893,11 +981,13 @@ public class Inicializar {
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(puebloNuevo.getNombre()), 
                             grafoConsejos.obtenerPosicion(losSitios.getNombre()));
         
-        // Los Sitios - Colón
+        // Los Sitios - Col�n
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(losSitios.getNombre()), 
                             grafoConsejos.obtenerPosicion(colon.getNombre()));
         
+
         // Colón - Dragones
+
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(colon.getNombre()), 
                             grafoConsejos.obtenerPosicion(dragones.getNombre()));
 
@@ -906,7 +996,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarRegla() {
         // Crear enfermedad base para todos los registros
-        Enfermedades enfermedadBase = new Enfermedades("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. CASABLANCA
         ArrayList<Mes> mesesCasablanca = new ArrayList<>();
@@ -924,13 +1020,13 @@ public class Inicializar {
         mesesCasablanca.add(new Mes("Diciembre", 85, Estado.Normal));
 
         Registro registroCasablanca2025 = new Registro(2025, mesesCasablanca);
-        Map<Enfermedades, ArrayList<Registro>> registrosCasablanca = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosCasablanca = new HashMap<>();
         ArrayList<Registro> listaRegistrosCasablanca = new ArrayList<>();
         listaRegistrosCasablanca.add(registroCasablanca2025);
         registrosCasablanca.put(enfermedadBase, listaRegistrosCasablanca);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosCasablanca = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesNormalCasablanca = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosCasablanca = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesNormalCasablanca = new ArrayList<>();
         enfermedadesNormalCasablanca.add(enfermedadBase);
         estadosCasablanca.put(Estado.Normal, enfermedadesNormalCasablanca);
 
@@ -960,13 +1056,13 @@ public class Inicializar {
         mesesGuaicanamar.add(new Mes("Diciembre", 80, Estado.Normal));
 
         Registro registroGuaicanamar2025 = new Registro(2025, mesesGuaicanamar);
-        Map<Enfermedades, ArrayList<Registro>> registrosGuaicanamar = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosGuaicanamar = new HashMap<>();
         ArrayList<Registro> listaRegistrosGuaicanamar = new ArrayList<>();
         listaRegistrosGuaicanamar.add(registroGuaicanamar2025);
         registrosGuaicanamar.put(enfermedadBase, listaRegistrosGuaicanamar);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosGuaicanamar = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesEpidemiaGuaicanamar = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosGuaicanamar = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesEpidemiaGuaicanamar = new ArrayList<>();
         enfermedadesEpidemiaGuaicanamar.add(enfermedadBase);
         estadosGuaicanamar.put(Estado.Epidemia, enfermedadesEpidemiaGuaicanamar);
 
@@ -996,13 +1092,13 @@ public class Inicializar {
         mesesLomaModelo.add(new Mes("Diciembre", 75, Estado.Normal));
 
         Registro registroLomaModelo2025 = new Registro(2025, mesesLomaModelo);
-        Map<Enfermedades, ArrayList<Registro>> registrosLomaModelo = new HashMap<>();
+        Map<Enfermedad, ArrayList<Registro>> registrosLomaModelo = new HashMap<>();
         ArrayList<Registro> listaRegistrosLomaModelo = new ArrayList<>();
         listaRegistrosLomaModelo.add(registroLomaModelo2025);
         registrosLomaModelo.put(enfermedadBase, listaRegistrosLomaModelo);
 
-        Map<Estado, ArrayList<Enfermedades>> estadosLomaModelo = new HashMap<>();
-        ArrayList<Enfermedades> enfermedadesAlertaLomaModelo = new ArrayList<>();
+        Map<Estado, ArrayList<Enfermedad>> estadosLomaModelo = new HashMap<>();
+        ArrayList<Enfermedad> enfermedadesAlertaLomaModelo = new ArrayList<>();
         enfermedadesAlertaLomaModelo.add(enfermedadBase);
         estadosLomaModelo.put(Estado.Alerta_Epidemica, enfermedadesAlertaLomaModelo);
 
@@ -1019,16 +1115,20 @@ public class Inicializar {
         // Crear Direccion Municipal para Regla
         DireccionMunicipal municipioRegla = new DireccionMunicipal(
             "DM002",
+
             "Dirección Municipal Regla",
+
             30000,
             "Regla"
         );
+
 
         // Obtener grafo y agregar vértices
         GrafoConsejos grafoConsejos = municipioRegla.getGrafo();
         ILinkedNotDirectedGraph grafo = grafoConsejos.getGrafo();
 
         // Insertar vértices
+
         grafo.insertVertex(casablanca);
         grafoConsejos.getPosiciones().put(casablanca.getNombre(), 0);
         grafo.insertVertex(guaicanamar);

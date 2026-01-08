@@ -35,7 +35,7 @@ import Salud.Consultorio;
 import Salud.Minsap;
 import Salud.NodoSalud;
 import Utiles.Colores;
-import Utiles.Enfermedades;
+import Utiles.Enfermedad;
 import Utiles.JTextFieldCarnet;
 import Utiles.JTextFieldMejorado;
 import Utiles.Sintomas;
@@ -64,7 +64,7 @@ public class Diagnostico extends JDialog {
 	private JLabel lblCi;
 	private JLabel lblSexo;
 	private ArrayList<Sintomas> sintomasSel = new ArrayList<Sintomas>();
-	private ArrayList<Enfermedades> enfermedadesSel = new ArrayList<Enfermedades>();
+	private ArrayList<Enfermedad> enfermedadesSel = new ArrayList<Enfermedad>();
 	private JScrollPane scrollSintomas;
 	private JTextFieldMejorado textNombre;
 	private JTextFieldCarnet textId;
@@ -724,7 +724,7 @@ public class Diagnostico extends JDialog {
 	private JScrollPane getScrollEnfermedadess() {
 		if (scrollEnfermedadess == null) {
 			DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
-			for(Enfermedades s : Enfermedades.getEnfermedadesPredefinidas()) {
+			for(Enfermedad s : Enfermedad.getEnfermedadesPredefinidas()) {
 				modeloEnfermedades.addElement(s.getNombre());
 			}
 
@@ -733,7 +733,7 @@ public class Diagnostico extends JDialog {
 				public void valueChanged(ListSelectionEvent arg0) {
 					String mensaje = "";
 					int[] pos = listEnf.getSelectedIndices();
-					ArrayList<Enfermedades> arr = Enfermedades.obtenerEnfermedadesPorIndices(pos);
+					ArrayList<Enfermedad> arr = Enfermedad.obtenerEnfermedadesPorIndices(pos);
 					for(int i = 0; i < arr.size(); i++){
 						if(i != arr.size()-1)
 							mensaje += arr.get(i).getNombre() + ", ";
@@ -765,7 +765,7 @@ public class Diagnostico extends JDialog {
 			btnDiagnostico.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int[] pos = listSint.getSelectedIndices();
-					enfermedadesSel = Enfermedades.obtenerEnfermedadesPorIndices(pos);
+					enfermedadesSel = Enfermedad.obtenerEnfermedadesPorIndices(pos);
 					if(enfermedadesSel != null){
 						String enfermedadesDiagnosticadas = "";
 						for(int i = 0; i < enfermedadesSel.size(); i++){
