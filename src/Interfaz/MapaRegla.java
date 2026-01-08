@@ -106,7 +106,7 @@ public class MapaRegla extends JDialog {
     private LinkedList<ConsejoPopular> consejos;
     
     public MapaRegla(LinkedList<ConsejoPopular> consejos) {
-        super((JFrame)null, "Mapa de Consejos Populares", true);
+        //super(padre, "Mapa de Consejos Populares", true);
         this.consejos = consejos;
         
         crearNodosDesdeLista();
@@ -283,7 +283,7 @@ public class MapaRegla extends JDialog {
                 
                 g2.setColor(new Color(44, 62, 80));
                 g2.setFont(new Font("Arial", Font.BOLD, 18));
-                String titulo = "CONSEJOS POPULARES";
+                String titulo = "MAPA CONSEJOS POPULARES REGLA";
                 FontMetrics fm = g2.getFontMetrics();
                 int tituloX = (getWidth() - fm.stringWidth(titulo)) / 2;
                 g2.drawString(titulo, tituloX, 30);
@@ -459,8 +459,8 @@ public class MapaRegla extends JDialog {
                     
                }
                 
-                MapaRegla dialog = new MapaRegla(c);
-                dialog.setVisible(true);
+                //MapaRegla dialog = new MapaRegla(c);
+                //dialog.setVisible(true);
             }
         });
     }

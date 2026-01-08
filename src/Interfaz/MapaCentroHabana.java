@@ -263,7 +263,7 @@ public class MapaCentroHabana extends JDialog {
                 
                 g2.setColor(new Color(44, 62, 80));
                 g2.setFont(new Font("Arial", Font.BOLD, 18));
-                String titulo = "MAPA DE CENTRO HABANA";
+                String titulo = "MAPA CONSEJOS POPULARES CENTRO HABANA";
                 FontMetrics fm = g2.getFontMetrics();
                 int tituloX = (getWidth() - fm.stringWidth(titulo)) / 2;
                 g2.drawString(titulo, tituloX, 30);

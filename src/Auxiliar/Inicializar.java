@@ -1,29 +1,61 @@
 package Auxiliar;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
+import cu.edu.cujae.ceis.tree.binary.BinaryTree;
+import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
+import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 
 
+import Salud.DireccionProvincial;
+import Salud.Minsap;
+import Salud.NodoSalud;
 import Sistema.GrafoConsejos;
 import Utiles.Enfermedad;
-
 import Utiles.Enfermedad;
+import Utiles.Sintomas;
+import Utiles.Enfermedad.Categoria;
+import Utiles.Enfermedad.Gravedad;
 import Sistema.GrafoConsejos;
-
 import Auxiliar.Estado;
 import Auxiliar.Mes;
 import Auxiliar.Registro;
 
 
 public class Inicializar {
+	
+	public static GeneralTree<NodoSalud> inicializarArbol(){
+		GeneralTree<NodoSalud> arbol = new GeneralTree<>();
+		BinaryTreeNode<NodoSalud> minsap = new BinaryTreeNode<NodoSalud>(new Minsap(" ","Ministerio de Salud Publica"));
+		arbol.setRoot(minsap);
+		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial(" "," ","La Habana"));
+		arbol.insertNode(habana, minsap);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCentroHabana()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCerro()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion()), habana);
+		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		
+		return arbol;
+	}
+	
+	
+	
+	
     public static DireccionMunicipal inicializarPlazaRevolucion(){
         // Crear enfermedad base para todos los registros
-        Enfermedad enfermedadBase = new Enfermedad("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. RAMPA
         ArrayList<Mes> mesesRampa = new ArrayList<>();
@@ -389,7 +421,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarCerro(){
         // Crear enfermedad base para todos los registros
-        Enfermedad enfermedadBase = new Enfermedad("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. LATINOAMERICANO
         // Crear meses para Latinoamericano usando constructor directo
@@ -702,7 +740,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarCentroHabana() {
         // Crear enfermedad base para todos los registros
-        Enfermedad enfermedadBase = new Enfermedad("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. CAYO HUESO
         ArrayList<Mes> mesesCayoHueso = new ArrayList<>();
@@ -952,7 +996,13 @@ public class Inicializar {
     
     public static DireccionMunicipal inicializarRegla() {
         // Crear enfermedad base para todos los registros
-        Enfermedad enfermedadBase = new Enfermedad("COVID-19", null, null, null, null, null);
+        Enfermedad enfermedadBase = new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				);
 
         // 1. CASABLANCA
         ArrayList<Mes> mesesCasablanca = new ArrayList<>();
