@@ -54,6 +54,7 @@ public class Enfermedad {
 		this.sintomasComunes = new ArrayList<>();
 	}
 
+<<<<<<< HEAD:src/Utiles/Enfermedad.java
 	// ========== MÉTODO PARA INICIALIZAR ENFERMEDADES PREDEFINIDAS ==========
 
 	/**
@@ -264,6 +265,8 @@ public class Enfermedad {
 				));
 	}
 
+=======
+>>>>>>> 2aa4cfb2812457fc62d8819a975ff2db2384ea01:src/Utiles/Enfermedades.java
 	// ========== MÉTODOS ESTÁTICOS PARA ACCEDER A LAS ENFERMEDADES ==========
 
 	/**
@@ -271,7 +274,7 @@ public class Enfermedad {
 	 */
 	public static ArrayList<Enfermedad> getEnfermedadesPredefinidas() {
 		if (enfermedadesPredefinidas == null) {
-			inicializarEnfermedadesPredefinidas();
+			Sistema.inicializarEnfermedadesPredefinidas();
 		}
 		return new ArrayList<>(enfermedadesPredefinidas);
 	}
