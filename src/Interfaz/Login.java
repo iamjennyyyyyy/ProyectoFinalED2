@@ -165,7 +165,6 @@ public class Login extends JDialog {
 		for(Credencial c : s.getCredenciales()){
 			if(c.getUsuario().equals(usuario) && c.getContrasenna().equals(contrasenna)){
 				med = s.buscarMedicoPorId(c.getIdMedico());
-				System.out.println("HOLA");
 			}
 		}
 		return med;

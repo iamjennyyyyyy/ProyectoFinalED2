@@ -10,7 +10,9 @@ import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import Persona.Medico;
+import Salud.AreaDeSalud;
 import Salud.ConsejoPopular;
+import Salud.Consultorio;
 import Salud.DireccionMunicipal;
 
 
@@ -39,10 +41,23 @@ public class Inicializar {
 		arbol.setRoot(minsap);
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial(" "," ","La Habana"));
 		arbol.insertNode(habana, minsap);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCentroHabana()), habana);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCerro()), habana);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion()), habana);
+		BinaryTreeNode<NodoSalud> centroHabana = new BinaryTreeNode<NodoSalud>(inicializarCentroHabana());
+		arbol.insertNode(centroHabana, habana);
+		BinaryTreeNode<NodoSalud> cerro = new BinaryTreeNode<NodoSalud>(inicializarCerro());
+		arbol.insertNode(cerro, habana);
+		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion());
+		arbol.insertNode(plaza, habana);
+		BinaryTreeNode<NodoSalud> regla = new BinaryTreeNode<NodoSalud>(inicializarRegla());
 		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		
+		for(BinaryTreeNode<NodoSalud> n: InicializarAreaDeSaludRegla()){
+			arbol.insertNode(n, regla);
+			for(BinaryTreeNode<NodoSalud> m: InicializarConsultoriosRegla()){
+				arbol.insertNode(m, n);
+			}
+		}
+		
+		
 		
 		return arbol;
 	}
@@ -53,6 +68,29 @@ public class Inicializar {
 		medicos.add(new Medico("02041267922", "Luis Manuel Gutierrez Castillo", "76341289", "luismgutierrez@gmail.com","Calle 214/15 y 17, La Lisa" ,"HAB-LISA-CRISTOBAL-002"));
 		medicos.add(new Medico("03021267922", "Pedro Lamas Pérez", "76541239", "pedrolamas@gmail.com","Calle 114/65 y 67, La Lisa" ,"HAB-LISA-CRISTOBAL-003"));
 		return medicos;
+	}
+	
+	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarAreaDeSaludRegla(){
+		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
+		AreaDeSalud a = new AreaDeSalud(" ", " ", " ");
+		BinaryTreeNode<NodoSalud> ar = new BinaryTreeNode<>();
+		lista.add(ar);
+		
+		return lista;
+		
+	}
+	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarConsultoriosRegla(){
+		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
+		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "mmm"));
+		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"nnnn"));
+		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"gggg"));
+		
+		lista.add(c40);
+		lista.add(c41);
+		lista.add(c42);
+		
+		return lista;
+		
 	}
 	
 	public static ArrayList<Credencial> inicializarCredenciales(){

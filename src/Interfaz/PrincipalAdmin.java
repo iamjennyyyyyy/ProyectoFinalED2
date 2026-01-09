@@ -125,7 +125,7 @@ public class PrincipalAdmin extends JFrame {
 	}
 	private JButton getBtnDiagnostico() {
 		if (btnDiagnostico == null) {
-			btnDiagnostico = new JButton("   Diagnóstico", new ImageIcon("src/Images/Iconos/Edit.png"));
+			btnDiagnostico = new JButton("   Mapa", new ImageIcon("src/Images/Iconos/Edit.png"));
 			btnDiagnostico.setHorizontalAlignment(SwingConstants.LEFT);
 			btnDiagnostico.setFocusable(false);
 			btnDiagnostico.setFocusTraversalKeysEnabled(false);

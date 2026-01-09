@@ -413,6 +413,7 @@ public class Principal extends JFrame {
 	
 	private JLabel getLblConsul() {
 		if (lblConsul == null) {
+			System.out.println(s.buscarConsultorioPorId(medico.getConsultorio())== null ? "null": "bien");
 			lblConsul = new JLabel("Consultorio #" + s.buscarConsultorioPorId(medico.getConsultorio()).getNumero());
 			lblConsul.setFont(new Font("Segoe UI", Font.PLAIN, 27));
 			lblConsul.setBounds(23, 69, 367, 58);
