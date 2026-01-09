@@ -18,11 +18,10 @@ import cu.edu.cujae.ceis.tree.iterators.general.InBreadthIterator;
 
 public class Minsap extends NodoSalud{
 	
-	private static ArrayList<Enfermedad> enfermedadesActuales;
+	private static ArrayList<Enfermedad> enfermedadesActuales = Inicializar.inicializarEnfermedadesPredefinidas();
 	
 	public Minsap(String codigo, String nombre){
 		super(codigo, nombre );
-		enfermedadesActuales = Inicializar.inicializarEnfermedadesPredefinidas();
 	}
 
 	public static ArrayList<Enfermedad> getEnfermedadesActuales(){
@@ -84,12 +83,11 @@ public class Minsap extends NodoSalud{
 	/**
 	 * Obtiene enfermedades por �ndices (para JList)
 	 */
-	public static ArrayList<Enfermedad> obtenerEnfermedadesPorIndices(int[] pos) {
-		ArrayList<Enfermedad> todas = enfermedadesActuales;
+	public static ArrayList<Enfermedad> obtenerEnfermedadesPorIndices(int[] pos, ArrayList<Enfermedad> enf) {
 		ArrayList<Enfermedad> resultado = new ArrayList<>();
 		for (int i = 0; i < pos.length; i++) {
-			if (pos[i] >= 0 && pos[i] < todas.size()) {
-				resultado.add(todas.get(pos[i]));
+			if (pos[i] >= 0 && pos[i] < enf.size()) {
+				resultado.add(enf.get(pos[i]));
 			}
 		}
 		return resultado;
@@ -113,5 +111,15 @@ public class Minsap extends NodoSalud{
 		}
 
 		return diagnosticos;
+	}
+	
+	public static ArrayList<Enfermedad> obtenerEnfermedadesConTantosSintomasComunes(ArrayList<Sintomas> sintomasPaciente, int cant){
+		ArrayList<Enfermedad> enfermedades = new ArrayList<Enfermedad>();
+		
+		for(Enfermedad e : enfermedadesActuales){
+			if(e.enfermedadConCantidadDeSintomas(sintomasPaciente, cant))
+				enfermedades.add(e);
+		}
+		return enfermedades;
 	}
 }

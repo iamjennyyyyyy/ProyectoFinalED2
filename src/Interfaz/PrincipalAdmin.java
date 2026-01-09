@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.SwingConstants;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -18,7 +19,6 @@ import java.time.LocalDate;
 
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
-
 import javax.swing.JButton;
 import javax.swing.JPopupMenu;
 
@@ -36,9 +36,6 @@ public class PrincipalAdmin extends JFrame {
 	private JButton btnDiagnostico;
 	private JButton btnEnfermedades;
 	private JButton btnReporte;
-	private JLabel lblGestin;
-	private JLabel lblReportes;
-	private JLabel lblAcercaDe;
 	private JPanel panelSup;
 	private JMenu mnNewMenu;
 	private JMenuItem mntmUsuario_2;
@@ -50,16 +47,12 @@ public class PrincipalAdmin extends JFrame {
 	private JLabel labelFecha;
 	private JLabel labelDia;
 	private JLabel labelRuta;
-	private JLabel label_3;
-	private JLabel label_4;
-	private JLabel label_5;
-	private JLabel label_7;
 	private JPopupMenu popupMenuSesion;
 	private JMenuItem mntmCerrarSesin;
 	private JMenuItem mntmSalir;
 	private JLabel lblSistemaDeVigilancia;
-	private JLabel label;
 	private JButton btnNewButton;
+	private JButton btnReportes;
 
 	/**
 	 * Launch the application.
@@ -97,26 +90,24 @@ public class PrincipalAdmin extends JFrame {
 			panelLateral.setBounds(0, 0, 295, 699);
 			panelLateral.setBackground(Colores.getAzulMedio());
 			panelLateral.setLayout(null);
-			panelLateral.add(getLabel());
-			panelLateral.add(getLblAcercaDe());
-			panelLateral.add(getLblReportes());
-			panelLateral.add(getLblGestin());
-			panelLateral.add(getLabel_4());
-			panelLateral.add(getLabel_7());
-			panelLateral.add(getLabel_5());
-			panelLateral.add(getLabel_3());
 			panelLateral.add(getBtnSesion());
 			panelLateral.add(getBtnDiagnostico());
 			panelLateral.add(getBtnEnfermedades());
-			panelLateral.add(getBtnReporte());
 			panelLateral.add(getLblNewLabel_2());
+			panelLateral.add(getBtnReportes());
 		}
 		return panelLateral;
 	}
-
+	
 	private JButton getBtnSesion() {
 		if (btnSesion == null) {
-			btnSesion = new JButton("");
+			btnSesion = new JButton("   Sesión", new ImageIcon("src/Images/Iconos/Home.png"));
+			btnSesion.setFocusTraversalKeysEnabled(false);
+			btnSesion.setFocusable(false);
+			btnSesion.setRolloverEnabled(false);
+			btnSesion.setHorizontalAlignment(SwingConstants.LEFT);
+			btnSesion.setFocusCycleRoot(true);
+			btnSesion.setForeground(Color.BLACK);
 			btnSesion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int x = btnSesion.getWidth() + 1;
@@ -126,91 +117,46 @@ public class PrincipalAdmin extends JFrame {
 			});
 			btnSesion.setBackground(Colores.getAzulMedio());
 			btnSesion.setBorder(null);
-			btnSesion.setFont(new Font("SansSerif", Font.PLAIN, 20));
-			btnSesion.setBounds(0, 215, 294, 70);
+			btnSesion.setFont(new Font("Sylfaen", Font.PLAIN, 30));
+			btnSesion.setBounds(0, 238, 294, 70);
 			addPopup(btnSesion, getPopupMenuSesion());
 		}
 		return btnSesion;
 	}
 	private JButton getBtnDiagnostico() {
 		if (btnDiagnostico == null) {
-			btnDiagnostico = new JButton("");
-			btnDiagnostico.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					Diagnostico d = new Diagnostico();
-					d.setVisible(true);
-				}
-			});
-			btnDiagnostico.setFont(new Font("SansSerif", Font.PLAIN, 20));
+			btnDiagnostico = new JButton("   Diagnóstico", new ImageIcon("src/Images/Iconos/Edit.png"));
+			btnDiagnostico.setHorizontalAlignment(SwingConstants.LEFT);
+			btnDiagnostico.setFocusable(false);
+			btnDiagnostico.setFocusTraversalKeysEnabled(false);
+			btnDiagnostico.setForeground(Color.BLACK);
+			
+			btnDiagnostico.setFont(new Font("Sylfaen", Font.PLAIN, 30));
 			btnDiagnostico.setBorder(null);
 			btnDiagnostico.setBackground(Colores.getAzulMedio());
-			btnDiagnostico.setBounds(0, 283, 294, 70);
+			btnDiagnostico.setBounds(0, 306, 294, 70);
 		}
 		return btnDiagnostico;
 	}
 	private JButton getBtnEnfermedades() {
 		if (btnEnfermedades == null) {
-			btnEnfermedades = new JButton("");
+			btnEnfermedades = new JButton("   Enfermedades", new ImageIcon("src/Images/Iconos/book.png"));
+			btnEnfermedades.setHorizontalAlignment(SwingConstants.LEFT);
+			btnEnfermedades.setFocusTraversalKeysEnabled(false);
+			btnEnfermedades.setFocusable(false);
+			btnEnfermedades.setForeground(Color.BLACK);
 			btnEnfermedades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					int x = btnEnfermedades.getWidth() + 1;
-				    int y = 0;
-					//popupMenuReportes.show(btnReportes, x, y);
+					CRUDEnfermedades c = new CRUDEnfermedades();
+					c.setVisible(true);
 				}
 			});
-			btnEnfermedades.setFont(new Font("SansSerif", Font.PLAIN, 20));
+			btnEnfermedades.setFont(new Font("Sylfaen", Font.PLAIN, 30));
 			btnEnfermedades.setBorder(null);
 			btnEnfermedades.setBackground(Colores.getAzulMedio());
-			btnEnfermedades.setBounds(0, 350, 294, 70);
+			btnEnfermedades.setBounds(0, 373, 294, 70);
 		}
 		return btnEnfermedades;
-	}
-	private JButton getBtnReporte() {
-		if (btnReporte == null) {
-			btnReporte = new JButton("");
-			btnReporte.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					labelRuta.setText("Acerca de Nosotros");
-//					lblAcercaDe.setForeground(Colores.getCruds());
-//					AcercaDe a = new AcercaDe();
-					//a.setVisible(true);
-					labelRuta.setText("");
-					lblAcercaDe.setForeground(Color.BLACK);
-				}
-			});
-			btnReporte.setFont(new Font("SansSerif", Font.PLAIN, 20));
-			btnReporte.setBorder(null);
-			btnReporte.setBackground(Colores.getAzulMedio());
-			btnReporte.setBounds(0, 419, 294, 70);
-		}
-		return btnReporte;
-	}
-	private JLabel getLblGestin() {
-		if (lblGestin == null) {
-			lblGestin = new JLabel("Diagnóstico");
-			lblGestin.setForeground(Color.BLACK);
-			lblGestin.setFont(new Font("Sylfaen", Font.PLAIN, 30));
-			lblGestin.setBounds(70, 300, 159, 40);
-		}
-		return lblGestin;
-	}
-	private JLabel getLblReportes() {
-		if (lblReportes == null) {
-			lblReportes = new JLabel("Reportes");
-			lblReportes.setForeground(Color.BLACK);
-			lblReportes.setFont(new Font("Sylfaen", Font.PLAIN, 30));
-			lblReportes.setBounds(70, 436, 112, 40);
-		}
-		return lblReportes;
-	}
-	private JLabel getLblAcercaDe() {
-		if (lblAcercaDe == null) {
-			lblAcercaDe = new JLabel("Enfermedades");
-			lblAcercaDe.setForeground(Color.BLACK);
-			lblAcercaDe.setFont(new Font("Sylfaen", Font.PLAIN, 30));
-			lblAcercaDe.setBounds(70, 364, 186, 40);
-		}
-		return lblAcercaDe;
 	}
 	private JPanel getPanelSup() {
 		if (panelSup == null) {
@@ -317,13 +263,13 @@ public class PrincipalAdmin extends JFrame {
 		else if(dia.equals("TUESDAY"))
 			diaa = "martes";
 		else if(dia.equals("WEDNESDAY"))
-			diaa = "mi�rcoles";
+			diaa = "miércoles";
 		else if(dia.equals("THURSDAY"))
 			diaa = "jueves";
 		else if(dia.equals("FRIDAY"))
 			diaa = "viernes";
 		else if(dia.equals("SATURDAY"))
-			diaa = "s�bado";
+			diaa = "sábado";
 		else if(dia.equals("SUNDAY"))
 			diaa = "domingo";
 		return diaa;
@@ -379,38 +325,6 @@ public class PrincipalAdmin extends JFrame {
 		}
 		return labelRuta;
 	}
-	private JLabel getLabel_3() {
-		if (label_3 == null) {
-			label_3 = new JLabel("");
-			label_3.setIcon(new ImageIcon("src/Images/Iconos/Home.png"));
-			label_3.setBounds(10, 231, 38, 38);
-		}
-		return label_3;
-	}
-	private JLabel getLabel_4() {
-		if (label_4 == null) {
-			label_4 = new JLabel("");
-			label_4.setIcon(new ImageIcon("src/Images/Iconos/Edit.png"));
-			label_4.setBounds(10, 298, 38, 38);
-		}
-		return label_4;
-	}
-	private JLabel getLabel_5() {
-		if (label_5 == null) {
-			label_5 = new JLabel("");
-			label_5.setIcon(new ImageIcon("src/Images/Iconos/book.png"));
-			label_5.setBounds(10, 366, 38, 38);
-		}
-		return label_5;
-	}
-	private JLabel getLabel_7() {
-		if (label_7 == null) {
-			label_7 = new JLabel("");
-			label_7.setIcon(new ImageIcon("src/Images/Iconos/About.png"));
-			label_7.setBounds(10, 438, 38, 38);
-		}
-		return label_7;
-	}
 	private JPopupMenu getPopupMenuSesion() {
 		if (popupMenuSesion == null) {
 			popupMenuSesion = new JPopupMenu();
@@ -446,37 +360,31 @@ public class PrincipalAdmin extends JFrame {
 		}
 		return mntmSalir;
 	}
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	private JLabel getLblSistemaDeVigilancia() {
 		if (lblSistemaDeVigilancia == null) {
-			lblSistemaDeVigilancia = new JLabel("Consultorio #");
+			lblSistemaDeVigilancia = new JLabel("Bienvenido Admin");
 			lblSistemaDeVigilancia.setFont(new Font("Segoe UI", Font.PLAIN, 32));
 			lblSistemaDeVigilancia.setBounds(26, 9, 367, 58);
 		}
 		return lblSistemaDeVigilancia;
 	}
-	private JLabel getLabel() {
-		if (label == null) {
-			label = new JLabel("Sesión");
-			label.setForeground(Color.BLACK);
-			label.setFont(new Font("Sylfaen", Font.PLAIN, 30));
-			label.setBounds(70, 231, 112, 40);
+	private JButton getBtnReportes() {
+		if (btnReportes == null) {
+			btnReportes = new JButton("   Reportes", null);
+			btnReportes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			btnReportes.setIcon(new ImageIcon("src/Images/Iconos/About.png"));
+			btnReportes.setHorizontalAlignment(SwingConstants.LEFT);
+			btnReportes.setForeground(Color.BLACK);
+			btnReportes.setFont(new Font("Sylfaen", Font.PLAIN, 30));
+			btnReportes.setFocusable(false);
+			btnReportes.setFocusTraversalKeysEnabled(false);
+			btnReportes.setBorder(null);
+			btnReportes.setBackground(new Color(128, 171, 200));
+			btnReportes.setBounds(0, 443, 294, 70);
 		}
-		return label;
+		return btnReportes;
 	}
 }

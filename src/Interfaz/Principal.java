@@ -58,6 +58,8 @@ import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.EmptyBorder;
 
+import Auxiliar.Sistema;
+import Persona.Medico;
 import Utiles.Colores;
 
 public class Principal extends JFrame {
@@ -78,12 +80,14 @@ public class Principal extends JFrame {
 	private JPanel panelInicio;
 	private JLabel labelFecha;
 	private JLabel labelDia;
-	private JLabel labelRuta;
 	private JPopupMenu popupMenuSesion;
 	private JMenuItem mntmCerrarSesin;
 	private JMenuItem mntmSalir;
-	private JLabel lblSistemaDeVigilancia;
+	private JLabel lblConsul;
 	private JButton btnNewButton;
+	private Medico medico;
+	private JLabel lblBienvenido;
+	private Sistema s = Sistema.getInstancia();
 
 	/**
 	 * Launch the application.
@@ -93,13 +97,13 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 
-	public Principal() {
+	public Principal(Medico m) {
 		setBackground(new Color(245, 245, 220));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("src/images/icons8-literature-50.png"));
 		setTitle("SAE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+		medico = m;
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setLayout(null);
@@ -163,7 +167,7 @@ public class Principal extends JFrame {
 			btnDiagnostico.setForeground(Color.BLACK);
 			btnDiagnostico.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Diagnostico d = new Diagnostico();
+					Diagnostico d = new Diagnostico(medico);
 					d.setVisible(true);
 				}
 			});
@@ -183,7 +187,7 @@ public class Principal extends JFrame {
 			btnEnfermedades.setForeground(Color.BLACK);
 			btnEnfermedades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					CRUDEnfermedades c = new CRUDEnfermedades();
+					InformacionEnfermedades c = new InformacionEnfermedades();
 					c.setVisible(true);
 				}
 			});
@@ -203,11 +207,7 @@ public class Principal extends JFrame {
 			btnReporte.setForeground(Color.BLACK);
 			btnReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					labelRuta.setText("Acerca de Nosotros");
-//					lblAcercaDe.setForeground(Colores.getCruds());
-//					AcercaDe a = new AcercaDe();
-					//a.setVisible(true);
-					labelRuta.setText("");
+
 				}
 			});
 			btnReporte.setFont(new Font("Sylfaen", Font.PLAIN, 30));
@@ -226,8 +226,8 @@ public class Principal extends JFrame {
 			panelSup.setLayout(null);
 			panelSup.add(getLabelFecha());
 			panelSup.add(getLabelDia());
-			panelSup.add(getLabelRuta());
-			panelSup.add(getLblSistemaDeVigilancia());
+			panelSup.add(getLblConsul());
+			panelSup.add(getLblBienvenido());
 		}
 		return panelSup;
 	}
@@ -375,15 +375,6 @@ public class Principal extends JFrame {
 		}
 		return labelDia;
 	}
-	private JLabel getLabelRuta() {
-		if (labelRuta == null) {
-			labelRuta = new JLabel();
-			labelRuta.setFont(new Font("Sylfaen", Font.PLAIN, 27));
-			labelRuta.setBounds(30, 85, 453, 42);
-			labelRuta.setForeground(Color.BLACK);
-		}
-		return labelRuta;
-	}
 	private JPopupMenu getPopupMenuSesion() {
 		if (popupMenuSesion == null) {
 			popupMenuSesion = new JPopupMenu();
@@ -419,28 +410,21 @@ public class Principal extends JFrame {
 		}
 		return mntmSalir;
 	}
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	private JLabel getLblSistemaDeVigilancia() {
-		if (lblSistemaDeVigilancia == null) {
-			lblSistemaDeVigilancia = new JLabel("Consultorio #");
-			lblSistemaDeVigilancia.setFont(new Font("Segoe UI", Font.PLAIN, 32));
-			lblSistemaDeVigilancia.setBounds(26, 9, 367, 58);
+	
+	private JLabel getLblConsul() {
+		if (lblConsul == null) {
+			lblConsul = new JLabel("Consultorio #" + s.buscarConsultorioPorId(medico.getConsultorio()).getNumero());
+			lblConsul.setFont(new Font("Segoe UI", Font.PLAIN, 27));
+			lblConsul.setBounds(23, 69, 367, 58);
 		}
-		return lblSistemaDeVigilancia;
+		return lblConsul;
+	}
+	private JLabel getLblBienvenido() {
+		if (lblBienvenido == null) {
+			lblBienvenido = new JLabel("Bienvenido " + medico.getNombreCompleto());
+			lblBienvenido.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+			lblBienvenido.setBounds(23, 8, 595, 58);
+		}
+		return lblBienvenido;
 	}
 }

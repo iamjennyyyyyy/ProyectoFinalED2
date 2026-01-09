@@ -9,6 +9,7 @@ import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
+import Persona.Medico;
 import Salud.ConsejoPopular;
 import Salud.DireccionMunicipal;
 
@@ -16,6 +17,7 @@ import Salud.DireccionMunicipal;
 import Salud.DireccionProvincial;
 import Salud.Minsap;
 import Salud.NodoSalud;
+import Sistema.Credencial;
 import Sistema.GrafoConsejos;
 import Utiles.Enfermedad;
 import Utiles.Enfermedad;
@@ -45,6 +47,23 @@ public class Inicializar {
 		return arbol;
 	}
 	
+	public static ArrayList<Medico> inicializarMedicos(){
+		ArrayList<Medico> medicos = new ArrayList<Medico>();
+		medicos.add(new Medico("01031267912", "Catalina Pérez Fonseca", "76541289", "catlinafonseca@gmail.com","Calle 314/45 y 47, La Lisa" ,"HAB-LISA-CRISTOBAL-001"));
+		medicos.add(new Medico("02041267922", "Luis Manuel Gutierrez Castillo", "76341289", "luismgutierrez@gmail.com","Calle 214/15 y 17, La Lisa" ,"HAB-LISA-CRISTOBAL-002"));
+		medicos.add(new Medico("03021267922", "Pedro Lamas Pérez", "76541239", "pedrolamas@gmail.com","Calle 114/65 y 67, La Lisa" ,"HAB-LISA-CRISTOBAL-003"));
+		return medicos;
+	}
+	
+	public static ArrayList<Credencial> inicializarCredenciales(){
+		ArrayList<Credencial> credenciales = new ArrayList<Credencial>();
+		ArrayList<Medico> medicos = inicializarMedicos();
+		credenciales.add(new Credencial(medicos.get(0).getId(), "catPerez01", "cat2001*"));
+		credenciales.add(new Credencial(medicos.get(1).getId(), "luismgut02", "luism2002*"));
+		credenciales.add(new Credencial(medicos.get(2).getId(), "pedrolamas03", "pedrol2003*"));
+		return credenciales;
+	}
+	
 	public static ArrayList<Enfermedad> inicializarEnfermedadesPredefinidas() {
 		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<>();
 
@@ -54,7 +73,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
 						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
-						"SARS-CoV-2", "7-14 d�as"
+						"SARS-CoV-2", "7-14 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -62,19 +81,19 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Virus de la influenza", "5-7 d�as"
+						"Virus de la influenza", "5-7 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Resfriado com�n", Categoria.RESPIRATORIA, Gravedad.LEVE,
+				"Resfriado común", Categoria.RESPIRATORIA, Gravedad.LEVE,
 				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
 						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
 						Sintomas.DOLOR_CABEZA),
-						"Rhinovirus/Coronavirus", "3-10 d�as"
+						"Rhinovirus/Coronavirus", "3-10 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Neumon�a", Categoria.RESPIRATORIA, Gravedad.GRAVE,
+				"Neumonía", Categoria.RESPIRATORIA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
 						Sintomas.ESCALOFRIOS),
@@ -91,7 +110,7 @@ public class Inicializar {
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
 				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
-				"Trastorno inflamatorio cr�nico", "Cr�nica (controlable)"
+				"Trastorno inflamatorio crónico", "Crónica (controlable)"
 				));
 
 		// Enfermedades gastrointestinales
@@ -99,28 +118,28 @@ public class Inicializar {
 				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
-						"Virus/Bacterias/Par�sitos", "1-3 d�as"
+						"Virus/Bacterias/Parásitos", "1-3 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Intoxicaci�n alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				"Intoxicación alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
 						Sintomas.NAUSEAS, Sintomas.FIEBRE),
-						"Bacterias/Toxinas", "24-48 horas"
+						"Bacterias/Toxinas", "1-2 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
 						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
-						"Inflamaci�n del colon", "Variable (aguda/cr�nica)"
+						"Inflamación del colon", "Variable (aguda/crónica)"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
-						"Inflamaci�n del ap�ndice", "Urgente (requiere cirug�a)"
+						"Inflamación del apéndice", "Urgente (requiere cirugía)"
 				));
 
 		// Enfermedades transmitidas por vectores
@@ -129,14 +148,14 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
-						"Virus del dengue (Aedes aegypti)", "7-10 d�as"
+						"Virus del dengue (Aedes aegypti)", "7-10 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
-						"Virus Zika (Aedes aegypti)", "2-7 d�as"
+						"Virus Zika (Aedes aegypti)", "2-7 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -144,7 +163,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
-						"Virus Chikungunya (Aedes aegypti)", "3-10 d�as"
+						"Virus Chikungunya (Aedes aegypti)", "3-10 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -160,21 +179,21 @@ public class Inicializar {
 				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
-						"Virus varicela-z�ster", "10-21 d�as"
+						"Virus varicela-záster", "10-21 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Sarampi�n", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
+				"Sarampión", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
 						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
-						"Virus del sarampi�n", "7-14 d�as"
+						"Virus del sarampión", "7-14 días"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Rub�ola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
+				"Rubéola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
 						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
-						"Virus de la rub�ola", "3-7 d�as"
+						"Virus de la rubéola", "3-7 días"
 				));
 
 		// Enfermedades neurol�gicas
@@ -195,32 +214,32 @@ public class Inicializar {
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Migra�a", Categoria.NEUROLOGICA, Gravedad.MODERADA,
+				"Migraña", Categoria.NEUROLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
-						"Trastorno neurol�gico", "4-72 horas"
+						"Trastorno neurológico", "0-1 días"
 				));
 
 		// Enfermedades cr�nicas
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"Hipertensi�n arterial", Categoria.CRONICA, Gravedad.GRAVE,
+				"Hipertensión arterial", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
 						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
-						"Trastorno cardiovascular", "Cr�nica"
+						"Trastorno cardiovascular", "Crónica"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
 						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
-						"Trastorno metab�lico", "Cr�nica"
+						"Trastorno metabólico", "Crónica"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO, Sintomas.FIEBRE),
-						"Enfermedad autoinmune", "Cr�nica"
+						"Enfermedad autoinmune", "Crónica"
 				));
 
 		// Enfermedades infecciosas espec�ficas
@@ -237,16 +256,16 @@ public class Inicializar {
 				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
 						Sintomas.FIEBRE),
-						"Virus de la hepatitis", "Variable (aguda/cr�nica)"
+						"Virus de la hepatitis", "Variable (aguda/crónica)"
 				));
 
 		// S�ndrome cl�nico
 		enfermedadesPredefinidas.add(new Enfermedad(
-				"S�ndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
+				"Síndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Conjunto de s�ntomas respiratorios", "5-7 d�as"
+						"Conjunto de síntomas respiratorios", "5-7 días"
 				));
 		return enfermedadesPredefinidas;
 	}

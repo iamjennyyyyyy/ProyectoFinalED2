@@ -10,7 +10,7 @@ public class Enfermedad {
 	private String nombre;
 	private Categoria categoria;
 	private Gravedad gravedadTipica;
-	private List<Sintomas> sintomasComunes;
+	private ArrayList<Sintomas> sintomasComunes;
 	private String agenteEtiologico;
 	private String duracion;
 	
@@ -116,6 +116,18 @@ public class Enfermedad {
 
 		return Math.min(porcentaje, 100.0);
 	}
+	
+	public boolean enfermedadConCantidadDeSintomas(List<Sintomas> sintomasPaciente, int cant) {
+		
+		int coincidencias = 0;
+		for (int i = 0; i < sintomasPaciente.size(); i++) {
+			if (sintomasComunes.contains(sintomasPaciente.get(i))) {
+				coincidencias++;
+			}
+		}
+
+		return coincidencias >= cant;
+	}
 
 	/**
 	 * Obtiene coincidencias de s�ntomas
@@ -144,9 +156,9 @@ public class Enfermedad {
 		if (esUrgente()) {
 			return "Acudir inmediatamente a un centro de salud";
 		} else if (gravedadTipica == Gravedad.MODERADA) {
-			return "Consultar con m�dico en las pr�ximas 24-48 horas";
+			return "Consultar con médico en las próximas 24-48 horas";
 		} else {
-			return "Descansar, hidratarse y monitorear s�ntomas";
+			return "Descansar, hidratarse y monitorear síntomas";
 		}
 	}
 
@@ -156,11 +168,11 @@ public class Enfermedad {
 	public String generarReporte() {
 		StringBuilder reporte = new StringBuilder();
 		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
-		reporte.append("Categor�a: ").append(categoria.getNombre()).append("\n");
-		reporte.append("Gravedad t�pica: ").append(gravedadTipica.getNivel()).append("\n");
-		reporte.append("Duraci�n estimada: ").append(duracion).append("\n");
-		reporte.append("Agente etiol�gico: ").append(agenteEtiologico).append("\n");
-		reporte.append("\nS�ntomas comunes:\n");
+		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
+		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
+		reporte.append("Duración estimada: ").append(duracion).append("\n");
+		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
+		reporte.append("\nSíntomas comunes:\n");
 
 		for (Sintomas sintoma : sintomasComunes) {
 			reporte.append("� ").append(sintoma.getDescripcion())
@@ -169,7 +181,7 @@ public class Enfermedad {
 			.append(")\n");
 		}
 
-		reporte.append("\nRecomendaci�n: ").append(getRecomendacionBasica());
+		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
 
 		return reporte.toString();
 	}
@@ -200,12 +212,12 @@ public class Enfermedad {
 	public enum Categoria {
 		RESPIRATORIA("Respiratoria"),
 		GASTROINTESTINAL("Gastrointestinal"),
-		DERMATOLOGICA("Dermatol�gica"),
-		NEUROLOGICA("Neurol�gica"),
+		DERMATOLOGICA("Dermatológica"),
+		NEUROLOGICA("Neurológica"),
 		TRANSMITIDA_VECTOR("Transmitida por vector"),
 		INFECCIOSA("Infecciosa"),
-		CRONICA("Cr�nica"),
-		SINDROME("S�ndrome cl�nico");
+		CRONICA("Crónica"),
+		SINDROME("Síndrome clínico");
 
 		private final String nombre;
 

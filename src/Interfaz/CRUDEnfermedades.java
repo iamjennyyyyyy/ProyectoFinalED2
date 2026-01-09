@@ -61,6 +61,7 @@ import java.awt.event.InputMethodEvent;
 import javax.swing.JSpinner;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class CRUDEnfermedades extends JDialog {
 
