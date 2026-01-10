@@ -26,20 +26,21 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
     private Consultorio consultorio;
     private JLabel lblTitulo;
     private JLabel lblTotalPacientes;
+    private JPanel panelChartContainer; // Variable para mantener referencia al contenedor del grÃ¡fico
 
     public ReporteEnfermedadesConsultorio(Consultorio consultorio) {
         this.consultorio = consultorio;
         
-        getContentPane().setBackground(Colores.getAzulLogin());
+        getContentPane().setBackground(Color.WHITE);
         setTitle("Reporte de Pacientes por Enfermedad");
-        setBounds(338, 159, 1026, 562);
+        setBounds(296, 164, 1070, 558);
         setModal(true);
         setUndecorated(true);
         getContentPane().setLayout(new BorderLayout());
         
-        contentPanel.setBackground(Colores.getAzulLogin());
+        contentPanel.setBackground(Color.WHITE);
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.setBorder(new LineBorder(Colores.getAzulMedio(), 2));
+        contentPanel.setBorder(null);
         getContentPane().add(contentPanel, BorderLayout.CENTER);
 
         inicializarComponentes();
@@ -50,40 +51,40 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
         // Panel superior con controles
         JPanel panelSuperior = new JPanel();
         panelSuperior.setLayout(null);
-        panelSuperior.setBackground(Colores.getAzulLogin());
+        panelSuperior.setBackground(Color.WHITE);
         panelSuperior.setPreferredSize(new Dimension(1026, 100));
         
-        // Título
-        lblTitulo = new JLabel("REPORTE DE PACIENTES - " + consultorio.getNombre());
+        // TÃ­tulo
+        lblTitulo = new JLabel("REPORTE DE PACIENTES - " + "Consultorio " + consultorio.getNumero());
         lblTitulo.setBounds(20, 10, 600, 30);
         lblTitulo.setFont(new Font("Sylfaen", Font.BOLD, 20));
-        lblTitulo.setForeground(Colores.getAzulOscuro());
+        lblTitulo.setForeground(Color.BLACK);
         panelSuperior.add(lblTitulo);
         
         // Label para total de pacientes
         lblTotalPacientes = new JLabel("Total pacientes: 0");
         lblTotalPacientes.setBounds(650, 15, 250, 25);
-        lblTotalPacientes.setFont(new Font("Sylfaen", Font.BOLD, 16));
-        lblTotalPacientes.setForeground(Colores.getAzulOscuro());
+        lblTotalPacientes.setFont(new Font("Segoe UI", Font.PLAIN, 19));
+        lblTotalPacientes.setForeground(Color.BLACK);
         panelSuperior.add(lblTotalPacientes);
         
         // Label para combo
-        JLabel lblSeleccion = new JLabel("Seleccione período:");
+        JLabel lblSeleccion = new JLabel("Seleccione perÃ­odo:");
         lblSeleccion.setBounds(20, 50, 150, 25);
-        lblSeleccion.setFont(new Font("Sylfaen", Font.PLAIN, 16));
-        lblSeleccion.setForeground(Colores.getAzulOscuro());
+        lblSeleccion.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblSeleccion.setForeground(Color.BLACK);
         panelSuperior.add(lblSeleccion);
         
         // ComboBox para seleccionar reporte
-        comboReportes = new JComboBox<>(new String[]{
-            "Pacientes del Día Actual",
-            "Pacientes del Mes Actual", 
-            "Pacientes del Mes Anterior",
-            "Pacientes del Año Actual"
-        });
+        comboReportes = new JComboBox();
+        comboReportes.setModel(new DefaultComboBoxModel(new String[] {"Pacientes del DÃ­a Actual",
+                "Pacientes del Mes Actual", 
+                "Pacientes del Mes Anterior",
+                "Pacientes del AÃ±o Actual"}
+        ));
         comboReportes.setBounds(180, 50, 250, 25);
         comboReportes.setBackground(Color.WHITE);
-        comboReportes.setFont(new Font("Sylfaen", Font.PLAIN, 14));
+        comboReportes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         comboReportes.setSelectedIndex(0);
         
         comboReportes.addActionListener(new ActionListener() {
@@ -94,49 +95,51 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
         });
         panelSuperior.add(comboReportes);
         
-        // Botón salir
+        // BotÃ³n salir
         panelSuperior.add(getBtnSalir());
         
         contentPanel.add(panelSuperior, BorderLayout.NORTH);
     }
 
     private void inicializarGrafico() {
-        // Crear gráfico circular
+        // Crear grÃ¡fico circular
         chart = new PieChartBuilder()
                 .width(900)
-                .height(500)
-                .title("Distribución de Pacientes por Enfermedad")
+                .height(600)
+                .title("DistribuciÃ³n de Pacientes por Enfermedad")
                 .build();
 
         personalizarGrafico(chart);
-        actualizarGrafico(); // Cargar datos iniciales
         
-        // Panel para el gráfico
+        // Panel para el grÃ¡fico
         XChartPanel<PieChart> chartPanel = new XChartPanel<>(chart);
-        chartPanel.setFont(new Font("Sylfaen", Font.PLAIN, 12));
-        chartPanel.setBackground(Colores.getAzulLogin());
-        chartPanel.setPreferredSize(new Dimension(1000, 450));
+        chartPanel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        chartPanel.setBackground(Color.WHITE);
         
-        JPanel panelChart = new JPanel(new BorderLayout());
-        panelChart.setBackground(Colores.getAzulLogin());
-        panelChart.add(chartPanel, BorderLayout.CENTER);
-        panelChart.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // Crear contenedor para el grÃ¡fico
+        panelChartContainer = new JPanel(new BorderLayout());
+        panelChartContainer.setBackground(Color.WHITE);
+        panelChartContainer.add(chartPanel, BorderLayout.CENTER);
+        panelChartContainer.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        contentPanel.add(panelChart, BorderLayout.CENTER);
+        contentPanel.add(panelChartContainer, BorderLayout.CENTER);
+        
+        // Cargar datos iniciales DESPUÃ‰S de crear el contenedor
+        actualizarGrafico();
     }
 
     private void actualizarGrafico() {
-        // Obtener datos según la selección
+        // Obtener datos segÃºn la selecciÃ³n
         ArrayList<PacientesPorEnfermedad> datosEnfermedades = null;
         String periodo = (String) comboReportes.getSelectedItem();
         
-        // Actualizar título según período seleccionado
-        lblTitulo.setText("REPORTE - " + consultorio.getNombre() + " (" + periodo + ")");
+        // Actualizar tÃ­tulo segÃºn perÃ­odo seleccionado
+        lblTitulo.setText("Consultorio " + consultorio.getNumero() + " (" + periodo + ")");
         
-        // Obtener datos según la opción seleccionada
+        // Obtener datos segÃºn la opciÃ³n seleccionada
         try {
             switch(comboReportes.getSelectedIndex()) {
-                case 0: // Día actual
+                case 0: // DÃ­a actual
                     datosEnfermedades = consultorio.pacientesEsteDia();
                     break;
                 case 1: // Mes actual
@@ -145,7 +148,7 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
                 case 2: // Mes anterior
                     datosEnfermedades = consultorio.pacientesMesAnterior();
                     break;
-                case 3: // Año actual
+                case 3: // AÃ±o actual
                     datosEnfermedades = consultorio.pacientesAnno();
                     break;
             }
@@ -154,11 +157,11 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
             datosEnfermedades = new ArrayList<>();
         }
         
-        // Crear un nuevo gráfico en lugar de actualizar (más compatible)
+        // Crear un nuevo grÃ¡fico en lugar de actualizar (mÃ¡s compatible)
         chart = new PieChartBuilder()
                 .width(900)
-                .height(500)
-                .title("Distribución de Pacientes por Enfermedad")
+                .height(600)
+                .title("DistribuciÃ³n de Pacientes por Enfermedad")
                 .build();
         
         personalizarGrafico(chart);
@@ -173,7 +176,7 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
             // Actualizar label de total
             lblTotalPacientes.setText("Total pacientes: " + totalPacientes);
             
-            // Agregar series al gráfico
+            // Agregar series al grÃ¡fico
             for (PacientesPorEnfermedad ppe : datosEnfermedades) {
                 String enfermedad = ppe.getEnfermedad();
                 int cantidad = ppe.getCantPacientes();
@@ -185,42 +188,39 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
                         nombreCorto = enfermedad.substring(0, 17) + "...";
                     }
                     
-                    // Crear etiqueta con información
+                    // Crear etiqueta con informaciÃ³n
                     String label = String.format("%s (%d)", nombreCorto, cantidad);
                     
-                    // Agregar serie al gráfico
+                    // Agregar serie al grÃ¡fico
                     chart.addSeries(label, cantidad);
                 }
             }
             
-            // Actualizar título del gráfico
+            // Actualizar tÃ­tulo del grÃ¡fico
             if (totalPacientes > 0) {
-                chart.setTitle("Distribución de Pacientes por Enfermedad\nTotal: " + totalPacientes + " pacientes");
+                chart.setTitle("DistribuciÃ³n de Pacientes por Enfermedad\nTotal: " + totalPacientes + " pacientes");
             } else {
-                chart.setTitle("No hay pacientes registrados en este período");
+                chart.setTitle("No hay pacientes registrados en este perÃ­odo");
             }
         } else {
             // Si no hay datos, mostrar mensaje
             lblTotalPacientes.setText("Total pacientes: 0");
             chart.addSeries("Sin datos", 1);
-            chart.setTitle("No hay datos disponibles para este período");
+            chart.setTitle("No hay datos disponibles para este perÃ­odo");
         }
         
-        // Actualizar el panel del gráfico
-        contentPanel.remove(1); // Remover el panel del gráfico actual
+        // Actualizar el panel del grÃ¡fico
+        panelChartContainer.removeAll(); // Limpiar el contenedor
+        
         XChartPanel<PieChart> chartPanel = new XChartPanel<>(chart);
-        chartPanel.setFont(new Font("Sylfaen", Font.PLAIN, 12));
-        chartPanel.setBackground(Colores.getAzulLogin());
-        chartPanel.setPreferredSize(new Dimension(1000, 450));
+        chartPanel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        chartPanel.setBackground(Color.WHITE);
         
-        JPanel panelChart = new JPanel(new BorderLayout());
-        panelChart.setBackground(Colores.getAzulLogin());
-        panelChart.add(chartPanel, BorderLayout.CENTER);
-        panelChart.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        contentPanel.add(panelChart, BorderLayout.CENTER);
+        panelChartContainer.add(chartPanel, BorderLayout.CENTER);
         
         // Revalidar y repintar
+        panelChartContainer.revalidate();
+        panelChartContainer.repaint();
         contentPanel.revalidate();
         contentPanel.repaint();
     }
@@ -233,8 +233,8 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
             btnSalir.setHorizontalTextPosition(SwingConstants.CENTER);
             btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
             btnSalir.setIcon(new ImageIcon("src/Images/Iconos/otroLogoBorrar50x50.png"));
-            btnSalir.setBackground(Colores.getAzulLogin());
-            btnSalir.setForeground(Colores.getAzulLogin());
+            btnSalir.setBackground(Color.WHITE);
+            btnSalir.setForeground(Color.WHITE);
             btnSalir.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {
                     dispose();
@@ -247,113 +247,75 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
     private void personalizarGrafico(PieChart chart) {
         PieStyler styler = chart.getStyler();
         
-        // Paleta de tonos azules que contrastan
-        Color[] coloresAzules = {
-            new Color(37, 100, 144),   // Azul oscuro principal
-            new Color(52, 152, 219),   // Azul brillante
-            new Color(93, 173, 226),   // Azul medio claro
-            new Color(133, 193, 233),  // Azul claro
-            new Color(174, 214, 241),  // Azul muy claro
-            new Color(21, 67, 96),     // Azul marino oscuro
-            new Color(41, 128, 185),   // Azul eléctrico
-            new Color(72, 163, 215),   // Azul cielo
-            new Color(127, 179, 213),  // Azul pastel
-            new Color(186, 220, 247),  // Azul hielo
-            new Color(30, 80, 115),    // Azul noche medio
-            new Color(65, 142, 200),   // Azul intermedio
-            new Color(100, 165, 215),  // Azul cielo claro
-            new Color(140, 185, 225),  // Azul pastel medio
-            new Color(180, 205, 235)   // Azul muy claro
+        // Paleta de colores pastel similar a Reporte1GraficoMaterias
+        Color[] coloresPastel = {
+            new Color(173, 216, 230), // Azul pastel
+            new Color(144, 238, 144), // Verde pastel
+            new Color(255, 182, 193), // Rosa pastel
+            new Color(221, 160, 221), // Lavanda
+            new Color(255, 215, 0),   // Amarillo dorado
+            new Color(152, 251, 152), // Verde menta
+            new Color(175, 238, 238), // Turquesa pastel
+            new Color(255, 218, 185), // MelocotÃ³n
+            new Color(216, 191, 216), // Ciruela pastel
+            new Color(240, 230, 140)  // Amarillo caqui
         };
         
-        styler.setSeriesColors(coloresAzules);
+        styler.setSeriesColors(coloresPastel);
         styler.setLabelsVisible(true);
-        styler.setLabelType(PieStyler.LabelType.NameAndPercentage);
-        styler.setLabelsDistance(0.8);
-        styler.setStartAngleInDegrees(45); // Rotar gráfico para mejor presentación
+        styler.setLabelType(PieStyler.LabelType.NameAndValue);
+        styler.setLabelsDistance(1.12);
         
-        // Fuentes usando Sylfaen como en tu interfaz
-        Font fuenteBase = new Font("Sylfaen", Font.PLAIN, 12);
-        Font tituloFuente = new Font("Sylfaen", Font.BOLD, 18);
-        Font leyendaFuente = new Font("Sylfaen", Font.PLAIN, 14);
-        Font etiquetaFuente = new Font("Sylfaen", Font.BOLD, 11);
+        // Fuentes usando Segoe UI como en Reporte1GraficoMaterias
+        Font fuente = new Font("Segoe UI", Font.PLAIN, 10);
+        Font tituloFuente = new Font("Segoe UI", Font.BOLD, 18);
+        Font leyendaFuente = new Font("Segoe UI", Font.PLAIN, 12);
         
-        styler.setBaseFont(fuenteBase);
+        styler.setBaseFont(fuente);
         styler.setChartTitleFont(tituloFuente);
         styler.setLegendFont(leyendaFuente);
-        styler.setLabelsFont(etiquetaFuente);
-        styler.setLabelsFontColor(Color.WHITE);
+        styler.setLabelsFont(fuente.deriveFont(Font.BOLD));
+        styler.setLabelsFontColor(Color.BLACK);
         
-        // Configurar colores de fondo y tema
-        styler.setChartFontColor(Colores.getAzulOscuro());
+        styler.setChartFontColor(Color.BLACK);
         styler.setPlotBackgroundColor(Color.WHITE);
-        styler.setChartBackgroundColor(Colores.getAzulLogin());
+        styler.setChartBackgroundColor(Color.WHITE);
         
-        // Bordes y estilo
         styler.setPlotBorderVisible(true);
-        styler.setPlotBorderColor(Colores.getAzulMedio());
+        styler.setPlotBorderColor(new Color(220, 220, 220));
         styler.setPlotContentSize(0.7);
         styler.setCircular(true);
         
-        // Configurar leyenda - método compatible
         styler.setLegendPosition(Styler.LegendPosition.OutsideE);
         styler.setLegendLayout(Styler.LegendLayout.Vertical);
         
-        // Para versiones antiguas, usar métodos más básicos
         try {
-            // Intentar métodos más nuevos
             styler.setLegendBackgroundColor(Color.WHITE);
+            styler.setLegendBorderColor(new Color(200, 200, 200));
+            styler.setLegendPadding(10);
         } catch (NoSuchMethodError e) {
-            // Si falla, usar métodos básicos
-            System.out.println("Usando configuración básica para leyenda");
+            System.out.println("Usando configuraciÃ³n bÃ¡sica para leyenda");
         }
         
-        try {
-            styler.setLegendBorderColor(Colores.getAzulMedio());
-        } catch (NoSuchMethodError e) {
-            // Método no disponible
-        }
-        
-        // Tooltips - métodos básicos que deberían funcionar
         styler.setToolTipsEnabled(true);
         
-        // Título
-        styler.setChartTitlePadding(20);
-        
-        // Formato
-        styler.setDecimalPattern("#,##0");
-        styler.setChartPadding(25);
-        
-        // Métodos alternativos para versiones antiguas
         try {
-            // Intentar métodos que pueden no estar disponibles
-            styler.setSumVisible(true);
+            styler.setToolTipFont(fuente.deriveFont(Font.ITALIC));
         } catch (NoSuchMethodError e) {
             // Ignorar si no existe
         }
         
+        styler.setChartTitlePadding(15);
+        
         try {
-            styler.setAntiAlias(true);
+            styler.setChartTitleBoxBackgroundColor(Color.WHITE);
+            styler.setChartTitleBoxBorderColor(Color.GRAY);
+            styler.setChartTitleBoxVisible(true);
         } catch (NoSuchMethodError e) {
             // Ignorar si no existe
         }
         
-        // Configuración mínima que funciona en todas las versiones
-        styler.setLegendVisible(true);
-        styler.setPlotBackgroundColor(Color.WHITE);
-        styler.setChartBackgroundColor(Colores.getAzulLogin());
-        styler.setLabelsVisible(true);
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    System.out.println("Ventana de reporte lista para usar");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        styler.setDecimalPattern("#0");
+        styler.setChartPadding(15);
     }
 }

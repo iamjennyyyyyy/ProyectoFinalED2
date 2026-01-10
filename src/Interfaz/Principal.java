@@ -187,7 +187,7 @@ public class Principal extends JFrame {
 			btnEnfermedades.setForeground(Color.BLACK);
 			btnEnfermedades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					InformacionEnfermedades c = new InformacionEnfermedades();
+					GaleriaEnfermedades c = new GaleriaEnfermedades();
 					c.setVisible(true);
 				}
 			});
@@ -323,13 +323,13 @@ public class Principal extends JFrame {
 		else if(dia.equals("TUESDAY"))
 			diaa = "martes";
 		else if(dia.equals("WEDNESDAY"))
-			diaa = "mi�rcoles";
+			diaa = "miércoles";
 		else if(dia.equals("THURSDAY"))
 			diaa = "jueves";
 		else if(dia.equals("FRIDAY"))
 			diaa = "viernes";
 		else if(dia.equals("SATURDAY"))
-			diaa = "s�bado";
+			diaa = "sábado";
 		else if(dia.equals("SUNDAY"))
 			diaa = "domingo";
 		return diaa;
