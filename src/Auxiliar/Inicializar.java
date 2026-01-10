@@ -81,9 +81,9 @@ public class Inicializar {
 	}
 	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarConsultoriosRegla(){
 		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
-		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "mmm"));
-		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"nnnn"));
-		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"gggg"));
+		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "Casablanca" ));
+		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"Loma Modelo"));
+		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"Guaicanamar"));
 		
 		lista.add(c40);
 		lista.add(c41);
@@ -103,7 +103,7 @@ public class Inicializar {
 	}
 	
 	public static ArrayList<Enfermedad> inicializarEnfermedadesPredefinidas() {
-		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<>();
+		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<Enfermedad>();
 
 		// Enfermedades respiratorias
 		enfermedadesPredefinidas.add(new Enfermedad(

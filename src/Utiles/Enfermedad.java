@@ -162,28 +162,28 @@ public class Enfermedad {
 	}
 
 	/**
-	 * Genera reporte completo
-	 */
-	public String generarReporte() {
-		StringBuilder reporte = new StringBuilder();
-		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
-		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
-		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
-		reporte.append("Duración estimada: ").append(duracion).append("\n");
-		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
-		reporte.append("\nSíntomas comunes:\n");
-
-		for (Sintomas sintoma : sintomasComunes) {
-			reporte.append("� ").append(sintoma.getDescripcion())
-			.append(" (").append(sintoma.getCategoria().getNombre())
-			.append(" - ").append(sintoma.getGravedadBase().getNivel())
-			.append(")\n");
-		}
-
-		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
-
-		return reporte.toString();
-	}
+//	 * Genera reporte completo
+//	 */
+//	public String generarReporte() {
+//		StringBuilder reporte = new StringBuilder();
+//		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
+//		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
+//		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
+//		reporte.append("Duración estimada: ").append(duracion).append("\n");
+//		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
+//		reporte.append("\nSíntomas comunes:\n");
+//
+//		for (Sintomas sintoma : sintomasComunes) {
+//			reporte.append("� ").append(sintoma.getDescripcion())
+//			.append(" (").append(sintoma.getCategoria().getNombre())
+//			.append(" - ").append(sintoma.getGravedadBase().getNivel())
+//			.append(")\n");
+//		}
+//
+//		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
+//
+//		return reporte.toString();
+//	}
 
 	@Override
 	public String toString() {
@@ -198,10 +198,10 @@ public class Enfermedad {
 		return nombre != null ? nombre.equals(that.nombre) : that.nombre == null;
 	}
 
-	@Override
-	public int hashCode() {
-		return nombre != null ? nombre.hashCode() : 0;
-	}
+//	@Override
+//	public int hashCode() {
+//		return nombre != null ? nombre.hashCode() : 0;
+//	}
 
 	// ========== ENUMS INTERNOS (igual que antes) ==========
 
