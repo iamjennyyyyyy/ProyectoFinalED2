@@ -88,6 +88,9 @@ public class Principal extends JFrame {
 	private static Medico medico;
 	private JLabel lblBienvenido;
 	private Sistema s = Sistema.getInstancia();
+	private JPopupMenu popupMenu;
+	private JMenuItem mntmEnfermedadesPorMeses;
+	private JMenuItem mntmEnfermedadesEnConsultorio;
 
 	/**
 	 * Launch the application.
@@ -212,14 +215,16 @@ public class Principal extends JFrame {
 			btnReporte.setForeground(Color.BLACK);
 			btnReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ReporteEnfermedadesConsultorio e = new ReporteEnfermedadesConsultorio(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()));
-					e.setVisible(true);
+					int x = btnReporte.getWidth() + 1;
+				    int y = 0;
+				    popupMenu.show(btnReporte, x, y);
 				}
 			});
 			btnReporte.setFont(new Font("Sylfaen", Font.PLAIN, 30));
 			btnReporte.setBorder(null);
 			btnReporte.setBackground(Colores.getAzulMedio());
 			btnReporte.setBounds(0, 419, 294, 70);
+			addPopup(btnReporte, getPopupMenu());
 		}
 		return btnReporte;
 	}
@@ -433,5 +438,40 @@ public class Principal extends JFrame {
 			lblBienvenido.setBounds(23, 8, 595, 58);
 		}
 		return lblBienvenido;
+	}
+	private JPopupMenu getPopupMenu() {
+		if (popupMenu == null) {
+			popupMenu = new JPopupMenu();
+			popupMenu.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+			popupMenu.add(getMntmEnfermedadesPorMeses());
+			popupMenu.add(getMntmEnfermedadesEnConsultorio());
+		}
+		return popupMenu;
+	}
+	private JMenuItem getMntmEnfermedadesPorMeses() {
+		if (mntmEnfermedadesPorMeses == null) {
+			mntmEnfermedadesPorMeses = new JMenuItem("Enfermedades por meses");
+			mntmEnfermedadesPorMeses.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					ReporteEnfermedadPorMeses e = new ReporteEnfermedadPorMeses(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()));
+					e.setVisible(true);
+				}
+			});
+			mntmEnfermedadesPorMeses.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+		}
+		return mntmEnfermedadesPorMeses;
+	}
+	private JMenuItem getMntmEnfermedadesEnConsultorio() {
+		if (mntmEnfermedadesEnConsultorio == null) {
+			mntmEnfermedadesEnConsultorio = new JMenuItem("Enfermedades en consultorio");
+			mntmEnfermedadesEnConsultorio.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+			mntmEnfermedadesEnConsultorio.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					ReporteEnfermedadesConsultorio e = new ReporteEnfermedadesConsultorio(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()));
+					e.setVisible(true);
+				}
+			});
+		}
+		return mntmEnfermedadesEnConsultorio;
 	}
 }

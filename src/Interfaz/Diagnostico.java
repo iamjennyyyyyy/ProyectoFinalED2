@@ -84,7 +84,7 @@ public class Diagnostico extends JDialog {
 	private JSeparator separator_3;
 	private JLabel lblDireccin;
 	private JSeparator separator_4;
-	private JLabel lblSntomaspresioneCtrl;
+	private JLabel lblSint;
 	private JLabel lblDatosPersonales;
 	private JButton btnSalir;
 	private JTextPane textPaneSint;
@@ -142,7 +142,7 @@ public class Diagnostico extends JDialog {
 		contentPanel.add(getSeparator_4());
 		getContentPane().add(contentPanel);
 		contentPanel.add(getScrollSintomas());
-		contentPanel.add(getLblSntomaspresioneCtrl());
+		contentPanel.add(getLblSint());
 		contentPanel.add(getLblDatosPersonales());
 		contentPanel.add(getBtnSalir());
 		contentPanel.add(getTextPaneSint());
@@ -543,7 +543,7 @@ public class Diagnostico extends JDialog {
 				public void valueChanged(ListSelectionEvent arg0) {
 
 					if (arg0.getValueIsAdjusting()) {
-						return; // El usuario aún está seleccionando
+						return;
 					}
 
 					String mensaje = "";
@@ -575,13 +575,13 @@ public class Diagnostico extends JDialog {
 		return scrollSintomas;
 	}
 
-	private JLabel getLblSntomaspresioneCtrl() {
-		if (lblSntomaspresioneCtrl == null) {
-			lblSntomaspresioneCtrl = new JLabel("S\u00EDntomas:      (Ctrl + Clic para selecci\u00F3n m\u00FAltiple)");
-			lblSntomaspresioneCtrl.setBounds(600, 53, 430, 27);
-			lblSntomaspresioneCtrl.setFont(new Font("Sylfaen", Font.PLAIN, 19));
+	private JLabel getLblSint() {
+		if (lblSint == null) {
+			lblSint = new JLabel("S\u00EDntomas:      (Ctrl + Clic para selecci\u00F3n m\u00FAltiple)");
+			lblSint.setBounds(600, 53, 430, 27);
+			lblSint.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
-		return lblSntomaspresioneCtrl;
+		return lblSint;
 	}
 	private JLabel getLblDatosPersonales() {
 		if (lblDatosPersonales == null) {
@@ -631,8 +631,7 @@ public class Diagnostico extends JDialog {
 					pac = agregarPaciente();
 					if(pac != null){
 						sintomasSel = pac.getSintomas();
-						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " agregado con éxito", "Info", JOptionPane.WARNING_MESSAGE);
-						//AGREGAR AL REGISTRO DEL CONSULTORIO
+						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " agregado con éxito", "Info", JOptionPane.INFORMATION_MESSAGE);
 						scrollSintomas.setVisible(false);
 						scrollEnfermedadess.setVisible(true);
 						btnRegistrar.setVisible(false);
@@ -647,7 +646,7 @@ public class Diagnostico extends JDialog {
 						textPaneEnf.setVisible(true);
 						spinner.setVisible(true);
 						setLista();
-						lblSntomaspresioneCtrl.setText("Enfermedades:   (Ctrl + Clic para selección múltiple)");
+						lblSint.setText("Enfermedades:   (Ctrl + Clic para selección múltiple)");
 					}
 				}
 			});
@@ -751,15 +750,51 @@ public class Diagnostico extends JDialog {
 	}
 
 	private void reiniciar(){
-		sintomasSel = null;
-		textPaneSint.setText("");
-		enfermedadesSel = null;
-		btnRegistrar.setEnabled(false);
-		textId.setText("");
-		textNombre.setText("");
-		textCorreo.setText("");
-		textDireccion.setText("");
-		textTelefono.setText("");
+	    sintomasSel = new ArrayList<Sintomas>();
+	    enfermedadesSel = new ArrayList<Enfermedad>();
+	    
+	    textPaneSint.setText("");
+	    textPaneEnf.setText("");
+	    
+	    pac = null;
+	   
+	    textId.setEnabled(true);
+	    textNombre.setEnabled(true);
+	    textDireccion.setEnabled(true);
+	    textTelefono.setEnabled(true);
+	    textCorreo.setEnabled(true);
+	    
+	    textId.setText("");
+	    textNombre.setText("");
+	    textCorreo.setText("");
+	    textDireccion.setText("");
+	    textTelefono.setText("");
+	    
+	    listSint.setSelectedIndex(-1);
+	    listSint.clearSelection();
+	    listEnf.setSelectedIndex(-1);
+	    listEnf.clearSelection();
+	    
+	    lblEdad.setText("Edad: ");
+	    lblEdad.setForeground(Color.BLACK);
+	    lblSexo.setText("Sexo: ");
+	    
+	    spinner.setValue(1);
+	    
+	    scrollEnfermedadess.setVisible(false);
+	    scrollSintomas.setVisible(true);
+	    btnRegistrar.setVisible(true);
+	    btnDiagnostico.setVisible(false);
+	    btnReiniciar.setVisible(true);
+	    spinner.setVisible(false);
+	    textPaneEnf.setVisible(false);
+	    textPaneSint.setVisible(true);
+	    
+	    lblSint.setText("Síntomas:      (Ctrl + Clic para selección múltiple)");
+	    
+	    btnReiniciar.setEnabled(true);
+	    btnRegistrar.setEnabled(false);
+	    btnDiagnostico.setEnabled(false);
 	}
 	private JScrollPane getScrollEnfermedadess() {
 		if (scrollEnfermedadess == null) {
