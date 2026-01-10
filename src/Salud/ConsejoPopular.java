@@ -118,6 +118,7 @@ public class ConsejoPopular {
 			if(!estados.get(Estado.Epidemia).contains(e)) // si la enfermedad no esta declarada como epidemia 
 			verificarEpidemia(enf, r, finDeEpidemia);// verificar si hay epidemia de esa enfermedad 
 		}
+		System.out.println(estado==null? "nullllll": "bieen");
 			return estado ; 
 	}
 	

@@ -38,6 +38,7 @@ public class GrafoConsejos {
 		ConsejoPopular con = consejosPorPosicion.get(posiciones.get(consejo));
 		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();		
 		if(con.anadirPacienteEnfermo(paciente,finDeEpidemis) == Estado.Epidemia){
+			
 			System.out.print("jjj");
 			ponerEnAlerta(consejo);
 		}
@@ -237,7 +238,7 @@ public class GrafoConsejos {
 	// Getters
 	public ILinkedNotDirectedGraph getGrafo() { return grafo; }
 	public Map<String, Integer> getPosiciones() { return posiciones; }
-
+	public Map<Integer,ConsejoPopular> getConsejosPorPosicion() { return consejosPorPosicion; }
 	// IMPRIMIR GRAFO (para debugging)
 	//	public void imprimirGrafo() {
 	//		System.out.println("=== GRAFO DE CONSEJOS POPULARES ===");
