@@ -22,7 +22,4 @@ public class PacientesPorEnfermedad {
 	public String getEnfermedad() {
 		return enfermedad;
 	}
-
-	
-
 }

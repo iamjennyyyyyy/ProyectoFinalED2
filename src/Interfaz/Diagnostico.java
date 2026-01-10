@@ -30,6 +30,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Auxiliar.Sistema;
+import Persona.Medico;
 import Persona.Paciente;
 import Salud.Consultorio;
 import Salud.Minsap;
@@ -55,6 +57,11 @@ import javax.swing.event.ListSelectionEvent;
 
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
+
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class Diagnostico extends JDialog {
 
@@ -92,11 +99,13 @@ public class Diagnostico extends JDialog {
 	private JButton btnDiagnostico;
 	private Paciente pac;
 	private JTextPane textPaneEnf;
+	private JSpinner spinner;
+	private Medico m;
 
 
 	public static void main(String[] args) {
 		try {
-			Diagnostico dialog = new Diagnostico();
+			Diagnostico dialog = new Diagnostico(Sistema.getInstancia().getMedicos().get(0));
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -107,7 +116,7 @@ public class Diagnostico extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Diagnostico() {
+	public Diagnostico(Medico medico) {
 		setBounds(296, 164, 1070, 558);
 		setUndecorated(true);
 		setModal(true);
@@ -145,6 +154,8 @@ public class Diagnostico extends JDialog {
 		contentPanel.add(getScrollEnfermedadess());
 		contentPanel.add(getBtnDiagnostico());
 		contentPanel.add(getTextPaneEnf());
+		contentPanel.add(getSpinner());
+		m = medico;
 	}
 
 	private JLabel getLblNombre() {
@@ -529,9 +540,16 @@ public class Diagnostico extends JDialog {
 			listSint = new JList<>(modeloSintomas);
 			listSint.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
+
+					if (arg0.getValueIsAdjusting()) {
+						return; // El usuario aún está seleccionando
+					}
+
 					String mensaje = "";
 					int[] pos = listSint.getSelectedIndices();
 					ArrayList<Sintomas> arr = Sintomas.obtenerSintomasPorIndices(pos);
+
+					sintomasSel.clear();
 					for(int i = 0; i < arr.size(); i++){
 						if(i != arr.size()-1)
 							mensaje += arr.get(i).getDescripcion() + ", ";
@@ -611,6 +629,7 @@ public class Diagnostico extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					pac = agregarPaciente();
 					if(pac != null){
+						sintomasSel = pac.getSintomas();
 						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " agregado con éxito", "Info", JOptionPane.WARNING_MESSAGE);
 						//AGREGAR AL REGISTRO DEL CONSULTORIO
 						scrollSintomas.setVisible(false);
@@ -625,6 +644,8 @@ public class Diagnostico extends JDialog {
 						btnReiniciar.setVisible(false);
 						textPaneSint.setVisible(false);
 						textPaneEnf.setVisible(true);
+						spinner.setVisible(true);
+						setLista();
 						lblSntomaspresioneCtrl.setText("Enfermedades:   (Ctrl + Clic para selección múltiple)");
 					}
 				}
@@ -633,6 +654,20 @@ public class Diagnostico extends JDialog {
 		}
 		return btnRegistrar;
 	}
+
+	private void setLista(){
+		DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
+		int valor = Integer.parseInt(spinner.getValue().toString());
+		for(int i = 0; i < sintomasSel.size(); i++){
+			System.out.println(sintomasSel.get(i));
+		}
+		for(Enfermedad s : Minsap.obtenerEnfermedadesConTantosSintomasComunes(sintomasSel, valor)) {
+			modeloEnfermedades.addElement(s.getNombre());
+			System.out.println(s.getNombre() + " " + valor);
+		}
+		listEnf.setModel(modeloEnfermedades);
+	}
+
 	private JTextField getTextDireccion() {
 		if (textDireccion == null) {
 			textDireccion = new JTextField();
@@ -724,16 +759,15 @@ public class Diagnostico extends JDialog {
 	private JScrollPane getScrollEnfermedadess() {
 		if (scrollEnfermedadess == null) {
 			DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
-			for(Enfermedad s : Enfermedad.getEnfermedadesPredefinidas()) {
+			for(Enfermedad s : Minsap.getEnfermedadesActuales()) {
 				modeloEnfermedades.addElement(s.getNombre());
 			}
-
 			listEnf = new JList<>(modeloEnfermedades);
 			listEnf.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
 					String mensaje = "";
 					int[] pos = listEnf.getSelectedIndices();
-					ArrayList<Enfermedad> arr = Enfermedad.obtenerEnfermedadesPorIndices(pos);
+					ArrayList<Enfermedad> arr = Minsap.obtenerEnfermedadesPorIndices(pos, Minsap.obtenerEnfermedadesConTantosSintomasComunes(sintomasSel, Integer.parseInt(spinner.getValue().toString())));
 					for(int i = 0; i < arr.size(); i++){
 						if(i != arr.size()-1)
 							mensaje += arr.get(i).getNombre() + ", ";
@@ -750,7 +784,7 @@ public class Diagnostico extends JDialog {
 			listEnf.setVisibleRowCount(8);
 
 			scrollEnfermedadess = new JScrollPane(listEnf);
-			scrollEnfermedadess.setBounds(600, 105, 371, 167);
+			scrollEnfermedadess.setBounds(600, 104, 371, 180);
 			scrollEnfermedadess.setVisible(false);
 			scrollEnfermedadess.setBorder(new LineBorder(new Color(0, 0, 0)));
 			scrollEnfermedadess.setFont(new Font("Segoe UI", Font.PLAIN, 25));
@@ -764,8 +798,8 @@ public class Diagnostico extends JDialog {
 			btnDiagnostico.setEnabled(false);
 			btnDiagnostico.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					int[] pos = listSint.getSelectedIndices();
-					enfermedadesSel = Enfermedad.obtenerEnfermedadesPorIndices(pos);
+					int[] pos = listEnf.getSelectedIndices();
+					enfermedadesSel = Minsap.obtenerEnfermedadesPorIndices(pos, Minsap.obtenerEnfermedadesConTantosSintomasComunes(sintomasSel, Integer.parseInt(spinner.getValue().toString())));
 					if(enfermedadesSel != null){
 						String enfermedadesDiagnosticadas = "";
 						for(int i = 0; i < enfermedadesSel.size(); i++){
@@ -774,6 +808,7 @@ public class Diagnostico extends JDialog {
 								enfermedadesDiagnosticadas += ", ";
 						}
 						pac.setEnfermedades(enfermedadesSel);
+						Sistema.getInstancia().agregarEnfermo(m.getConsultorio(), pac);
 						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " diagnosticado con " + enfermedadesDiagnosticadas, "Info", JOptionPane.WARNING_MESSAGE);
 						dispose();
 					}
@@ -798,5 +833,21 @@ public class Diagnostico extends JDialog {
 			textPaneEnf.setBounds(600, 308, 371, 122);
 		}
 		return textPaneEnf;
+	}
+	private JSpinner getSpinner() {
+		if (spinner == null) {
+			spinner = new JSpinner();
+			spinner.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					setLista();
+				}
+			});
+			spinner.setVisible(false);
+			spinner.setFont(new Font("Sylfaen", Font.PLAIN, 16));
+			spinner.setModel(new SpinnerNumberModel(new Integer(1), null, null, new Integer(1)));
+			spinner.setToolTipText("Enfermedades con estos s\u00EDntomas en com\u00FAn");
+			spinner.setBounds(999, 104, 50, 30);
+		}
+		return spinner;
 	}
 }

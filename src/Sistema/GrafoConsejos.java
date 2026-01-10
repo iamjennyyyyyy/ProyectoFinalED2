@@ -33,10 +33,12 @@ public class GrafoConsejos {
 
 	// teniendo en cuenta el nombre del consejo 
 	public void agregarEnfermoAlConsejo(Paciente paciente, String consejo){ // agregar enfermo al registro d las enfermedades que tenga 
-				
+		System.out.print(paciente.getNombreCompleto());
+		System.out.print(consejo);
 		ConsejoPopular con = consejosPorPosicion.get(posiciones.get(consejo));
 		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();		
 		if(con.anadirPacienteEnfermo(paciente,finDeEpidemis) == Estado.Epidemia){
+			System.out.print("jjj");
 			ponerEnAlerta(consejo);
 		}
 		if(finDeEpidemis.size()!=0){
