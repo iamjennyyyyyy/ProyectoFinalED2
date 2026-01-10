@@ -10,9 +10,11 @@ import cu.edu.cujae.ceis.tree.iterators.general.InBreadthIterator;
 import Salud.Consultorio;
 import Salud.DireccionMunicipal;
 import Salud.DireccionProvincial;
+import Salud.Minsap;
 import Salud.NodoSalud;
 import Salud.Policlinico;
 import Sistema.Credencial;
+import Utiles.Enfermedad;
 
 public class Sistema {
 
@@ -129,10 +131,10 @@ public class Sistema {
 		BinaryTreeNode<NodoSalud> con = null; 
 
 		while(it.hasNext() && con == null){
-			System.out.println("jjj");
+			
 			BinaryTreeNode<NodoSalud> nn = it.nextNode();
 			NodoSalud nodo = nn.getInfo();
-			System.out.println(((Consultorio)nodo).getNombre());
+			
 			if(nodo instanceof Consultorio){
 				
 				Consultorio c = (Consultorio)nodo;
@@ -185,5 +187,10 @@ public class Sistema {
 
 		}
 		return lista;
+	}
+	
+	public ArrayList<Enfermedad> obtenerEnfermedades(){
+		Minsap m = (Minsap)((BinaryTreeNode<NodoSalud>)sistema.getRoot()).getInfo();
+		return m.getEnfermedadesActuales();
 	}
 }

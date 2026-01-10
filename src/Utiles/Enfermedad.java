@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enfermedad {
+import javax.swing.ImageIcon;
 
+public class Enfermedad {
 	// Atributos
 	private String nombre;
 	private Categoria categoria;
@@ -13,6 +14,7 @@ public class Enfermedad {
 	private ArrayList<Sintomas> sintomasComunes;
 	private String agenteEtiologico;
 	private String duracion;
+	private String ruta;
 	
 	/**
 	 * Constructor completo
@@ -25,8 +27,18 @@ public class Enfermedad {
 		this.sintomasComunes = new ArrayList<>(sintomasComunes);
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
-
 	}
+	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
+			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion, String ruta) {
+		setNombre(nombre);
+		setCategoria(categoria);
+		setGravedadTipica(gravedadTipica);
+		this.sintomasComunes = new ArrayList<>(sintomasComunes);
+		setAgenteEtiologico(agenteEtiologico);
+		setDuracion(duracion);
+		setRuta(ruta);
+	}
+	
 	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion) {
 		setNombre(nombre);
@@ -36,12 +48,16 @@ public class Enfermedad {
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
 	}
+	
 	public Enfermedad() {
 		this.sintomasComunes = new ArrayList<>();
 	}
 
 	// ========== GETTERS Y SETTERS ==========
 
+	public Enfermedad(String string) {
+		nombre = string;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -89,7 +105,28 @@ public class Enfermedad {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
+	
+	public String getRuta() {
+		return ruta;
+	}
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
 
+	public ImageIcon getImage(){
+		return new ImageIcon(ruta);
+	}
+	
+	public String toStringSintomas(){
+		String mensaje = "";
+		for(int i = 0; i < sintomasComunes.size(); i++){
+			if (i == sintomasComunes.size()-1)
+				mensaje += sintomasComunes.get(i).getDescripcion() + ".";
+			else
+				mensaje += sintomasComunes.get(i).getDescripcion() + ", ";
+		}
+		return mensaje;
+	}
 
 	// ========== M�TODOS DE INSTANCIA ==========
 
@@ -163,28 +200,28 @@ public class Enfermedad {
 	}
 
 	/**
-	 * Genera reporte completo
-	 */
-	public String generarReporte() {
-		StringBuilder reporte = new StringBuilder();
-		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
-		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
-		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
-		reporte.append("Duración estimada: ").append(duracion).append("\n");
-		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
-		reporte.append("\nSíntomas comunes:\n");
-
-		for (Sintomas sintoma : sintomasComunes) {
-			reporte.append("� ").append(sintoma.getDescripcion())
-			.append(" (").append(sintoma.getCategoria().getNombre())
-			.append(" - ").append(sintoma.getGravedadBase().getNivel())
-			.append(")\n");
-		}
-
-		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
-
-		return reporte.toString();
-	}
+//	 * Genera reporte completo
+//	 */
+//	public String generarReporte() {
+//		StringBuilder reporte = new StringBuilder();
+//		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
+//		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
+//		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
+//		reporte.append("Duración estimada: ").append(duracion).append("\n");
+//		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
+//		reporte.append("\nSíntomas comunes:\n");
+//
+//		for (Sintomas sintoma : sintomasComunes) {
+//			reporte.append("� ").append(sintoma.getDescripcion())
+//			.append(" (").append(sintoma.getCategoria().getNombre())
+//			.append(" - ").append(sintoma.getGravedadBase().getNivel())
+//			.append(")\n");
+//		}
+//
+//		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
+//
+//		return reporte.toString();
+//	}
 
 	@Override
 	public String toString() {
@@ -199,10 +236,10 @@ public class Enfermedad {
 		return nombre != null ? nombre.equals(that.nombre) : that.nombre == null;
 	}
 
-	@Override
-	public int hashCode() {
-		return nombre != null ? nombre.hashCode() : 0;
-	}
+//	@Override
+//	public int hashCode() {
+//		return nombre != null ? nombre.hashCode() : 0;
+//	}
 
 	// ========== ENUMS INTERNOS (igual que antes) ==========
 

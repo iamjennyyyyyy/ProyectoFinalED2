@@ -17,11 +17,20 @@ import cu.edu.cujae.ceis.tree.general.GeneralTree;
 import cu.edu.cujae.ceis.tree.iterators.general.InBreadthIterator;
 
 public class Minsap extends NodoSalud{
+
+	private static ArrayList<Enfermedad> enfermedadesActuales ;
 	
-	private static ArrayList<Enfermedad> enfermedadesActuales = Inicializar.inicializarEnfermedadesPredefinidas();
 	
+	
+
 	public Minsap(String codigo, String nombre){
 		super(codigo, nombre );
+		enfermedadesActuales = new ArrayList<Enfermedad>();
+		enfermedadesActuales = Inicializar.inicializarEnfermedadesPredefinidas();
+	
+	
+
+
 	}
 
 	public static ArrayList<Enfermedad> getEnfermedadesActuales(){

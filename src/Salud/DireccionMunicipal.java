@@ -29,6 +29,7 @@ public class DireccionMunicipal extends NodoSalud {
 	
 	// anadir enfermo al consejo teniendo el nombre del consejo al que pertenece 
 	public void anadirEnfermo(Paciente p, Consultorio c){
+		
 		grafo.agregarEnfermoAlConsejo(p, c.getConsejoPopular());
 		
 	}

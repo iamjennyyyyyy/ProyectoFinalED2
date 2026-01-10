@@ -48,7 +48,7 @@ public class Inicializar {
 		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion());
 		arbol.insertNode(plaza, habana);
 		BinaryTreeNode<NodoSalud> regla = new BinaryTreeNode<NodoSalud>(inicializarRegla());
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		arbol.insertNode(regla, habana);
 		
 		for(BinaryTreeNode<NodoSalud> n: InicializarAreaDeSaludRegla()){
 			arbol.insertNode(n, regla);
@@ -81,9 +81,9 @@ public class Inicializar {
 	}
 	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarConsultoriosRegla(){
 		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
-		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "mmm"));
-		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"nnnn"));
-		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"gggg"));
+		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "Casablanca" ));
+		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"Loma Modelo"));
+		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"Guaicanamar"));
 		
 		lista.add(c40);
 		lista.add(c41);
@@ -103,7 +103,7 @@ public class Inicializar {
 	}
 	
 	public static ArrayList<Enfermedad> inicializarEnfermedadesPredefinidas() {
-		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<>();
+		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<Enfermedad>();
 
 		// Enfermedades respiratorias
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -111,7 +111,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
 						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
-						"SARS-CoV-2", "7-14 días"
+						"SARS-CoV-2", "7-14 días", "src/Images/Portadas/covid.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -119,7 +119,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Virus de la influenza", "5-7 días"
+						"Virus de la influenza", "5-7 días", "src/Images/Portadas/influenza.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -127,7 +127,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
 						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
 						Sintomas.DOLOR_CABEZA),
-						"Rhinovirus/Coronavirus", "3-10 días"
+						"Rhinovirus/Coronavirus", "3-10 días", "src/Images/Portadas/resfriado.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -135,20 +135,20 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
 						Sintomas.ESCALOFRIOS),
-						"Bacterias/Virus", "2-3 semanas"
+						"Bacterias/Virus", "2-3 semanas", "src/Images/Portadas/neumonia.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Bronquitis aguda", Categoria.RESPIRATORIA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.TOS, Sintomas.CONGESTION_NASAL, Sintomas.CANSANCIO,
 						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
-						"Virus/Bacterias", "1-3 semanas"
+						"Virus/Bacterias", "1-3 semanas", "src/Images/Portadas/bronquitis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
 				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
-				"Trastorno inflamatorio crónico", "Crónica (controlable)"
+				"Trastorno inflamatorio crónico", "Crónica (controlable)", "src/Images/Portadas/asma.jpg"
 				));
 
 		// Enfermedades gastrointestinales
@@ -156,28 +156,28 @@ public class Inicializar {
 				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
-						"Virus/Bacterias/Parásitos", "1-3 días"
+						"Virus/Bacterias/Parásitos", "1-3 días", "src/Images/Portadas/gastroenteritis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Intoxicación alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
 						Sintomas.NAUSEAS, Sintomas.FIEBRE),
-						"Bacterias/Toxinas", "1-2 días"
+						"Bacterias/Toxinas", "1-2 días", "src/Images/Portadas/intoxicacion.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
 						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
-						"Inflamación del colon", "Variable (aguda/crónica)"
+						"Inflamación del colon", "Variable (aguda/crónica)", "src/Images/Portadas/colitis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
-						"Inflamación del apéndice", "Urgente (requiere cirugía)"
+						"Inflamación del apéndice", "Urgente (requiere cirugía)", "src/Images/Portadas/apendicitis.jpg"
 				));
 
 		// Enfermedades transmitidas por vectores
@@ -186,14 +186,14 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
-						"Virus del dengue (Aedes aegypti)", "7-10 días"
+						"Virus del dengue (Aedes aegypti)", "7-10 días", "src/Images/Portadas/dengue.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
-						"Virus Zika (Aedes aegypti)", "2-7 días"
+						"Virus Zika (Aedes aegypti)", "2-7 días", "src/Images/Portadas/zika.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -201,7 +201,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
-						"Virus Chikungunya (Aedes aegypti)", "3-10 días"
+						"Virus Chikungunya (Aedes aegypti)", "3-10 días", "src/Images/Portadas/chinkungunya.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -209,7 +209,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO),
-						"Plasmodium (Anopheles)", "Variable (con tratamiento)"
+						"Plasmodium (Anopheles)", "Variable (con tratamiento)", "src/Images/Portadas/malaaria.jpg"
 				));
 
 		// Enfermedades dermatol�gicas
@@ -217,21 +217,21 @@ public class Inicializar {
 				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
-						"Virus varicela-záster", "10-21 días"
+						"Virus varicela-záster", "10-21 días", "src/Images/Portadas/varicela.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Sarampión", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
 						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
-						"Virus del sarampión", "7-14 días"
+						"Virus del sarampión", "7-14 días", "src/Images/Portadas/sarampion.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Rubéola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
 						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
-						"Virus de la rubéola", "3-7 días"
+						"Virus de la rubéola", "3-7 días", "src/Images/Portadas/rubeola.jpg"
 				));
 
 		// Enfermedades neurol�gicas
@@ -240,7 +240,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.RIGIDEZ,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.CONFUSION,
 						Sintomas.FOTOSENSIBILIDAD),
-						"Bacterias/Virus", "Variable (urgente)"
+						"Bacterias/Virus", "Variable (urgente)", "src/Images/Portadas/meningitis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -248,14 +248,14 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
 						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
 						Sintomas.MAREO),
-						"Virus", "Variable (urgente)"
+						"Virus", "Variable (urgente)", "src/Images/Portadas/encefalitis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Migraña", Categoria.NEUROLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
-						"Trastorno neurológico", "0-1 días"
+						"Trastorno neurológico", "0-1 días", "src/Images/Portadas/migranna.jpg"
 				));
 
 		// Enfermedades cr�nicas
@@ -263,21 +263,21 @@ public class Inicializar {
 				"Hipertensión arterial", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
 						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
-						"Trastorno cardiovascular", "Crónica"
+						"Trastorno cardiovascular", "Crónica", "src/Images/Portadas/hipertension.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
 						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
-						"Trastorno metabólico", "Crónica"
+						"Trastorno metabólico", "Crónica", "src/Images/Portadas/diabetes.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO, Sintomas.FIEBRE),
-						"Enfermedad autoinmune", "Crónica"
+						"Enfermedad autoinmune", "Crónica", "src/Images/Portadas/artritis.jpg"
 				));
 
 		// Enfermedades infecciosas espec�ficas
@@ -286,7 +286,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.TOS, Sintomas.FIEBRE, Sintomas.CANSANCIO,
 						Sintomas.PERDIDA_APETITO, Sintomas.DOLOR_TORACICO,
 						Sintomas.DIFICULTAD_RESPIRAR),
-						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)"
+						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)", "src/Images/Portadas/tuberculosis.jpg"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -294,7 +294,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
 						Sintomas.FIEBRE),
-						"Virus de la hepatitis", "Variable (aguda/crónica)"
+						"Virus de la hepatitis", "Variable (aguda/crónica)", "src/Images/Portadas/hepatitisv.jpg"
 				));
 
 		// S�ndrome cl�nico
@@ -303,7 +303,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
 						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Conjunto de síntomas respiratorios", "5-7 días"
+						"Conjunto de síntomas respiratorios", "5-7 días", "src/Images/Portadas/sindromegripal.jpg"
 				));
 		return enfermedadesPredefinidas;
 	}
@@ -316,7 +316,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
 						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
 						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
-						"SARS-CoV-2", "7-14 días"
+						"SARS-CoV-2", "7-14 días", "src/Images/Portadas/covid.jpg"
 				);
 
         // 1. RAMPA
@@ -641,20 +641,28 @@ public class Inicializar {
         // Insertar vértices en el orden especificado
         grafo.insertVertex(rampa);
         grafoConsejos.getPosiciones().put(rampa.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0, rampa);
         grafo.insertVertex(vedadoMalecon);
         grafoConsejos.getPosiciones().put(vedadoMalecon.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1, vedadoMalecon);
         grafo.insertVertex(vedado);
         grafoConsejos.getPosiciones().put(vedado.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2, vedado);
         grafo.insertVertex(principe);
         grafoConsejos.getPosiciones().put(principe.getNombre(), 3);
+        grafoConsejos.getConsejosPorPosicion().put(3, principe);
         grafo.insertVertex(caramelo);
         grafoConsejos.getPosiciones().put(caramelo.getNombre(), 4);
+        grafoConsejos.getConsejosPorPosicion().put(4,caramelo);
         grafo.insertVertex(colon);
         grafoConsejos.getPosiciones().put(colon.getNombre(), 5);
+        grafoConsejos.getConsejosPorPosicion().put(5,colon);
         grafo.insertVertex(plaza);
         grafoConsejos.getPosiciones().put(plaza.getNombre(), 6);
+        grafoConsejos.getConsejosPorPosicion().put(6,plaza);
         grafo.insertVertex(puentesGrandes);
         grafoConsejos.getPosiciones().put(puentesGrandes.getNombre(), 7);
+        grafoConsejos.getConsejosPorPosicion().put(7,puentesGrandes);
 
         // Crear conexiones (aristas no dirigidas) según las relaciones especificadas
 
@@ -972,18 +980,25 @@ public class Inicializar {
 
          grafo.insertVertex(latinoamericano);
          grafoConsejos.getPosiciones().put(latinoamericano.getNombre(), 0);
+         grafoConsejos.getConsejosPorPosicion().put(0,latinoamericano);
          grafo.insertVertex(pilarAtares);
          grafoConsejos.getPosiciones().put(pilarAtares.getNombre(), 1);
+         grafoConsejos.getConsejosPorPosicion().put(1,pilarAtares);
          grafo.insertVertex(cerro);
          grafoConsejos.getPosiciones().put(cerro.getNombre(), 2);
+         grafoConsejos.getConsejosPorPosicion().put(2,cerro);
          grafo.insertVertex(lasCanas);
          grafoConsejos.getPosiciones().put(lasCanas.getNombre(), 3);
+         grafoConsejos.getConsejosPorPosicion().put(3,lasCanas);
          grafo.insertVertex(elCanal);
          grafoConsejos.getPosiciones().put(elCanal.getNombre(), 4);
+         grafoConsejos.getConsejosPorPosicion().put(4,elCanal);
          grafo.insertVertex(palatino);
          grafoConsejos.getPosiciones().put(palatino.getNombre(), 5);
+         grafoConsejos.getConsejosPorPosicion().put(5,palatino);
          grafo.insertVertex(armada);
          grafoConsejos.getPosiciones().put(armada.getNombre(), 6);
+         grafoConsejos.getConsejosPorPosicion().put(6,armada);
 
         // Crear conexiones (aristas no dirigidas)
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));        // Latinoamericano - Cerro
@@ -1211,14 +1226,19 @@ public class Inicializar {
 
         grafo.insertVertex(cayoHueso);
         grafoConsejos.getPosiciones().put(cayoHueso.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0,cayoHueso);
         grafo.insertVertex(dragones);
         grafoConsejos.getPosiciones().put(dragones.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1,dragones);
         grafo.insertVertex(colon);
         grafoConsejos.getPosiciones().put(colon.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2,colon);
         grafo.insertVertex(puebloNuevo);
         grafoConsejos.getPosiciones().put(puebloNuevo.getNombre(), 3);
+        grafoConsejos.getConsejosPorPosicion().put(3,puebloNuevo);
         grafo.insertVertex(losSitios);
         grafoConsejos.getPosiciones().put(losSitios.getNombre(), 4);
+        grafoConsejos.getConsejosPorPosicion().put(4,losSitios);
 
 
         // Crear conexiones (aristas no dirigidas) seg�n las relaciones especificadas
@@ -1393,10 +1413,13 @@ public class Inicializar {
 
         grafo.insertVertex(casablanca);
         grafoConsejos.getPosiciones().put(casablanca.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0,casablanca);
         grafo.insertVertex(guaicanamar);
         grafoConsejos.getPosiciones().put(guaicanamar.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1,guaicanamar);
         grafo.insertVertex(lomaModelo);
         grafoConsejos.getPosiciones().put(lomaModelo.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2,lomaModelo);
 
         // Crear conexiones (aristas no dirigidas)
         // Casablanca - Guaicanamar

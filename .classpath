@@ -2,9 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/librerias/flatlaf-demo-3.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/librerias/flatlaf-theme-editor-3.6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/librerias/LinkedGraph_1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Jenny/Desktop/Eclipse/ProyectoFinalED2/librerias/tree-package-v3.0.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/flatlaf-demo-3.6.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/flatlaf-theme-editor-3.6.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/jfreechart-1.0.19 (1).jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/LinkedGraph_1.0.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/tree-package-v3.0.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/xchart-3.8.5.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/itextpdf-5.5.13.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

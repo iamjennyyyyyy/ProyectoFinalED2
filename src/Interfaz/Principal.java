@@ -85,7 +85,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmSalir;
 	private JLabel lblConsul;
 	private JButton btnNewButton;
-	private Medico medico;
+	private static Medico medico;
 	private JLabel lblBienvenido;
 	private Sistema s = Sistema.getInstancia();
 
@@ -118,6 +118,11 @@ public class Principal extends JFrame {
 		contentPane.add(getPanelSup());
 		contentPane.add(getMnNewMenu());
 	}
+	
+	public static Medico getMedico(){
+		return medico;
+	}
+	
 	private JPanel getPanelLateral() {
 		if (panelLateral == null) {
 			panelLateral = new JPanel();
@@ -187,7 +192,7 @@ public class Principal extends JFrame {
 			btnEnfermedades.setForeground(Color.BLACK);
 			btnEnfermedades.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					InformacionEnfermedades c = new InformacionEnfermedades();
+					GaleriaEnfermedades c = new GaleriaEnfermedades();
 					c.setVisible(true);
 				}
 			});
@@ -207,7 +212,8 @@ public class Principal extends JFrame {
 			btnReporte.setForeground(Color.BLACK);
 			btnReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-
+					ReporteEnfermedadesConsultorio e = new ReporteEnfermedadesConsultorio(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()));
+					e.setVisible(true);
 				}
 			});
 			btnReporte.setFont(new Font("Sylfaen", Font.PLAIN, 30));
@@ -322,13 +328,13 @@ public class Principal extends JFrame {
 		else if(dia.equals("TUESDAY"))
 			diaa = "martes";
 		else if(dia.equals("WEDNESDAY"))
-			diaa = "mi�rcoles";
+			diaa = "miércoles";
 		else if(dia.equals("THURSDAY"))
 			diaa = "jueves";
 		else if(dia.equals("FRIDAY"))
 			diaa = "viernes";
 		else if(dia.equals("SATURDAY"))
-			diaa = "s�bado";
+			diaa = "sábado";
 		else if(dia.equals("SUNDAY"))
 			diaa = "domingo";
 		return diaa;

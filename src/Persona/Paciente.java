@@ -26,10 +26,21 @@ public class Paciente extends Persona {
 		fechaDiagnostico = LocalDate.now();
 		enfermedades = new ArrayList<Enfermedad>();
 		sintomas = new ArrayList<Sintomas>();
+		fechaDiagnostico= LocalDate.now();
 	}
 	
 	public ArrayList<Enfermedad> getEnfermedad(){
 		return enfermedades;
+	}
+	
+	public boolean tieneEnfermedad(String enf ){
+		boolean tiene = false;
+		for(Enfermedad e: enfermedades){
+			if(e.getNombre().equalsIgnoreCase(enf))
+				tiene = true;
+		}
+		
+		return tiene;
 	}
     
 	public Paciente(){

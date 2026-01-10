@@ -1,6 +1,7 @@
 package Sistema;
 
 import java.util.ArrayList;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,11 +34,12 @@ public class GrafoConsejos {
 
 	// teniendo en cuenta el nombre del consejo 
 	public void agregarEnfermoAlConsejo(Paciente paciente, String consejo){ // agregar enfermo al registro d las enfermedades que tenga 
-		System.out.print(paciente.getNombreCompleto());
-		System.out.print(consejo);
+		
 		ConsejoPopular con = consejosPorPosicion.get(posiciones.get(consejo));
-		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();		
+		ArrayList<Enfermedad> finDeEpidemis = new ArrayList<Enfermedad> ();	
+		
 		if(con.anadirPacienteEnfermo(paciente,finDeEpidemis) == Estado.Epidemia){
+			
 			System.out.print("jjj");
 			ponerEnAlerta(consejo);
 		}
@@ -237,7 +239,7 @@ public class GrafoConsejos {
 	// Getters
 	public ILinkedNotDirectedGraph getGrafo() { return grafo; }
 	public Map<String, Integer> getPosiciones() { return posiciones; }
-
+	public Map<Integer,ConsejoPopular> getConsejosPorPosicion() { return consejosPorPosicion; }
 	// IMPRIMIR GRAFO (para debugging)
 	//	public void imprimirGrafo() {
 	//		System.out.println("=== GRAFO DE CONSEJOS POPULARES ===");

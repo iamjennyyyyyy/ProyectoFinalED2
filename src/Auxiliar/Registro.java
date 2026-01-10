@@ -1,6 +1,7 @@
 package Auxiliar;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class Registro {
@@ -41,6 +42,18 @@ public void anadirCaso(){
 public Registro() {
 	anno= LocalDate.now().getYear();
 	meses = new ArrayList<Mes>(12);// crear los 12 meses aqui en el constructor
+	meses.add(new Mes(Month.JANUARY.toString()));
+	meses.add(new Mes(Month.FEBRUARY.toString()));
+	meses.add(new Mes(Month.MARCH.toString()));
+	meses.add(new Mes(Month.APRIL.toString()));
+	meses.add(new Mes(Month.MAY.toString()));
+	meses.add(new Mes(Month.JUNE.toString()));
+	meses.add(new Mes(Month.JULY.toString()));
+	meses.add(new Mes(Month.AUGUST.toString()));
+	meses.add(new Mes(Month.SEPTEMBER.toString()));
+	meses.add(new Mes(Month.OCTOBER.toString()));
+	meses.add(new Mes(Month.NOVEMBER.toString()));
+	meses.add(new Mes(Month.DECEMBER.toString()));
 }
 
 

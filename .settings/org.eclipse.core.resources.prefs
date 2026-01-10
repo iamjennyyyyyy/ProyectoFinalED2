@@ -1,9 +1,14 @@
+=\=\=\=\=\=\=
+<<<<<<<=Updated upstream
+>>>>>>>=Stashed changes
 eclipse.preferences.version=1
 encoding//src/Auxiliar/Inicializar.java=UTF-8
 encoding//src/Auxiliar/Sistema.java=UTF-8
-encoding//src/Interfaz/InformacionEnfermedades.java=UTF-8
+encoding//src/Interfaz/GaleriaEnfermedades.java=UTF-8
 encoding//src/Interfaz/Login.java=UTF-8
 encoding//src/Interfaz/Principal.java=UTF-8
 encoding//src/Interfaz/PrincipalAdmin.java=UTF-8
+encoding//src/Interfaz/ReporteEnfermedadesConsultorio.java=UTF-8
+encoding//src/Interfaz/VerPacientes.java=UTF-8
 encoding//src/Salud/Minsap.java=UTF-8
 encoding//src/Utiles/Enfermedad.java=UTF-8

@@ -1,11 +1,12 @@
 package Salud;
 
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-
+import Auxiliar.Sistema;
 import Auxiliar.Estado;
 import Auxiliar.Registro;
 import Persona.Paciente;
@@ -24,6 +25,7 @@ public class ConsejoPopular {
 	private Map<Enfermedad, ArrayList<Registro> > registros; // Enfermedad -> Registro
 	
 	
+	
 	public ConsejoPopular(String codigo, String nombre, String municipio, int pob) {
 		setNombre(nombre);
 		setCodigo(codigo);
@@ -34,6 +36,7 @@ public class ConsejoPopular {
 		estado = Estado.Normal;
 		estados= new HashMap<Estado, ArrayList<Enfermedad>>();
 		inicializarEstados();
+		
 		
 	}
 	public ConsejoPopular(String string, String string2, String string3, int i,
@@ -48,15 +51,15 @@ public class ConsejoPopular {
 		
 		registros = registrosLatino; // Enfermedad -> Registr
 		
+		inicializarEstados();
 		
 	}
-	public ConsejoPopular() {
-		// TODO Auto-generated constructor stub
-	}
+	
 	private void inicializarEstados(){
-		for(Estado e: Estado.values()){
-			estados.put(e, new ArrayList<Enfermedad>());
-		}
+		
+			estados.put(Estado.Alerta_Epidemica, new ArrayList<Enfermedad>());
+			estados.put(Estado.Epidemia, new ArrayList<Enfermedad>());
+			estados.put(Estado.Normal, new ArrayList<Enfermedad>());
 		
 	}
 	public Estado getEstado() {
@@ -77,10 +80,14 @@ public class ConsejoPopular {
 		for(Enfermedad e: enf){
 			
 			if(!estados.get(Estado.Epidemia).contains(e)){// no tener en cuenta la enfermedad si ya hay epidemia 
-			registros.get(e).get(registros.size()-1).getMeses().get((LocalDate.now().getDayOfMonth())- 1).declararAlerta();
+				if(!registros.containsKey(e))
+					crearRegistroEnfermedad(e);
+				ArrayList<Registro> registro = registros.get(e);
+			registro.get(registro.size()-1).getMeses().get((LocalDate.now().getMonthValue())- 1).declararAlerta();
 			}
 		}
 	}
+	
 	 public void declararNormalParaEnfermeda(Enfermedad enf){
 		 estados.get(Estado.Alerta_Epidemica).remove(enf);
 		 estados.get(Estado.Normal).add(enf);
@@ -94,9 +101,18 @@ public class ConsejoPopular {
 		 
 	 }
 
-	public ArrayList<Registro> obtenerRegistrosDeEnfermedad(String enfermedad){
+	public ArrayList<Registro> obtenerRegistrosDeEnfermedad(Enfermedad enfermedad){
+		if(!registros.containsKey(enfermedad))
+			crearRegistroEnfermedad(enfermedad);
 		return registros.get(enfermedad);
 	}
+	
+	
+	public void crearRegistroEnfermedad(Enfermedad enfermedad){
+		registros.put(enfermedad, new ArrayList<Registro>());
+		registros.get(enfermedad).add(new Registro());
+	}
+	
 	
 	public Estado anadirPacienteEnfermo(Paciente p, ArrayList<Enfermedad> finDeEpidemia){
 		ArrayList<Enfermedad> e = p.getEnfermedades();
@@ -107,9 +123,9 @@ public class ConsejoPopular {
 				registros.get(enf).add(new Registro());
 			}
 			
-			ArrayList<Registro> r = obtenerRegistrosDeEnfermedad(enf.getNombre());
-			if(r.get(r.size()).getAnno() == LocalDate.now().getYear()){ // si ya existye un registro del anno annadir el caso
-				r.get(r.size()).anadirCaso();
+			ArrayList<Registro> r = obtenerRegistrosDeEnfermedad(enf);
+			if(r.get(r.size()-1).getAnno() == LocalDate.now().getYear()){ // si ya existye un registro del anno annadir el caso
+				r.get(r.size()-1).anadirCaso();
 			}
 			else { // si no existe crearlo y luego annadir el caso
 				r.add(new Registro());
@@ -118,6 +134,7 @@ public class ConsejoPopular {
 			if(!estados.get(Estado.Epidemia).contains(e)) // si la enfermedad no esta declarada como epidemia 
 			verificarEpidemia(enf, r, finDeEpidemia);// verificar si hay epidemia de esa enfermedad 
 		}
+		System.out.println(estado==null? "nullllll": "bieen");
 			return estado ; 
 	}
 	
@@ -133,11 +150,13 @@ public class ConsejoPopular {
 				 noIncluidas++;
 		 }
 		 promedio /= (reg.size()-noIncluidas);
-		 if((reg.get(reg.size()-1).getMeses().get((LocalDate.now().getDayOfMonth())- 1).getCantidadCasos() - promedio)/promedio *100 >= 30){ // verificar que la cantidad de este anno no exceda el 30% de la media historica
-			 reg.get(reg.size()-1).getMeses().get((LocalDate.now().getDayOfMonth())- 1).declararEpidemia();// esto lo debe hacer el registro, hay q cambiarlo y si por ejemplo el mes anterior habia alerta mantener el actual en alerta hasta q se elimine esa alerta 
+		 
+		 if(reg.get(reg.size()-1).getMeses().get((LocalDate.now().getMonthValue())- 1).getCantidadCasos() >= promedio *1.3){ // verificar que la cantidad de este anno no exceda el 30% de la media historica
+			 reg.get(reg.size()-1).getMeses().get((LocalDate.now().getMonthValue())- 1).declararEpidemia();// esto lo debe hacer el registro, hay q cambiarlo y si por ejemplo el mes anterior habia alerta mantener el actual en alerta hasta q se elimine esa alerta 
 			 focoEpidemico=true;
 			 estado = Estado.Epidemia;
 			 estados.get(Estado.Epidemia).add(enf);
+			 
 			 if(estados.get(Estado.Alerta_Epidemica).contains(enf)){// si la enfermedad estaba en alerta removerla de ahi pues fue declarada epidemia 
 				 estados.get(Estado.Alerta_Epidemica).remove(enf);
 				 
@@ -145,7 +164,7 @@ public class ConsejoPopular {
 			 else if(estados.get(Estado.Normal).contains(enf)){// si estaba como normal lo mismo 
 				 estados.get(Estado.Normal).remove(enf);
 			 }
-		 }else if(reg.get(reg.size()-2).getMeses().get((LocalDate.now().getDayOfMonth())- 1).getEstado()!= Estado.Epidemia){	// si lleva 1 mes sin declararse epidemia nuevamente pues eliminarla de la lista de epidemias 
+		 }else if(reg.get(reg.size()-2).getMeses().get((LocalDate.now().getMonthValue())- 1).getEstado()!= Estado.Epidemia){	// si lleva 1 mes sin declararse epidemia nuevamente pues eliminarla de la lista de epidemias 
 			finEpidemia(enf);
 			finDeEpidemia.add(enf);
 		 }
