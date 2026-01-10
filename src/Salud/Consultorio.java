@@ -40,7 +40,7 @@ public class Consultorio extends NodoSalud {
 		int m = LocalDate.now().getMonthValue();
 		boolean listo = false;
 		
-		for(int i = pacientes.size()-1 ; i >= 0 && listo ; i--){
+		for(int i = pacientes.size()-1 ; i >= 0 && !listo ; i--){
 			if(pacientes.get(i).getFechaDiagnostico().getMonthValue() == m){
 				System.out.println("entra al if de la fecha");
 				for(Enfermedad e : pacientes.get(i).getEnfermedades()){

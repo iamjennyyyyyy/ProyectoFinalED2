@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/LinkedGraph_1.0.jar"/>
 	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/tree-package-v3.0.jar"/>
 	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/xchart-3.8.5.jar"/>
+	<classpathentry kind="lib" path="D:/EdFinalproject/ProyectoFinalED2/librerias/itextpdf-5.5.13.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

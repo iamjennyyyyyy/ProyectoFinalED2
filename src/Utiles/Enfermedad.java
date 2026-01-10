@@ -55,6 +55,9 @@ public class Enfermedad {
 
 	// ========== GETTERS Y SETTERS ==========
 
+	public Enfermedad(String string) {
+		nombre = string;
+	}
 	public String getNombre() {
 		return nombre;
 	}

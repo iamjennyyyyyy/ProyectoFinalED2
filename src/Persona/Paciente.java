@@ -32,6 +32,16 @@ public class Paciente extends Persona {
 	public ArrayList<Enfermedad> getEnfermedad(){
 		return enfermedades;
 	}
+	
+	public boolean tieneEnfermedad(String enf ){
+		boolean tiene = false;
+		for(Enfermedad e: enfermedades){
+			if(e.getNombre().equalsIgnoreCase(enf))
+				tiene = true;
+		}
+		
+		return tiene;
+	}
     
 	public Paciente(){
 		super();
