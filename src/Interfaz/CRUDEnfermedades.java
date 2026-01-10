@@ -78,6 +78,7 @@ public class CRUDEnfermedades extends JDialog {
 	private JButton btnSalir;
 	private JTextPane textPaneSint;
 	private JList listSint;
+	private static Enfermedad enfAEditar = null;
 	private JButton btnRegistrar;
 	private JTextField textAgente;
 	private JButton btnReiniciar;
@@ -142,6 +143,10 @@ public class CRUDEnfermedades extends JDialog {
 		contentPanel.add(getLblCategora());
 		contentPanel.add(getLblGravedad());
 		contentPanel.add(getBtnEditar());
+	}
+	
+	private static void setEnfermedadAEditar(Enfermedad e){
+		enfAEditar = e;
 	}
 
 	private JLabel getLblNombre() {

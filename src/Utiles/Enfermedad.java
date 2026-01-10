@@ -113,6 +113,17 @@ public class Enfermedad {
 	public ImageIcon getImage(){
 		return new ImageIcon(ruta);
 	}
+	
+	public String toStringSintomas(){
+		String mensaje = "";
+		for(int i = 0; i < sintomasComunes.size(); i++){
+			if (i == sintomasComunes.size()-1)
+				mensaje += sintomasComunes.get(i).getDescripcion() + ".";
+			else
+				mensaje += sintomasComunes.get(i).getDescripcion() + ", ";
+		}
+		return mensaje;
+	}
 
 	// ========== M�TODOS DE INSTANCIA ==========
 

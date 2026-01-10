@@ -26,6 +26,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import Auxiliar.Sistema;
 import Utiles.Colores;
 
 public class PrincipalAdmin extends JFrame {
@@ -33,7 +34,7 @@ public class PrincipalAdmin extends JFrame {
 	private JPanel contentPane;
 	private JPanel panelLateral;
 	private JButton btnSesion;
-	private JButton btnDiagnostico;
+	private JButton btnMapa;
 	private JButton btnEnfermedades;
 	private JButton btnReporte;
 	private JPanel panelSup;
@@ -91,7 +92,7 @@ public class PrincipalAdmin extends JFrame {
 			panelLateral.setBackground(Colores.getAzulMedio());
 			panelLateral.setLayout(null);
 			panelLateral.add(getBtnSesion());
-			panelLateral.add(getBtnDiagnostico());
+			panelLateral.add(getBtnMapa());
 			panelLateral.add(getBtnEnfermedades());
 			panelLateral.add(getLblNewLabel_2());
 			panelLateral.add(getBtnReportes());
@@ -123,20 +124,26 @@ public class PrincipalAdmin extends JFrame {
 		}
 		return btnSesion;
 	}
-	private JButton getBtnDiagnostico() {
-		if (btnDiagnostico == null) {
-			btnDiagnostico = new JButton("   Mapa", new ImageIcon("src/Images/Iconos/Edit.png"));
-			btnDiagnostico.setHorizontalAlignment(SwingConstants.LEFT);
-			btnDiagnostico.setFocusable(false);
-			btnDiagnostico.setFocusTraversalKeysEnabled(false);
-			btnDiagnostico.setForeground(Color.BLACK);
+	private JButton getBtnMapa() {
+		if (btnMapa == null) {
+			btnMapa = new JButton("   Mapa", new ImageIcon("src/Images/Iconos/Edit.png"));
+			btnMapa.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					MapaHabana m = new MapaHabana(Sistema.getInstancia().getMunicipiosHabana());
+					m.setVisible(true);
+				}
+			});
+			btnMapa.setHorizontalAlignment(SwingConstants.LEFT);
+			btnMapa.setFocusable(false);
+			btnMapa.setFocusTraversalKeysEnabled(false);
+			btnMapa.setForeground(Color.BLACK);
 			
-			btnDiagnostico.setFont(new Font("Sylfaen", Font.PLAIN, 30));
-			btnDiagnostico.setBorder(null);
-			btnDiagnostico.setBackground(Colores.getAzulMedio());
-			btnDiagnostico.setBounds(0, 306, 294, 70);
+			btnMapa.setFont(new Font("Sylfaen", Font.PLAIN, 30));
+			btnMapa.setBorder(null);
+			btnMapa.setBackground(Colores.getAzulMedio());
+			btnMapa.setBounds(0, 306, 294, 70);
 		}
-		return btnDiagnostico;
+		return btnMapa;
 	}
 	private JButton getBtnEnfermedades() {
 		if (btnEnfermedades == null) {
