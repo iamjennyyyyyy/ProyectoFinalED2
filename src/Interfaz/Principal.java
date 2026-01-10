@@ -207,7 +207,8 @@ public class Principal extends JFrame {
 			btnReporte.setForeground(Color.BLACK);
 			btnReporte.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-
+					ReporteEnfermedadesConsultorio e = new ReporteEnfermedadesConsultorio(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()));
+					e.setVisible(true);
 				}
 			});
 			btnReporte.setFont(new Font("Sylfaen", Font.PLAIN, 30));
