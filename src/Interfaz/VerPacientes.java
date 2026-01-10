@@ -759,7 +759,7 @@ public class VerPacientes extends JDialog {
         
         // Eliminar los caracteres diacríticos (tildes, diéresis, etc.)
         texto = texto.replaceAll("\\p{M}", "");
-        
+        System.out.println("para commit");
         return texto;
     }
 }
