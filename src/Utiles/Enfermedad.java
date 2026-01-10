@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 public class Enfermedad {
 	// Atributos
 	private String nombre;
@@ -12,6 +14,7 @@ public class Enfermedad {
 	private ArrayList<Sintomas> sintomasComunes;
 	private String agenteEtiologico;
 	private String duracion;
+	private String ruta;
 	
 	/**
 	 * Constructor completo
@@ -24,8 +27,18 @@ public class Enfermedad {
 		this.sintomasComunes = new ArrayList<>(sintomasComunes);
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
-
 	}
+	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
+			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion, String ruta) {
+		setNombre(nombre);
+		setCategoria(categoria);
+		setGravedadTipica(gravedadTipica);
+		this.sintomasComunes = new ArrayList<>(sintomasComunes);
+		setAgenteEtiologico(agenteEtiologico);
+		setDuracion(duracion);
+		setRuta(ruta);
+	}
+	
 	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion) {
 		setNombre(nombre);
@@ -35,6 +48,7 @@ public class Enfermedad {
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
 	}
+	
 	public Enfermedad() {
 		this.sintomasComunes = new ArrayList<>();
 	}
@@ -88,7 +102,17 @@ public class Enfermedad {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
+	
+	public String getRuta() {
+		return ruta;
+	}
+	public void setRuta(String ruta) {
+		this.ruta = ruta;
+	}
 
+	public ImageIcon getImage(){
+		return new ImageIcon(ruta);
+	}
 
 	// ========== M�TODOS DE INSTANCIA ==========
 
