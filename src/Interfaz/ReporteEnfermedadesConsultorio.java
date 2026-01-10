@@ -140,6 +140,7 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
         try {
             switch(comboReportes.getSelectedIndex()) {
                 case 0: // Día actual
+                	System.out.println("escogido");
                     datosEnfermedades = consultorio.pacientesEsteDia();
                     break;
                 case 1: // Mes actual

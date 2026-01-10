@@ -352,6 +352,7 @@ public class Diagnostico extends JDialog {
 			u.setNumero(telefono);
 			u.setDireccion(direccion);
 			u.setSintomas(sintomasSel);
+			u.setFechaDiagnostico(LocalDate.now());
 		}
 		return u;
 	}
