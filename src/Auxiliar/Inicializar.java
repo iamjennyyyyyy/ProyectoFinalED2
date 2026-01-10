@@ -9,13 +9,17 @@ import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
+import Persona.Medico;
+import Salud.AreaDeSalud;
 import Salud.ConsejoPopular;
+import Salud.Consultorio;
 import Salud.DireccionMunicipal;
 
 
 import Salud.DireccionProvincial;
 import Salud.Minsap;
 import Salud.NodoSalud;
+import Sistema.Credencial;
 import Sistema.GrafoConsejos;
 import Utiles.Enfermedad;
 import Utiles.Enfermedad;
@@ -31,20 +35,278 @@ import Auxiliar.Registro;
 public class Inicializar {
 	
 	public static GeneralTree<NodoSalud> inicializarArbol(){
+		
 		GeneralTree<NodoSalud> arbol = new GeneralTree<>();
 		BinaryTreeNode<NodoSalud> minsap = new BinaryTreeNode<NodoSalud>(new Minsap(" ","Ministerio de Salud Publica"));
 		arbol.setRoot(minsap);
 		BinaryTreeNode<NodoSalud> habana = new BinaryTreeNode<NodoSalud>(new DireccionProvincial(" "," ","La Habana"));
 		arbol.insertNode(habana, minsap);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCentroHabana()), habana);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarCerro()), habana);
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion()), habana);
+		BinaryTreeNode<NodoSalud> centroHabana = new BinaryTreeNode<NodoSalud>(inicializarCentroHabana());
+		arbol.insertNode(centroHabana, habana);
+		BinaryTreeNode<NodoSalud> cerro = new BinaryTreeNode<NodoSalud>(inicializarCerro());
+		arbol.insertNode(cerro, habana);
+		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion());
+		arbol.insertNode(plaza, habana);
+		BinaryTreeNode<NodoSalud> regla = new BinaryTreeNode<NodoSalud>(inicializarRegla());
 		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		
+		for(BinaryTreeNode<NodoSalud> n: InicializarAreaDeSaludRegla()){
+			arbol.insertNode(n, regla);
+			for(BinaryTreeNode<NodoSalud> m: InicializarConsultoriosRegla()){
+				arbol.insertNode(m, n);
+			}
+		}
+		
+		
 		
 		return arbol;
 	}
 	
+	public static ArrayList<Medico> inicializarMedicos(){
+		ArrayList<Medico> medicos = new ArrayList<Medico>();
+		medicos.add(new Medico("01031267912", "Catalina Pérez Fonseca", "76541289", "catlinafonseca@gmail.com","Calle 314/45 y 47, La Lisa" ,"HAB-LISA-CRISTOBAL-001"));
+		medicos.add(new Medico("02041267922", "Luis Manuel Gutierrez Castillo", "76341289", "luismgutierrez@gmail.com","Calle 214/15 y 17, La Lisa" ,"HAB-LISA-CRISTOBAL-002"));
+		medicos.add(new Medico("03021267922", "Pedro Lamas Pérez", "76541239", "pedrolamas@gmail.com","Calle 114/65 y 67, La Lisa" ,"HAB-LISA-CRISTOBAL-003"));
+		return medicos;
+	}
 	
+	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarAreaDeSaludRegla(){
+		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
+		AreaDeSalud a = new AreaDeSalud(" ", " ", " ");
+		BinaryTreeNode<NodoSalud> ar = new BinaryTreeNode<>();
+		lista.add(ar);
+		
+		return lista;
+		
+	}
+	public static ArrayList<BinaryTreeNode<NodoSalud>> InicializarConsultoriosRegla(){
+		ArrayList<BinaryTreeNode<NodoSalud>> lista = new ArrayList<>();
+		BinaryTreeNode<NodoSalud> c40 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-001", "Consultorio_40", 40, "mmm"));
+		BinaryTreeNode<NodoSalud> c41 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-002", "Consultorio_41", 41,"nnnn"));
+		BinaryTreeNode<NodoSalud> c42 = new BinaryTreeNode<NodoSalud>(new Consultorio("HAB-LISA-CRISTOBAL-003", "Consultorio_42", 42,"gggg"));
+		
+		lista.add(c40);
+		lista.add(c41);
+		lista.add(c42);
+		
+		return lista;
+		
+	}
+	
+	public static ArrayList<Credencial> inicializarCredenciales(){
+		ArrayList<Credencial> credenciales = new ArrayList<Credencial>();
+		ArrayList<Medico> medicos = inicializarMedicos();
+		credenciales.add(new Credencial(medicos.get(0).getId(), "catPerez01", "cat2001*"));
+		credenciales.add(new Credencial(medicos.get(1).getId(), "luismgut02", "luism2002*"));
+		credenciales.add(new Credencial(medicos.get(2).getId(), "pedrolamas03", "pedrol2003*"));
+		return credenciales;
+	}
+	
+	public static ArrayList<Enfermedad> inicializarEnfermedadesPredefinidas() {
+		ArrayList<Enfermedad> enfermedadesPredefinidas = new ArrayList<>();
+
+		// Enfermedades respiratorias
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
+						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
+						"SARS-CoV-2", "7-14 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Influenza (Gripe)", Categoria.RESPIRATORIA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
+						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
+						"Virus de la influenza", "5-7 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Resfriado común", Categoria.RESPIRATORIA, Gravedad.LEVE,
+				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
+						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
+						Sintomas.DOLOR_CABEZA),
+						"Rhinovirus/Coronavirus", "3-10 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Neumonía", Categoria.RESPIRATORIA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
+						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
+						Sintomas.ESCALOFRIOS),
+						"Bacterias/Virus", "2-3 semanas"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Bronquitis aguda", Categoria.RESPIRATORIA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.TOS, Sintomas.CONGESTION_NASAL, Sintomas.CANSANCIO,
+						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
+						"Virus/Bacterias", "1-3 semanas"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
+				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
+				"Trastorno inflamatorio crónico", "Crónica (controlable)"
+				));
+
+		// Enfermedades gastrointestinales
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
+						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
+						"Virus/Bacterias/Parásitos", "1-3 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Intoxicación alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
+						Sintomas.NAUSEAS, Sintomas.FIEBRE),
+						"Bacterias/Toxinas", "1-2 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
+						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
+						"Inflamación del colon", "Variable (aguda/crónica)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
+						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
+						"Inflamación del apéndice", "Urgente (requiere cirugía)"
+				));
+
+		// Enfermedades transmitidas por vectores
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Dengue", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
+						"Virus del dengue (Aedes aegypti)", "7-10 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
+						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
+						"Virus Zika (Aedes aegypti)", "2-7 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Chikungunya", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
+						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
+						"Virus Chikungunya (Aedes aegypti)", "3-10 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Malaria", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.CANSANCIO),
+						"Plasmodium (Anopheles)", "Variable (con tratamiento)"
+				));
+
+		// Enfermedades dermatol�gicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
+						"Virus varicela-záster", "10-21 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Sarampión", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
+						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
+						"Virus del sarampión", "7-14 días"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Rubéola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
+						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
+						"Virus de la rubéola", "3-7 días"
+				));
+
+		// Enfermedades neurol�gicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Meningitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.RIGIDEZ,
+						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.CONFUSION,
+						Sintomas.FOTOSENSIBILIDAD),
+						"Bacterias/Virus", "Variable (urgente)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Encefalitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
+						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
+						Sintomas.MAREO),
+						"Virus", "Variable (urgente)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Migraña", Categoria.NEUROLOGICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
+						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
+						"Trastorno neurológico", "0-1 días"
+				));
+
+		// Enfermedades cr�nicas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Hipertensión arterial", Categoria.CRONICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
+						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
+						"Trastorno cardiovascular", "Crónica"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
+						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
+						"Trastorno metabólico", "Crónica"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
+				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.CANSANCIO, Sintomas.FIEBRE),
+						"Enfermedad autoinmune", "Crónica"
+				));
+
+		// Enfermedades infecciosas espec�ficas
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Tuberculosis", Categoria.INFECCIOSA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.TOS, Sintomas.FIEBRE, Sintomas.CANSANCIO,
+						Sintomas.PERDIDA_APETITO, Sintomas.DOLOR_TORACICO,
+						Sintomas.DIFICULTAD_RESPIRAR),
+						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)"
+				));
+
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Hepatitis viral", Categoria.INFECCIOSA, Gravedad.GRAVE,
+				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
+						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
+						Sintomas.FIEBRE),
+						"Virus de la hepatitis", "Variable (aguda/crónica)"
+				));
+
+		// S�ndrome cl�nico
+		enfermedadesPredefinidas.add(new Enfermedad(
+				"Síndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
+				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
+						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
+						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
+						"Conjunto de síntomas respiratorios", "5-7 días"
+				));
+		return enfermedadesPredefinidas;
+	}
 	
 	
     public static DireccionMunicipal inicializarPlazaRevolucion(){

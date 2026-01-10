@@ -27,6 +27,9 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.CompoundBorder;
 
+import Auxiliar.Sistema;
+import Persona.Medico;
+import Sistema.Credencial;
 import Utiles.Colores;
 
 public class Login extends JDialog {
@@ -43,6 +46,7 @@ public class Login extends JDialog {
 	private JButton btnSalir;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel_1;
+	Sistema s = Sistema.getInstancia();
 
 	/**
 	 * Launch the application.
@@ -152,16 +156,40 @@ public class Login extends JDialog {
 		}
 		return separator_1;
 	}
+	
+	private Medico obtenerCredencial(){
+		String contrasenna = new String(passwordField.getPassword());
+		String usuario = txtIngreseUnNombre.getText();
+		Medico med = null;
+		
+		for(Credencial c : s.getCredenciales()){
+			if(c.getUsuario().equals(usuario) && c.getContrasenna().equals(contrasenna)){
+				med = s.buscarMedicoPorId(c.getIdMedico());
+			}
+		}
+		return med;
+	}
+	
+	private boolean isAdmin(){
+		String contrasenna = new String(passwordField.getPassword());
+		String usuario = txtIngreseUnNombre.getText();
+		return contrasenna.equals("06071267912") && usuario.equals("jenn006");
+	}
+	
 	private JButton getBtnIniciarSesion() {
 		if (btnIniciarSesion == null) {
 			btnIniciarSesion = new JButton("Entrar");
 			btnIniciarSesion.setBackground(Colores.getAzulLogin());
 			btnIniciarSesion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					char[] contrasenna = passwordField.getPassword();
-					char[] contrasennaValida = "06071267912".toCharArray();
 					try {
-						if(Arrays.equals(contrasenna, contrasennaValida) && txtIngreseUnNombre.getText().equals("jenn006")){
+						Medico medicoLog = obtenerCredencial();
+						if(medicoLog != null){
+							dispose();
+							Principal p = new Principal(medicoLog);
+							p.setVisible(true);
+						}
+						else if(isAdmin()){
 							dispose();
 							PrincipalAdmin p = new PrincipalAdmin();
 							p.setVisible(true);
@@ -170,9 +198,7 @@ public class Login extends JDialog {
 							JOptionPane.showMessageDialog(Login.this,"Credenciales incorrectas", "Error",JOptionPane.ERROR_MESSAGE);
 						}
 					} finally {
-						// Limpiar contrase�as de memoria
-						Arrays.fill(contrasenna, '\0');
-						Arrays.fill(contrasennaValida, '\0');
+						txtIngreseUnNombre.setText("");
 						passwordField.setText("");
 					}
 				}

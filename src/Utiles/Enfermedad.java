@@ -2,29 +2,17 @@ package Utiles;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import Auxiliar.Inicializar;
-
-/**
- * Clase que representa las principales enfermedades que pueden ser diagnosticadas
- * bas�ndose en los s�ntomas presentados por el paciente.
- * Versi�n compatible con Java 1.8.0
- */
 public class Enfermedad {
 	// Atributos
 	private String nombre;
 	private Categoria categoria;
 	private Gravedad gravedadTipica;
-	private List<Sintomas> sintomasComunes;
+	private ArrayList<Sintomas> sintomasComunes;
 	private String agenteEtiologico;
-	private String duracion; // Nuevo atributo
+	private String duracion;
 	
-
-	// Enfermedades predefinidas (simulando el enum)
-	private static ArrayList<Enfermedad> enfermedadesPredefinidas;
-
 	/**
 	 * Constructor completo
 	 */
@@ -36,7 +24,7 @@ public class Enfermedad {
 		this.sintomasComunes = new ArrayList<>(sintomasComunes);
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
-		
+
 	}
 	public Enfermedad(String nombre, Categoria categoria, Gravedad gravedadTipica, 
 			List<Sintomas> sintomasComunes, String agenteEtiologico, String duracion) {
@@ -47,328 +35,8 @@ public class Enfermedad {
 		setAgenteEtiologico(agenteEtiologico);
 		setDuracion(duracion);
 	}
-
-	/**
-	 * Constructor vac�o
-	 */
 	public Enfermedad() {
 		this.sintomasComunes = new ArrayList<>();
-	}
-
-
-	// ========== M�TODO PARA INICIALIZAR ENFERMEDADES PREDEFINIDAS ==========
-
-	/**
-	 * Inicializa las enfermedades predefinidas (equivalente al enum)
-	 */
-	public static void inicializarEnfermedadesPredefinidas() {
-		enfermedadesPredefinidas = new ArrayList<>();
-
-		// Enfermedades respiratorias
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"COVID-19", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
-						Sintomas.CANSANCIO, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA,
-						Sintomas.DOLOR_GARGANTA, Sintomas.PERDIDA_APETITO),
-						"SARS-CoV-2", "7-14 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Influenza (Gripe)", Categoria.RESPIRATORIA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
-						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
-						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Virus de la influenza", "5-7 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Resfriado com�n", Categoria.RESPIRATORIA, Gravedad.LEVE,
-				Arrays.asList(Sintomas.CONGESTION_NASAL, Sintomas.ESTORNUDOS,
-						Sintomas.DOLOR_GARGANTA, Sintomas.TOS,
-						Sintomas.DOLOR_CABEZA),
-						"Rhinovirus/Coronavirus", "3-10 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Neumon�a", Categoria.RESPIRATORIA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DIFICULTAD_RESPIRAR,
-						Sintomas.DOLOR_TORACICO, Sintomas.CANSANCIO,
-						Sintomas.ESCALOFRIOS),
-						"Bacterias/Virus", "2-3 semanas"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Bronquitis aguda", Categoria.RESPIRATORIA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.TOS, Sintomas.CONGESTION_NASAL, Sintomas.CANSANCIO,
-						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
-						"Virus/Bacterias", "1-3 semanas"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Asma", Categoria.RESPIRATORIA, Gravedad.VARIABLE,
-				Arrays.asList(Sintomas.DIFICULTAD_RESPIRAR, Sintomas.TOS, Sintomas.CONGESTION_NASAL),
-				"Trastorno inflamatorio cr�nico", "Cr�nica (controlable)"
-				));
-
-		// Enfermedades gastrointestinales
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Gastroenteritis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.DIARREA, Sintomas.VOMITOS, Sintomas.NAUSEAS,
-						Sintomas.DOLOR_ABDOMINAL, Sintomas.FIEBRE),
-						"Virus/Bacterias/Par�sitos", "1-3 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Intoxicaci�n alimentaria", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.VOMITOS, Sintomas.DIARREA, Sintomas.DOLOR_ABDOMINAL,
-						Sintomas.NAUSEAS, Sintomas.FIEBRE),
-						"Bacterias/Toxinas", "24-48 horas"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
-						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
-						"Inflamaci�n del colon", "Variable (aguda/cr�nica)"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Apendicitis", Categoria.GASTROINTESTINAL, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.NAUSEAS, Sintomas.VOMITOS,
-						Sintomas.FIEBRE, Sintomas.PERDIDA_APETITO),
-						"Inflamaci�n del ap�ndice", "Urgente (requiere cirug�a)"
-				));
-
-		// Enfermedades transmitidas por vectores
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Dengue", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
-						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
-						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
-						"Virus del dengue (Aedes aegypti)", "7-10 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Zika", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.DOLOR_ARTICULAR,
-						Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_CABEZA, Sintomas.CONJUNTIVITIS),
-						"Virus Zika (Aedes aegypti)", "2-7 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Chikungunya", Categoria.TRANSMITIDA_VECTOR, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
-						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
-						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
-						"Virus Chikungunya (Aedes aegypti)", "3-10 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Malaria", Categoria.TRANSMITIDA_VECTOR, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
-						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
-						Sintomas.CANSANCIO),
-						"Plasmodium (Anopheles)", "Variable (con tratamiento)"
-				));
-
-		// Enfermedades dermatol�gicas
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Varicela", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.PICOR,
-						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO),
-						"Virus varicela-z�ster", "10-21 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Sarampi�n", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
-						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
-						"Virus del sarampi�n", "7-14 d�as"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Rub�ola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
-						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
-						"Virus de la rub�ola", "3-7 d�as"
-				));
-
-		// Enfermedades neurol�gicas
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Meningitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.RIGIDEZ,
-						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.CONFUSION,
-						Sintomas.FOTOSENSIBILIDAD),
-						"Bacterias/Virus", "Variable (urgente)"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Encefalitis", Categoria.NEUROLOGICA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
-						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
-						Sintomas.MAREO),
-						"Virus", "Variable (urgente)"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Migra�a", Categoria.NEUROLOGICA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
-						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
-						"Trastorno neurol�gico", "4-72 horas"
-				));
-
-		// Enfermedades cr�nicas
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Hipertensi�n arterial", Categoria.CRONICA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.MAREO, Sintomas.CONFUSION,
-						Sintomas.DOLOR_TORACICO, Sintomas.DIFICULTAD_RESPIRAR),
-						"Trastorno cardiovascular", "Cr�nica"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Diabetes mellitus", Categoria.CRONICA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.CANSANCIO, Sintomas.PERDIDA_APETITO, Sintomas.NAUSEAS,
-						Sintomas.VOMITOS, Sintomas.CONFUSION, Sintomas.PERDIDA_CONOCIMIENTO),
-						"Trastorno metab�lico", "Cr�nica"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
-				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
-						Sintomas.CANSANCIO, Sintomas.FIEBRE),
-						"Enfermedad autoinmune", "Cr�nica"
-				));
-
-		// Enfermedades infecciosas espec�ficas
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Tuberculosis", Categoria.INFECCIOSA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.TOS, Sintomas.FIEBRE, Sintomas.CANSANCIO,
-						Sintomas.PERDIDA_APETITO, Sintomas.DOLOR_TORACICO,
-						Sintomas.DIFICULTAD_RESPIRAR),
-						"Mycobacterium tuberculosis", "6-9 meses (con tratamiento)"
-				));
-
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"Hepatitis viral", Categoria.INFECCIOSA, Gravedad.GRAVE,
-				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
-						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
-						Sintomas.FIEBRE),
-						"Virus de la hepatitis", "Variable (aguda/cr�nica)"
-				));
-
-		// S�ndrome cl�nico
-		enfermedadesPredefinidas.add(new Enfermedad(
-				"S�ndrome gripal", Categoria.SINDROME, Gravedad.LEVE,
-				Arrays.asList(Sintomas.FIEBRE, Sintomas.TOS, Sintomas.DOLOR_GARGANTA,
-						Sintomas.CONGESTION_NASAL, Sintomas.DOLOR_MUSCULAR,
-						Sintomas.DOLOR_CABEZA, Sintomas.CANSANCIO),
-						"Conjunto de s�ntomas respiratorios", "5-7 d�as"
-				));
-	}
-
-
-	// ========== M�TODOS EST�TICOS PARA ACCEDER A LAS ENFERMEDADES ==========
-
-	/**
-	 * Obtiene todas las enfermedades predefinidas
-	 */
-	public static ArrayList<Enfermedad> getEnfermedadesPredefinidas() {
-		if (enfermedadesPredefinidas == null) {
-			Inicializar.inicializarEnfermedadesPredefinidas();
-		}
-		return new ArrayList<>(enfermedadesPredefinidas);
-	}
-
-	/**
-	 * Obtiene enfermedades por categor�a
-	 */
-	public static ArrayList<Enfermedad> getEnfermedadesPorCategoria(Categoria categoria) {
-		ArrayList<Enfermedad> resultado = new ArrayList<>();
-		for (Enfermedad e : getEnfermedadesPredefinidas()) {
-			if (e.getCategoria() == categoria) {
-				resultado.add(e);
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * Obtiene enfermedades por gravedad
-	 */
-	public static ArrayList<Enfermedad> getEnfermedadesPorGravedad(Gravedad gravedad) {
-		ArrayList<Enfermedad> resultado = new ArrayList<>();
-		for (Enfermedad e : getEnfermedadesPredefinidas()) {
-			if (e.getGravedadTipica() == gravedad) {
-				resultado.add(e);
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * Busca enfermedades por nombre
-	 */
-	public static List<Enfermedad> buscarPorNombre(String texto) {
-		String textoBusqueda = texto.toLowerCase();
-		List<Enfermedad> resultado = new ArrayList<>();
-		for (Enfermedad e : getEnfermedadesPredefinidas()) {
-			if (e.getNombre().toLowerCase().contains(textoBusqueda)) {
-				resultado.add(e);
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * Obtiene enfermedades epid�micas comunes
-	 */
-	public static List<Enfermedad> getEnfermedadesEpidemicasComunes() {
-		List<String> nombresComunes = Arrays.asList(
-				"COVID-19", "Influenza (Gripe)", "Dengue", 
-				"Gastroenteritis", "Varicela", "Resfriado com�n"
-				);
-
-		List<Enfermedad> resultado = new ArrayList<>();
-		for (Enfermedad e : getEnfermedadesPredefinidas()) {
-			if (nombresComunes.contains(e.getNombre())) {
-				resultado.add(e);
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * Obtiene enfermedades por �ndices (para JList)
-	 */
-	public static ArrayList<Enfermedad> obtenerEnfermedadesPorIndices(int[] pos) {
-		ArrayList<Enfermedad> todas = getEnfermedadesPredefinidas();
-		ArrayList<Enfermedad> resultado = new ArrayList<>();
-		for (int i = 0; i < pos.length; i++) {
-			if (pos[i] >= 0 && pos[i] < todas.size()) {
-				resultado.add(todas.get(pos[i]));
-			}
-		}
-		return resultado;
-	}
-
-	/**
-	 * M�todo para diagnosticar enfermedades basadas en s�ntomas
-	 */
-	public static List<DiagnosticoEnfermedad> diagnosticar(List<Sintomas> sintomasPaciente) {
-		List<DiagnosticoEnfermedad> diagnosticos = new ArrayList<>();
-
-		if (sintomasPaciente == null || sintomasPaciente.isEmpty()) {
-			return diagnosticos;
-		}
-
-		for (Enfermedad enfermedad : getEnfermedadesPredefinidas()) {
-			double probabilidad = enfermedad.calcularProbabilidad(sintomasPaciente);
-			if (probabilidad > 30.0) { // Umbral m�nimo del 30%
-				diagnosticos.add(new DiagnosticoEnfermedad(enfermedad, probabilidad));
-			}
-		}
-
-		return diagnosticos;
 	}
 
 	// ========== GETTERS Y SETTERS ==========
@@ -420,189 +88,201 @@ public class Enfermedad {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
-	
+
 
 	// ========== M�TODOS DE INSTANCIA ==========
 
-			/**
-			 * Calcula la probabilidad de esta enfermedad basada en s�ntomas presentes
-			 */
-			 public double calcularProbabilidad(List<Sintomas> sintomasPaciente) {
-				 if (sintomasPaciente == null || sintomasPaciente.isEmpty() || sintomasComunes.isEmpty()) {
-					 return 0.0;
-				 }
+	/**
+	 * Calcula la probabilidad de esta enfermedad basada en s�ntomas presentes
+	 */
+	public double calcularProbabilidad(List<Sintomas> sintomasPaciente) {
+		if (sintomasPaciente == null || sintomasPaciente.isEmpty() || sintomasComunes.isEmpty()) {
+			return 0.0;
+		}
 
-				 int coincidencias = 0;
-				 for (Sintomas sintoma : sintomasPaciente) {
-					 if (sintomasComunes.contains(sintoma)) {
-						 coincidencias++;
-					 }
-				 }
+		int coincidencias = 0;
+		for (Sintomas sintoma : sintomasPaciente) {
+			if (sintomasComunes.contains(sintoma)) {
+				coincidencias++;
+			}
+		}
 
-				 double porcentaje = (double) coincidencias / sintomasComunes.size() * 100;
+		double porcentaje = (double) coincidencias / sintomasComunes.size() * 100;
 
-				 if (coincidencias >= sintomasComunes.size() * 0.7) {
-					 porcentaje += 10;
-				 }
+		if (coincidencias >= sintomasComunes.size() * 0.7) {
+			porcentaje += 10;
+		}
 
-				 return Math.min(porcentaje, 100.0);
-			 }
+		return Math.min(porcentaje, 100.0);
+	}
+	
+	public boolean enfermedadConCantidadDeSintomas(List<Sintomas> sintomasPaciente, int cant) {
+		
+		int coincidencias = 0;
+		for (int i = 0; i < sintomasPaciente.size(); i++) {
+			if (sintomasComunes.contains(sintomasPaciente.get(i))) {
+				coincidencias++;
+			}
+		}
 
-			 /**
-			  * Obtiene coincidencias de s�ntomas
-			  */
-			 public int getCoincidenciasSintomas(List<Sintomas> sintomasPaciente) {
-				 int coincidencias = 0;
-				 for (Sintomas sintoma : sintomasPaciente) {
-					 if (sintomasComunes.contains(sintoma)) {
-						 coincidencias++;
-					 }
-				 }
-				 return coincidencias;
-			 }
+		return coincidencias >= cant;
+	}
 
-			 /**
-			  * Verifica si es una enfermedad urgente
-			  */
-			 public boolean esUrgente() {
-				 return gravedadTipica == Gravedad.GRAVE || gravedadTipica == Gravedad.MUY_GRAVE;
-			 }
+	/**
+	 * Obtiene coincidencias de s�ntomas
+	 */
+	public int getCoincidenciasSintomas(List<Sintomas> sintomasPaciente) {
+		int coincidencias = 0;
+		for (Sintomas sintoma : sintomasPaciente) {
+			if (sintomasComunes.contains(sintoma)) {
+				coincidencias++;
+			}
+		}
+		return coincidencias;
+	}
 
-			 /**
-			  * Obtiene recomendaciones b�sicas
-			  */
-			 public String getRecomendacionBasica() {
-				 if (esUrgente()) {
-					 return "Acudir inmediatamente a un centro de salud";
-				 } else if (gravedadTipica == Gravedad.MODERADA) {
-					 return "Consultar con m�dico en las pr�ximas 24-48 horas";
-				 } else {
-					 return "Descansar, hidratarse y monitorear s�ntomas";
-				 }
-			 }
+	/**
+	 * Verifica si es una enfermedad urgente
+	 */
+	public boolean esUrgente() {
+		return gravedadTipica == Gravedad.GRAVE || gravedadTipica == Gravedad.MUY_GRAVE;
+	}
 
-			 /**
-			  * Genera reporte completo
-			  */
-			 public String generarReporte() {
-				 StringBuilder reporte = new StringBuilder();
-				 reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
-				 reporte.append("Categor�a: ").append(categoria.getNombre()).append("\n");
-				 reporte.append("Gravedad t�pica: ").append(gravedadTipica.getNivel()).append("\n");
-				 reporte.append("Duraci�n estimada: ").append(duracion).append("\n");
-				 reporte.append("Agente etiol�gico: ").append(agenteEtiologico).append("\n");
-				 reporte.append("\nS�ntomas comunes:\n");
+	/**
+	 * Obtiene recomendaciones b�sicas
+	 */
+	public String getRecomendacionBasica() {
+		if (esUrgente()) {
+			return "Acudir inmediatamente a un centro de salud";
+		} else if (gravedadTipica == Gravedad.MODERADA) {
+			return "Consultar con médico en las próximas 24-48 horas";
+		} else {
+			return "Descansar, hidratarse y monitorear síntomas";
+		}
+	}
 
-				 for (Sintomas sintoma : sintomasComunes) {
-					 reporte.append("� ").append(sintoma.getDescripcion())
-					 .append(" (").append(sintoma.getCategoria().getNombre())
-					 .append(" - ").append(sintoma.getGravedadBase().getNivel())
-					 .append(")\n");
-				 }
+	/**
+	 * Genera reporte completo
+	 */
+	public String generarReporte() {
+		StringBuilder reporte = new StringBuilder();
+		reporte.append("ENFERMEDAD: ").append(nombre).append("\n");
+		reporte.append("Categoría: ").append(categoria.getNombre()).append("\n");
+		reporte.append("Gravedad típica: ").append(gravedadTipica.getNivel()).append("\n");
+		reporte.append("Duración estimada: ").append(duracion).append("\n");
+		reporte.append("Agente etiológico: ").append(agenteEtiologico).append("\n");
+		reporte.append("\nSíntomas comunes:\n");
 
-				 reporte.append("\nRecomendaci�n: ").append(getRecomendacionBasica());
+		for (Sintomas sintoma : sintomasComunes) {
+			reporte.append("� ").append(sintoma.getDescripcion())
+			.append(" (").append(sintoma.getCategoria().getNombre())
+			.append(" - ").append(sintoma.getGravedadBase().getNivel())
+			.append(")\n");
+		}
 
-				 return reporte.toString();
-			 }
+		reporte.append("\nRecomendación: ").append(getRecomendacionBasica());
 
-			 @Override
-			 public String toString() {
-				 return nombre + " [" + categoria.getNombre() + " - " + gravedadTipica.getNivel() + "]";
-			 }
+		return reporte.toString();
+	}
 
-			 @Override
-			 public boolean equals(Object obj) {
-				 if (this == obj) return true;
-				 if (obj == null || getClass() != obj.getClass()) return false;
-				 Enfermedad that = (Enfermedad) obj;
-				 return nombre != null ? nombre.equals(that.nombre) : that.nombre == null;
-			 }
+	@Override
+	public String toString() {
+		return nombre + " [" + categoria.getNombre() + " - " + gravedadTipica.getNivel() + "]";
+	}
 
-			 @Override
-			 public int hashCode() {
-				 return nombre != null ? nombre.hashCode() : 0;
-			 }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		Enfermedad that = (Enfermedad) obj;
+		return nombre != null ? nombre.equals(that.nombre) : that.nombre == null;
+	}
 
-			 // ========== ENUMS INTERNOS (igual que antes) ==========
+	@Override
+	public int hashCode() {
+		return nombre != null ? nombre.hashCode() : 0;
+	}
 
-			 /**
-			  * Enum interno para categor�as de enfermedades
-			  */
-			 public enum Categoria {
-				 RESPIRATORIA("Respiratoria"),
-				 GASTROINTESTINAL("Gastrointestinal"),
-				 DERMATOLOGICA("Dermatol�gica"),
-				 NEUROLOGICA("Neurol�gica"),
-				 TRANSMITIDA_VECTOR("Transmitida por vector"),
-				 INFECCIOSA("Infecciosa"),
-				 CRONICA("Cr�nica"),
-				 SINDROME("S�ndrome cl�nico");
+	// ========== ENUMS INTERNOS (igual que antes) ==========
 
-				 private final String nombre;
+	/**
+	 * Enum interno para categor�as de enfermedades
+	 */
+	public enum Categoria {
+		RESPIRATORIA("Respiratoria"),
+		GASTROINTESTINAL("Gastrointestinal"),
+		DERMATOLOGICA("Dermatológica"),
+		NEUROLOGICA("Neurológica"),
+		TRANSMITIDA_VECTOR("Transmitida por vector"),
+		INFECCIOSA("Infecciosa"),
+		CRONICA("Crónica"),
+		SINDROME("Síndrome clínico");
 
-				 Categoria(String nombre) {
-					 this.nombre = nombre;
-				 }
+		private final String nombre;
 
-				 public String getNombre() {
-					 return nombre;
-				 }
-			 }
+		Categoria(String nombre) {
+			this.nombre = nombre;
+		}
 
-			 /**
-			  * Enum interno para gravedad t�pica de enfermedades
-			  */
-			 public enum Gravedad {
-				 LEVE("Leve", 1),
-				 MODERADA("Moderada", 2),
-				 GRAVE("Grave", 3),
-				 MUY_GRAVE("Muy Grave", 4),
-				 VARIABLE("Variable", 0);
+		public String getNombre() {
+			return nombre;
+		}
+	}
 
-				 private final String nivel;
-				 private final int valor;
+	/**
+	 * Enum interno para gravedad t�pica de enfermedades
+	 */
+	public enum Gravedad {
+		LEVE("Leve", 1),
+		MODERADA("Moderada", 2),
+		GRAVE("Grave", 3),
+		MUY_GRAVE("Muy Grave", 4),
+		VARIABLE("Variable", 0);
 
-				 Gravedad(String nivel, int valor) {
-					 this.nivel = nivel;
-					 this.valor = valor;
-				 }
+		private final String nivel;
+		private final int valor;
 
-				 public String getNivel() {
-					 return nivel;
-				 }
+		Gravedad(String nivel, int valor) {
+			this.nivel = nivel;
+			this.valor = valor;
+		}
 
-				 public int getValor() {
-					 return valor;
-				 }
-			 }
+		public String getNivel() {
+			return nivel;
+		}
 
-			 /**
-			  * Clase auxiliar para diagn�sticos con probabilidad
-			  */
-			 public static class DiagnosticoEnfermedad {
-				 private final Enfermedad enfermedad;
-				 private final double probabilidad;
+		public int getValor() {
+			return valor;
+		}
+	}
 
-				 public DiagnosticoEnfermedad(Enfermedad enfermedad, double probabilidad) {
-					 this.enfermedad = enfermedad;
-					 this.probabilidad = probabilidad;
-				 }
+	/**
+	 * Clase auxiliar para diagn�sticos con probabilidad
+	 */
+	public static class DiagnosticoEnfermedad {
+		private final Enfermedad enfermedad;
+		private final double probabilidad;
 
-				 public Enfermedad getEnfermedad() {
-					 return enfermedad;
-				 }
+		public DiagnosticoEnfermedad(Enfermedad enfermedad, double probabilidad) {
+			this.enfermedad = enfermedad;
+			this.probabilidad = probabilidad;
+		}
 
-				 public double getProbabilidad() {
-					 return probabilidad;
-				 }
+		public Enfermedad getEnfermedad() {
+			return enfermedad;
+		}
 
-				 public String getProbabilidadFormateada() {
-					 return String.format("%.1f%%", probabilidad);
-				 }
+		public double getProbabilidad() {
+			return probabilidad;
+		}
 
-				 @Override
-				 public String toString() {
-					 return String.format("%s (%.1f%%)", enfermedad.getNombre(), probabilidad);
-				 }
-			 }
+		public String getProbabilidadFormateada() {
+			return String.format("%.1f%%", probabilidad);
+		}
+
+		@Override
+		public String toString() {
+			return String.format("%s (%.1f%%)", enfermedad.getNombre(), probabilidad);
+		}
+	}
 }
