@@ -31,7 +31,6 @@ public class InfoEnfermedad extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JLabel labelImagen;
 	private JTextPane txtpnTtulo;
-	private JTextPane textPaneId;
 	private JTextPane txtpnMateria;
 	private JTextPane txtpnPginas;
 	private JTextPane txtpnEjemplares;
@@ -45,7 +44,6 @@ public class InfoEnfermedad extends JDialog {
 	private JLabel label_6;
 	private JLabel label_7;
 	private JSeparator separator;
-	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JSeparator separator_3;
 
@@ -68,7 +66,6 @@ public class InfoEnfermedad extends JDialog {
 		contentPanel.add(getLabelImagen());
 		labelImagen.setIcon(e.getImage());
 		contentPanel.add(getTxtpnTtulo());
-		contentPanel.add(getTextPaneId());
 		contentPanel.add(getTxtpnMateria());
 		contentPanel.add(getTextPane_2_1());
 		contentPanel.add(getTextPane_3_1());
@@ -79,6 +76,7 @@ public class InfoEnfermedad extends JDialog {
 		txtpnPginas.setText("Gravedad: " + e.getGravedadTipica().getValor());
 		txtpnEjemplares.setText("Agente: " + e.getAgenteEtiologico());
 		txtPaneDuracion.setText("Duracion: " + e.getDuracion());
+		textPaneSintomas.setText("Síntomas: " + e.toStringSintomas());
 		contentPanel.add(getLabel_1());
 		contentPanel.add(getLabel_2());
 		contentPanel.add(getLabel_3());
@@ -87,7 +85,6 @@ public class InfoEnfermedad extends JDialog {
 		contentPanel.add(getLabel_6());
 		contentPanel.add(getLabel_7());
 		contentPanel.add(getSeparator());
-		contentPanel.add(getSeparator_1());
 		contentPanel.add(getSeparator_2());
 		contentPanel.add(getSeparator_3());
 	}
@@ -111,18 +108,6 @@ public class InfoEnfermedad extends JDialog {
 		}
 		return txtpnTtulo;
 	}
-	private JTextPane getTextPaneId() {
-		if (textPaneId == null) {
-			textPaneId = new JTextPane();
-			textPaneId.setText("Identificador:");
-			textPaneId.setFont(new Font("Sylfaen", Font.PLAIN, 20));
-			textPaneId.setFocusable(false);
-			textPaneId.setEditable(false);
-			textPaneId.setBackground(Colores.getAzulLogin());
-			textPaneId.setBounds(50, 100, 379, 37);
-		}
-		return textPaneId;
-	}
 	private JTextPane getTxtpnMateria() {
 		if (txtpnMateria == null) {
 			txtpnMateria = new JTextPane();
@@ -131,7 +116,7 @@ public class InfoEnfermedad extends JDialog {
 			txtpnMateria.setFocusable(false);
 			txtpnMateria.setEditable(false);
 			txtpnMateria.setBackground(Colores.getAzulLogin());
-			txtpnMateria.setBounds(50, 162, 379, 37);
+			txtpnMateria.setBounds(50, 114, 379, 37);
 		}
 		return txtpnMateria;
 	}
@@ -143,7 +128,7 @@ public class InfoEnfermedad extends JDialog {
 			txtpnPginas.setFocusable(false);
 			txtpnPginas.setEditable(false);
 			txtpnPginas.setBackground(Colores.getAzulLogin());
-			txtpnPginas.setBounds(50, 222, 131, 37);
+			txtpnPginas.setBounds(50, 184, 131, 37);
 		}
 		return txtpnPginas;
 	}
@@ -155,7 +140,7 @@ public class InfoEnfermedad extends JDialog {
 			txtpnEjemplares.setFocusable(false);
 			txtpnEjemplares.setEditable(false);
 			txtpnEjemplares.setBackground(Colores.getAzulLogin());
-			txtpnEjemplares.setBounds(50, 280, 379, 37);
+			txtpnEjemplares.setBounds(50, 251, 388, 37);
 		}
 		return txtpnEjemplares;
 	}
@@ -166,18 +151,18 @@ public class InfoEnfermedad extends JDialog {
 			txtPaneDuracion.setFocusable(false);
 			txtPaneDuracion.setEditable(false);
 			txtPaneDuracion.setBackground(Colores.getAzulLogin());
-			txtPaneDuracion.setBounds(191, 222, 238, 37);
+			txtPaneDuracion.setBounds(191, 184, 238, 37);
 		}
 		return txtPaneDuracion;
 	}
 	private JTextPane getTextPaneSintomas() {
 		if (textPaneSintomas == null) {
 			textPaneSintomas = new JTextPane();
-			textPaneSintomas.setFont(new Font("Sylfaen", Font.PLAIN, 18));
+			textPaneSintomas.setFont(new Font("Sylfaen", Font.PLAIN, 20));
 			textPaneSintomas.setFocusable(false);
 			textPaneSintomas.setEditable(false);
 			textPaneSintomas.setBackground(Colores.getAzulLogin());
-			textPaneSintomas.setBounds(50, 343, 379, 87);
+			textPaneSintomas.setBounds(50, 308, 379, 122);
 		}
 		return textPaneSintomas;
 	}
@@ -238,19 +223,11 @@ public class InfoEnfermedad extends JDialog {
 		}
 		return separator;
 	}
-	private JSeparator getSeparator_1() {
-		if (separator_1 == null) {
-			separator_1 = new JSeparator();
-			separator_1.setBorder(new LineBorder(Colores.getAzulMedio()));
-			separator_1.setBounds(178, 101, 251, 37);
-		}
-		return separator_1;
-	}
 	private JSeparator getSeparator_2() {
 		if (separator_2 == null) {
 			separator_2 = new JSeparator();
 			separator_2.setBorder(new LineBorder(Colores.getAzulMedio()));
-			separator_2.setBounds(135, 163, 294, 37);
+			separator_2.setBounds(135, 115, 294, 37);
 		}
 		return separator_2;
 	}
@@ -258,7 +235,7 @@ public class InfoEnfermedad extends JDialog {
 		if (separator_3 == null) {
 			separator_3 = new JSeparator();
 			separator_3.setBorder(new LineBorder(Colores.getAzulMedio()));
-			separator_3.setBounds(113, 281, 316, 37);
+			separator_3.setBounds(122, 252, 316, 37);
 		}
 		return separator_3;
 	}

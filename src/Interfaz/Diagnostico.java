@@ -352,6 +352,7 @@ public class Diagnostico extends JDialog {
 			u.setNumero(telefono);
 			u.setDireccion(direccion);
 			u.setSintomas(sintomasSel);
+			u.setFechaDiagnostico(LocalDate.now());
 		}
 		return u;
 	}
@@ -741,20 +742,24 @@ public class Diagnostico extends JDialog {
 			btnReiniciar = new JButton("Atras");
 			btnReiniciar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					sintomasSel = null;
-					textPaneSint.setText("");
-					enfermedadesSel = null;
-					btnRegistrar.setEnabled(false);
-					textId.setText("");
-					textNombre.setText("");
-					textCorreo.setText("");
-					textDireccion.setText("");
-					textTelefono.setText("");
+					reiniciar();
 				}
 			});
 			btnReiniciar.setBounds(600, 470, 65, 39);
 		}
 		return btnReiniciar;
+	}
+
+	private void reiniciar(){
+		sintomasSel = null;
+		textPaneSint.setText("");
+		enfermedadesSel = null;
+		btnRegistrar.setEnabled(false);
+		textId.setText("");
+		textNombre.setText("");
+		textCorreo.setText("");
+		textDireccion.setText("");
+		textTelefono.setText("");
 	}
 	private JScrollPane getScrollEnfermedadess() {
 		if (scrollEnfermedadess == null) {
@@ -810,7 +815,7 @@ public class Diagnostico extends JDialog {
 						pac.setEnfermedades(enfermedadesSel);
 						Sistema.getInstancia().agregarEnfermo(m.getConsultorio(), pac);
 						JOptionPane.showMessageDialog(Diagnostico.this, pac.getNombreCompleto() + " diagnosticado con " + enfermedadesDiagnosticadas, "Info", JOptionPane.WARNING_MESSAGE);
-						dispose();
+						reiniciar();					
 					}
 					else{
 						JOptionPane.showMessageDialog(Diagnostico.this, "No ha seleccionado enfermedades", "Alerta", JOptionPane.WARNING_MESSAGE);

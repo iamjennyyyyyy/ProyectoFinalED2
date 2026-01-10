@@ -5,10 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
-import javax.swing.border.LineBorder;
-
-import Auxiliar.Sistema;
 import Salud.Minsap;
 import Utiles.Enfermedad;
 import Utiles.WrapLayout;

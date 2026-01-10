@@ -16,33 +16,40 @@ import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MapaHabana extends JDialog {
     
     private List<MunicipioShape> municipios = new ArrayList<>();
     private List<TextoMunicipio> textosMunicipios = new ArrayList<>();
     private ArrayList<DireccionMunicipal> nombresMunicipios;
+    private JButton btnSalir;
     
     public MapaHabana( ArrayList<DireccionMunicipal> DireccionesMunicipales) {
+    	getContentPane().setBackground(Color.WHITE);
        // super(parent, "Mapa de La Habana", true);
        this.nombresMunicipios = DireccionesMunicipales;
-        
+        setBounds(296, 164, 1070, 558);
+        setModal(true);
+        setUndecorated(true);
         initComponents();
         crearShapesMunicipios();
         crearTextosMunicipios();
-        
-        setSize(900, 700);
+       
         //setLocationRelativeTo(parent);
     }
     
     private void initComponents() {
-        setLayout(new BorderLayout());
+        getContentPane().setLayout(null);
+        getContentPane().add(getBtnSalir());
         
-        // Título superior
         JLabel titulo = new JLabel("Mapa de La Habana", SwingConstants.CENTER);
+        titulo.setBounds(0, 0, 1070, 49);
+        titulo.setBackground(Color.WHITE);
         titulo.setFont(new Font("Tahoma", Font.BOLD, 24));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        add(titulo, BorderLayout.NORTH);
+        getContentPane().add(titulo);
         
         // Panel del mapa
         final JPanel panelMapa = new JPanel() {
@@ -61,7 +68,7 @@ public class MapaHabana extends JDialog {
                 double scaleY = getHeight() / 533.0;
                 double scale = Math.min(scaleX, scaleY) * 0.9;
                 
-                // Aplicar transformación para centrar el mapa
+                // Aplicar transformaciï¿½n para centrar el mapa
                 AffineTransform originalTransform = g2d.getTransform();
                 AffineTransform at = new AffineTransform();
                 at.translate(getWidth()/2 - (800*scale)/2, getHeight()/2 - (533*scale)/2);
@@ -86,16 +93,16 @@ public class MapaHabana extends JDialog {
                     TextoMunicipio texto = textosMunicipios.get(i);
                     AffineTransform originalTextTransform = g2d.getTransform();
                     
-                    // Aplicar transformación específica del texto
+                    // Aplicar transformaciï¿½n especï¿½fica del texto
                     if (texto.transform != null) {
-                        // Crear una nueva transformación que combine la escala del mapa
-                        // con la transformación específica del texto
+                        // Crear una nueva transformaciï¿½n que combine la escala del mapa
+                        // con la transformaciï¿½n especï¿½fica del texto
                         AffineTransform combined = new AffineTransform();
                         combined.concatenate(texto.transform);
                         g2d.transform(combined);
                     }
                     
-                    // Dibujar el texto en la posición especificada
+                    // Dibujar el texto en la posiciï¿½n especificada
                     g2d.drawString(texto.nombre, (float)texto.x, (float)texto.y);
                     g2d.setTransform(originalTextTransform);
                 }
@@ -103,6 +110,7 @@ public class MapaHabana extends JDialog {
                 g2d.setTransform(originalTransform);
             }
         };
+        panelMapa.setBackground(Color.WHITE);
         
         panelMapa.addMouseListener(new MouseAdapter() {
             @Override
@@ -147,17 +155,20 @@ public class MapaHabana extends JDialog {
         });
         
         JScrollPane scrollPane = new JScrollPane(panelMapa);
+        scrollPane.setBounds(0, 49, 1070, 474);
+        scrollPane.setBackground(Color.WHITE);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
-        add(scrollPane, BorderLayout.CENTER);
+        getContentPane().add(scrollPane);
         
         // Instrucciones inferiores
         JLabel instrucciones = new JLabel(
-            "<html><center><font color='#666666'>Haga clic en cualquier municipio para mostrar información de los consejos populares</font></center></html>", 
+            "<html><center><font color='#666666'>Haga clic en cualquier municipio para mostrar informaciï¿½n de los consejos populares</font></center></html>", 
             SwingConstants.CENTER
         );
+        instrucciones.setBounds(0, 523, 1070, 35);
         instrucciones.setFont(new Font("Tahoma", Font.PLAIN, 12));
         instrucciones.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
-        add(instrucciones, BorderLayout.SOUTH);
+        getContentPane().add(instrucciones);
     }
     
     private void crearShapesMunicipios() {
@@ -268,8 +279,8 @@ public class MapaHabana extends JDialog {
             {272.9505, 304.3193}
         }));
         
-        // 13. Plaza de la Revolución
-        municipios.add(crearMunicipio("Plaza de la Revolución", new Color(246, 185, 253), new double[][]{
+        // 13. Plaza de la Revoluciï¿½n
+        municipios.add(crearMunicipio("Plaza de la Revoluciï¿½n", new Color(246, 185, 253), new double[][]{
             {268.0065, 114.018}, {251.7433, 127.549}, {251.353, 136.7431}, {247.3197, 138.1309},
             {247.0595, 133.2736}, {242.6359, 134.8349}, {215.1836, 161.7234}, {189.5527, 194.5101},
             {190.9839, 201.2756}, {182.6571, 199.8878}, {180.8357, 202.3164}, {181.8765, 206.1328},
@@ -293,8 +304,8 @@ public class MapaHabana extends JDialog {
             {331.8885, 147.325}, {328.5057, 152.8762}, {330.5874, 211.8575}
         }));
         
-        // 15. San Miguel del Padrón
-        municipios.add(crearMunicipio("San Miguel del Padrón", new Color(245, 252, 152), new double[][]{
+        // 15. San Miguel del Padrï¿½n
+        municipios.add(crearMunicipio("San Miguel del Padrï¿½n", new Color(245, 252, 152), new double[][]{
             {511.4344, 319.2381}, {512.8656, 301.3703}, {515.2075, 295.1252}, {522.8837, 287.8393},
             {545.7824, 290.0944}, {545.392, 264.9407}, {535.1137, 240.1338}, {483.3316, 171.7849},
             {448.203, 156.1722}, {397.9822, 155.1314}, {397.5919, 215.1535}, {447.0321, 245.5115},
@@ -305,41 +316,41 @@ public class MapaHabana extends JDialog {
     private void crearTextosMunicipios() {
         // Usar las transformaciones ORIGINALES del SVG
         // El formato es: matrix(a, b, c, d, e, f)
-        // Donde: (e, f) es la traslación, y (a, b, c, d) definen rotación y escala
+        // Donde: (e, f) es la traslaciï¿½n, y (a, b, c, d) definen rotaciï¿½n y escala
         
         // Arroyo Naranjo - matriz original del SVG
-    	// Si se corta con el polígono, mover posición
+    	// Si se corta con el polï¿½gono, mover posiciï¿½n
     	textosMunicipios.add(new TextoMunicipio("Arroyo Naranjo", 
     	    0, 0,
     	    new AffineTransform(0.7175, 0.6965, -0.6965, 0.7175, 370, 345)));
         
-        // Boyeros - sin transformación, posición directa
+        // Boyeros - sin transformaciï¿½n, posiciï¿½n directa
         textosMunicipios.add(new TextoMunicipio("Boyeros", 
             267.8765, 395.2653, null));
         
-     // Centro Habana - con rotación invertida para que descienda
+     // Centro Habana - con rotaciï¿½n invertida para que descienda
         textosMunicipios.add(new TextoMunicipio("Centro Habana",
             0, 0,
             new AffineTransform(0.6443, 0.7648, -0.7648, 0.6443, 225.8637, 34.4535)));
         
-        // Cerro - sin transformación
+        // Cerro - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Cerro",
             288.1729, 195.8977, null));
         
-        // Cotorro - sin transformación
+        // Cotorro - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Cotorro",
             458.2082, 383.5971, null));
         
-     // D. de Octubre - con rotación invertida para que descienda
+     // D. de Octubre - con rotaciï¿½n invertida para que descienda
         textosMunicipios.add(new TextoMunicipio("D. de Octubre",
             0, 0,
             new AffineTransform(0.4012, -0.916, 0.916, 0.4012, 328.5056, 288.3588)));
         
-        // Guanabacoa - sin transformación
+        // Guanabacoa - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Guanabacoa",
             380.125, 278.9053, null));
         
-        // La Habana del Este - sin transformación
+        // La Habana del Este - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("La Habana del Este",
             528.9454, 162.566, null));
         // Habana Vieja
@@ -347,15 +358,15 @@ public class MapaHabana extends JDialog {
         	    0, 0,
         	    new AffineTransform(0.6399, 0.7684, -0.7684, 0.6399, 290, 10)));
         
-        // La Lisa - sin transformación
+        // La Lisa - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("La Lisa",
             168.776, 346.1263, null));
         
-        // Marianao - sin transformación
+        // Marianao - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Marianao",
             256.0929, 242.0112, null));
         
-        // Playa - sin transformación
+        // Playa - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Playa",
             224.5138, 282.8085, null));
         
@@ -364,11 +375,11 @@ public class MapaHabana extends JDialog {
             0, 0,
             new AffineTransform(0.8668, -0.4987, 0.4987, 0.8668, 144.8215, 242.0114)));
         
-        // Regla - sin transformación
+        // Regla - sin transformaciï¿½n
         textosMunicipios.add(new TextoMunicipio("Regla",
             347.2986, 171.8716, null));
         
-        // San Miguel del Padrón - matriz original del SVG
+        // San Miguel del Padrï¿½n - matriz original del SVG
         textosMunicipios.add(new TextoMunicipio("San Miguel del Padrón",
         	    435, 30,
         	    new AffineTransform(0.95, 0.4, -0.4, 0.95, 0, 0)));
@@ -445,7 +456,7 @@ public class MapaHabana extends JDialog {
         }
     }
     
-    // Método main para probar el diálogo directamente
+    // Mï¿½todo main para probar el diï¿½logo directamente
     public static void main(String[] args) {
     	Sistema sis = Sistema.getInstancia();
     	Sistema.setSistema(Inicializar.inicializarArbol());
@@ -456,4 +467,23 @@ public class MapaHabana extends JDialog {
       MapaHabana dialog = new MapaHabana( municipios);
         dialog.setVisible(true);
     }
+	private JButton getBtnSalir() {
+		if (btnSalir == null) {
+			btnSalir = new JButton("");
+			btnSalir.setBounds(1021, 0, 50, 50);
+			btnSalir.setBorder(null);
+			btnSalir.setHorizontalTextPosition(SwingConstants.CENTER);
+			btnSalir.setAlignmentX(Component.CENTER_ALIGNMENT);
+			btnSalir.setIcon(new ImageIcon("src/Images/Iconos/otroLogoBorrar50x50.png"));
+			btnSalir.setBackground(Color.WHITE);
+			btnSalir.setForeground(Color.WHITE);
+			btnSalir.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 25));
+			btnSalir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					dispose();
+				}
+			});
+		}
+		return btnSalir;
+	}
 }

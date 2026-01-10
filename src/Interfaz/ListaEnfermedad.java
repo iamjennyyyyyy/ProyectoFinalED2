@@ -21,44 +21,39 @@ import java.util.ArrayList;
 
 import javax.swing.JList;
 
+import Salud.Minsap;
 import Utiles.Colores;
-import Utiles.Enfermedades;
+import Utiles.Enfermedad;
 import Utiles.Sintomas;
 
-public class ListaEnfermedades extends JDialog {
+public class ListaEnfermedad extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JScrollPane scrollPane;
 	private JLabel lblListaDeEnfermedades;
 	private JList list;
+	private Enfermedad enf;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			ListaEnfermedades dialog = new ListaEnfermedades();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public ListaEnfermedades() {
+	public ListaEnfermedad(int e) {
 		setBounds(100, 100, 418, 440);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		contentPanel.add(getScrollPane());
+		contentPanel.add(getScrollPane(e));
 		contentPanel.add(getList());
 		contentPanel.add(getLblListaDeEnfermedades());
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(Color.WHITE);
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -69,26 +64,25 @@ public class ListaEnfermedades extends JDialog {
 			}
 		}
 	}
-	private JScrollPane getScrollPane() {
+	private JScrollPane getScrollPane(final int pos) {
 		if (scrollPane == null) {
-			scrollPane = new JScrollPane();
 			DefaultListModel<String> modeloEnfermedades = new DefaultListModel<>();
-			for(Enfermedades s : Enfermedades.) {
-				modeloEnfermedades.addElement(s.getDescripcion());
+			for(Enfermedad s : Minsap.getEnfermedadesActuales()) {
+				modeloEnfermedades.addElement(s.getNombre());
 			}
 
 			list = new JList<>(modeloEnfermedades);
 			list.addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent arg0) {
-					int pos = list.getSelectedIndex();
-					
+					//pos = list.getSelectedIndex();
 				}
 			});
 			list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			list.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			list.setVisibleRowCount(8);
 			list.setSelectionBackground(Colores.getAzulLogin());
-			scrollPane = new JScrollPane(listSint);
+			scrollPane = new JScrollPane(list);
+			scrollPane.setBounds(46, 238, 266, -150);
 			scrollPane.setBounds(600, 105, 371, 179);
 			scrollPane.setFont(new Font("Segoe UI", Font.PLAIN, 25));
 			scrollPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -99,8 +93,8 @@ public class ListaEnfermedades extends JDialog {
 	private JLabel getLblListaDeEnfermedades() {
 		if (lblListaDeEnfermedades == null) {
 			lblListaDeEnfermedades = new JLabel("Lista de enfermedades:");
-			lblListaDeEnfermedades.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 			lblListaDeEnfermedades.setBounds(46, 24, 223, 28);
+			lblListaDeEnfermedades.setFont(new Font("Sylfaen", Font.PLAIN, 19));
 		}
 		return lblListaDeEnfermedades;
 	}

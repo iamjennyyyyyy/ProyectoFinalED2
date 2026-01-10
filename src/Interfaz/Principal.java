@@ -85,7 +85,7 @@ public class Principal extends JFrame {
 	private JMenuItem mntmSalir;
 	private JLabel lblConsul;
 	private JButton btnNewButton;
-	private Medico medico;
+	private static Medico medico;
 	private JLabel lblBienvenido;
 	private Sistema s = Sistema.getInstancia();
 
@@ -118,6 +118,11 @@ public class Principal extends JFrame {
 		contentPane.add(getPanelSup());
 		contentPane.add(getMnNewMenu());
 	}
+	
+	public static Medico getMedico(){
+		return medico;
+	}
+	
 	private JPanel getPanelLateral() {
 		if (panelLateral == null) {
 			panelLateral = new JPanel();
