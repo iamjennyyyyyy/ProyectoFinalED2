@@ -129,10 +129,10 @@ public class Sistema {
 		BinaryTreeNode<NodoSalud> con = null; 
 
 		while(it.hasNext() && con == null){
-			System.out.println("jjj");
+			
 			BinaryTreeNode<NodoSalud> nn = it.nextNode();
 			NodoSalud nodo = nn.getInfo();
-			System.out.println(((Consultorio)nodo).getNombre());
+			
 			if(nodo instanceof Consultorio){
 				
 				Consultorio c = (Consultorio)nodo;

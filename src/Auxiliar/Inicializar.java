@@ -48,7 +48,7 @@ public class Inicializar {
 		BinaryTreeNode<NodoSalud> plaza = new BinaryTreeNode<NodoSalud>(inicializarPlazaRevolucion());
 		arbol.insertNode(plaza, habana);
 		BinaryTreeNode<NodoSalud> regla = new BinaryTreeNode<NodoSalud>(inicializarRegla());
-		arbol.insertNode(new BinaryTreeNode<NodoSalud>(inicializarRegla()), habana);
+		arbol.insertNode(regla, habana);
 		
 		for(BinaryTreeNode<NodoSalud> n: InicializarAreaDeSaludRegla()){
 			arbol.insertNode(n, regla);
@@ -641,20 +641,28 @@ public class Inicializar {
         // Insertar vértices en el orden especificado
         grafo.insertVertex(rampa);
         grafoConsejos.getPosiciones().put(rampa.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0, rampa);
         grafo.insertVertex(vedadoMalecon);
         grafoConsejos.getPosiciones().put(vedadoMalecon.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1, vedadoMalecon);
         grafo.insertVertex(vedado);
         grafoConsejos.getPosiciones().put(vedado.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2, vedado);
         grafo.insertVertex(principe);
         grafoConsejos.getPosiciones().put(principe.getNombre(), 3);
+        grafoConsejos.getConsejosPorPosicion().put(3, principe);
         grafo.insertVertex(caramelo);
         grafoConsejos.getPosiciones().put(caramelo.getNombre(), 4);
+        grafoConsejos.getConsejosPorPosicion().put(4,caramelo);
         grafo.insertVertex(colon);
         grafoConsejos.getPosiciones().put(colon.getNombre(), 5);
+        grafoConsejos.getConsejosPorPosicion().put(5,colon);
         grafo.insertVertex(plaza);
         grafoConsejos.getPosiciones().put(plaza.getNombre(), 6);
+        grafoConsejos.getConsejosPorPosicion().put(6,plaza);
         grafo.insertVertex(puentesGrandes);
         grafoConsejos.getPosiciones().put(puentesGrandes.getNombre(), 7);
+        grafoConsejos.getConsejosPorPosicion().put(7,puentesGrandes);
 
         // Crear conexiones (aristas no dirigidas) según las relaciones especificadas
 
@@ -972,18 +980,25 @@ public class Inicializar {
 
          grafo.insertVertex(latinoamericano);
          grafoConsejos.getPosiciones().put(latinoamericano.getNombre(), 0);
+         grafoConsejos.getConsejosPorPosicion().put(0,latinoamericano);
          grafo.insertVertex(pilarAtares);
          grafoConsejos.getPosiciones().put(pilarAtares.getNombre(), 1);
+         grafoConsejos.getConsejosPorPosicion().put(1,pilarAtares);
          grafo.insertVertex(cerro);
          grafoConsejos.getPosiciones().put(cerro.getNombre(), 2);
+         grafoConsejos.getConsejosPorPosicion().put(2,cerro);
          grafo.insertVertex(lasCanas);
          grafoConsejos.getPosiciones().put(lasCanas.getNombre(), 3);
+         grafoConsejos.getConsejosPorPosicion().put(3,lasCanas);
          grafo.insertVertex(elCanal);
          grafoConsejos.getPosiciones().put(elCanal.getNombre(), 4);
+         grafoConsejos.getConsejosPorPosicion().put(4,elCanal);
          grafo.insertVertex(palatino);
          grafoConsejos.getPosiciones().put(palatino.getNombre(), 5);
+         grafoConsejos.getConsejosPorPosicion().put(5,palatino);
          grafo.insertVertex(armada);
          grafoConsejos.getPosiciones().put(armada.getNombre(), 6);
+         grafoConsejos.getConsejosPorPosicion().put(6,armada);
 
         // Crear conexiones (aristas no dirigidas)
         grafo.insertEdgeNDG(grafoConsejos.obtenerPosicion(latinoamericano.getNombre()), grafoConsejos.obtenerPosicion(cerro.getNombre()));        // Latinoamericano - Cerro
@@ -1211,14 +1226,19 @@ public class Inicializar {
 
         grafo.insertVertex(cayoHueso);
         grafoConsejos.getPosiciones().put(cayoHueso.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0,cayoHueso);
         grafo.insertVertex(dragones);
         grafoConsejos.getPosiciones().put(dragones.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1,dragones);
         grafo.insertVertex(colon);
         grafoConsejos.getPosiciones().put(colon.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2,colon);
         grafo.insertVertex(puebloNuevo);
         grafoConsejos.getPosiciones().put(puebloNuevo.getNombre(), 3);
+        grafoConsejos.getConsejosPorPosicion().put(3,puebloNuevo);
         grafo.insertVertex(losSitios);
         grafoConsejos.getPosiciones().put(losSitios.getNombre(), 4);
+        grafoConsejos.getConsejosPorPosicion().put(4,losSitios);
 
 
         // Crear conexiones (aristas no dirigidas) seg�n las relaciones especificadas
@@ -1393,10 +1413,13 @@ public class Inicializar {
 
         grafo.insertVertex(casablanca);
         grafoConsejos.getPosiciones().put(casablanca.getNombre(), 0);
+        grafoConsejos.getConsejosPorPosicion().put(0,casablanca);
         grafo.insertVertex(guaicanamar);
         grafoConsejos.getPosiciones().put(guaicanamar.getNombre(), 1);
+        grafoConsejos.getConsejosPorPosicion().put(1,guaicanamar);
         grafo.insertVertex(lomaModelo);
         grafoConsejos.getPosiciones().put(lomaModelo.getNombre(), 2);
+        grafoConsejos.getConsejosPorPosicion().put(2,lomaModelo);
 
         // Crear conexiones (aristas no dirigidas)
         // Casablanca - Guaicanamar
