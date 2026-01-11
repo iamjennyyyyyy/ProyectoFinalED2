@@ -55,7 +55,7 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
         panelSuperior.setPreferredSize(new Dimension(1026, 100));
         
         // Título
-        lblTitulo = new JLabel("REPORTE DE PACIENTES - " + "Consultorio " + consultorio.getNumero());
+        lblTitulo = new JLabel("REPORTE DE PACIENTES");
         lblTitulo.setBounds(20, 10, 600, 30);
         lblTitulo.setFont(new Font("Sylfaen", Font.BOLD, 20));
         lblTitulo.setForeground(Color.BLACK);
@@ -134,7 +134,7 @@ public class ReporteEnfermedadesConsultorio extends JDialog {
         String periodo = (String) comboReportes.getSelectedItem();
         
         // Actualizar título según período seleccionado
-        lblTitulo.setText("Consultorio " + consultorio.getNumero() + " (" + periodo + ")");
+        lblTitulo.setText(periodo);
         
         // Obtener datos según la opción seleccionada
         try {

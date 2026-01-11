@@ -546,21 +546,21 @@ public class CRUDEnfermedades extends JDialog {
 					lblDuracin.setForeground(Color.BLACK);
 				}
 			});
-			spinner.setFont(new Font("Sylfaen", Font.PLAIN, 16));
-			spinner.setBounds(168, 422, 50, 27);
+			spinner.setFont(new Font("Sylfaen", Font.PLAIN, 15));
+			spinner.setBounds(168, 422, 60, 27);
 		}
 		return spinner;
 	}
 	private JSpinner getSpinner_1() {
 		if (spinner_1 == null) {
 			spinner_1 = new JSpinner();
-			spinner_1.setFont(new Font("Sylfaen", Font.PLAIN, 16));
+			spinner_1.setFont(new Font("Sylfaen", Font.PLAIN, 15));
 			spinner_1.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
 					lblDuracin.setForeground(Color.BLACK);
 				}
 			});
-			spinner_1.setBounds(293, 422, 50, 27);
+			spinner_1.setBounds(303, 422, 59, 27);
 		}
 		return spinner_1;
 	}
@@ -587,17 +587,17 @@ public class CRUDEnfermedades extends JDialog {
 	}
 	private JLabel getLblMximo() {
 		if (lblMximo == null) {
-			lblMximo = new JLabel("m\u00EDnimo");
+			lblMximo = new JLabel("m\u00EDn");
 			lblMximo.setFont(new Font("Sylfaen", Font.PLAIN, 16));
-			lblMximo.setBounds(224, 422, 71, 27);
+			lblMximo.setBounds(238, 422, 40, 27);
 		}
 		return lblMximo;
 	}
 	private JLabel getLblMximo_1() {
 		if (lblMximo_1 == null) {
-			lblMximo_1 = new JLabel("m\u00E1ximo");
+			lblMximo_1 = new JLabel("m\u00E1x");
 			lblMximo_1.setFont(new Font("Sylfaen", Font.PLAIN, 16));
-			lblMximo_1.setBounds(353, 422, 71, 27);
+			lblMximo_1.setBounds(372, 422, 50, 27);
 		}
 		return lblMximo_1;
 	}
@@ -678,7 +678,7 @@ public class CRUDEnfermedades extends JDialog {
 			comboBoxNombre.setBackground(Color.WHITE);
 			comboBoxNombre.setFont(new Font("Sylfaen", Font.PLAIN, 17));
 			comboBoxNombre.setVisible(false);			
-			comboBoxNombre.setBounds(168, 117, 346, 31);
+			comboBoxNombre.setBounds(168, 118, 346, 31);
 		}
 		return comboBoxNombre;
 	}

@@ -91,6 +91,7 @@ public class Principal extends JFrame {
 	private JPopupMenu popupMenu;
 	private JMenuItem mntmEnfermedadesPorMeses;
 	private JMenuItem mntmEnfermedadesEnConsultorio;
+	private JMenuItem mntmPacientes;
 
 	/**
 	 * Launch the application.
@@ -133,11 +134,11 @@ public class Principal extends JFrame {
 			panelLateral.setBounds(0, 0, 295, 699);
 			panelLateral.setBackground(Colores.getAzulMedio());
 			panelLateral.setLayout(null);
+			panelLateral.add(getLblNewLabel_2());
 			panelLateral.add(getBtnSesion());
 			panelLateral.add(getBtnDiagnostico());
 			panelLateral.add(getBtnEnfermedades());
 			panelLateral.add(getBtnReporte());
-			panelLateral.add(getLblNewLabel_2());
 		}
 		return panelLateral;
 	}
@@ -297,10 +298,8 @@ public class Principal extends JFrame {
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("");
-			lblNewLabel_2.setVisible(false);
-			//lblNewLabel_2.setBackground(Colores.getBeigetabla());
-			lblNewLabel_2.setIcon(new ImageIcon("src/images/iconos/l2.jpg"));
-			lblNewLabel_2.setBounds(36, 108, 150, 95);
+			lblNewLabel_2.setIcon(new ImageIcon("src/Images/Posters/princp.png"));
+			lblNewLabel_2.setBounds(44, 11, 200, 189);
 		}
 		return lblNewLabel_2;
 	}
@@ -443,6 +442,7 @@ public class Principal extends JFrame {
 		if (popupMenu == null) {
 			popupMenu = new JPopupMenu();
 			popupMenu.setFont(new Font("Segoe UI", Font.PLAIN, 17));
+			popupMenu.add(getMntmPacientes());
 			popupMenu.add(getMntmEnfermedadesPorMeses());
 			popupMenu.add(getMntmEnfermedadesEnConsultorio());
 		}
@@ -473,5 +473,17 @@ public class Principal extends JFrame {
 			});
 		}
 		return mntmEnfermedadesEnConsultorio;
+	}
+	private JMenuItem getMntmPacientes() {
+		if (mntmPacientes == null) {
+			mntmPacientes = new JMenuItem("Pacientes");
+			mntmPacientes.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					VerPacientes v = new VerPacientes(Sistema.getInstancia().buscarConsultorioPorId(medico.getConsultorio()).getPacientes());
+					v.setVisible(true);
+				}
+			});
+		}
+		return mntmPacientes;
 	}
 }

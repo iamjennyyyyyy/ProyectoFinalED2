@@ -190,7 +190,7 @@ public class Inicializar {
 				"Colitis", Categoria.GASTROINTESTINAL, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ABDOMINAL, Sintomas.DIARREA,
 						Sintomas.NAUSEAS, Sintomas.PERDIDA_APETITO),
-						"Inflamación del colon", "Variable (aguda/crónica)", "src/Images/Portadas/colitis.jpg"
+						"Inflamación del colon", "Variable (aguda/crónica)", "src/Images/Portadas/colitis.png"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -206,7 +206,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_MUSCULAR, Sintomas.DOLOR_ARTICULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.HEMORRAGIAS),
-						"Virus del dengue (Aedes aegypti)", "7-10 días", "src/Images/Portadas/dengue.jpg"
+						"Virus del dengue (Aedes aegypti)", "7-10 días", "src/Images/Portadas/dengue.png"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -221,7 +221,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.DOLOR_CABEZA, Sintomas.ERUPCION_CUTANEA,
 						Sintomas.NAUSEAS, Sintomas.CANSANCIO),
-						"Virus Chikungunya (Aedes aegypti)", "3-10 días", "src/Images/Portadas/chinkungunya.jpg"
+						"Virus Chikungunya (Aedes aegypti)", "3-10 días", "src/Images/Portadas/chikungunya.png"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
@@ -229,7 +229,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ESCALOFRIOS, Sintomas.DOLOR_CABEZA,
 						Sintomas.NAUSEAS, Sintomas.VOMITOS, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO),
-						"Plasmodium (Anopheles)", "Variable (con tratamiento)", "src/Images/Portadas/malaaria.jpg"
+						"Plasmodium (Anopheles)", "Variable (con tratamiento)", "src/Images/Portadas/malaria.jpg"
 				));
 
 		// Enfermedades dermatol�gicas
@@ -244,14 +244,14 @@ public class Inicializar {
 				"Sarampión", Categoria.DERMATOLOGICA, Gravedad.GRAVE,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.TOS,
 						Sintomas.CONGESTION_NASAL, Sintomas.CONJUNTIVITIS),
-						"Virus del sarampión", "7-14 días", "src/Images/Portadas/sarampion.jpg"
+						"Virus del sarampión", "7-14 días", "src/Images/Portadas/sarampion.png"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Rubéola", Categoria.DERMATOLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.ERUPCION_CUTANEA, Sintomas.GANGLIOS_INFLAMADOS,
 						Sintomas.DOLOR_ARTICULAR, Sintomas.DOLOR_CABEZA),
-						"Virus de la rubéola", "3-7 días", "src/Images/Portadas/rubeola.jpg"
+						"Virus de la rubéola", "3-7 días", "src/Images/Portadas/rubeola.png"
 				));
 
 		// Enfermedades neurol�gicas
@@ -268,14 +268,14 @@ public class Inicializar {
 				Arrays.asList(Sintomas.FIEBRE, Sintomas.DOLOR_CABEZA, Sintomas.CONFUSION,
 						Sintomas.CONVULSIONES, Sintomas.PERDIDA_CONOCIMIENTO,
 						Sintomas.MAREO),
-						"Virus", "Variable (urgente)", "src/Images/Portadas/encefalitis.jpg"
+						"Virus", "Variable (urgente)", "src/Images/Portadas/encefalitis.png"
 				));
 
 		enfermedadesPredefinidas.add(new Enfermedad(
 				"Migraña", Categoria.NEUROLOGICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_CABEZA, Sintomas.NAUSEAS, Sintomas.VOMITOS,
 						Sintomas.FOTOSENSIBILIDAD, Sintomas.MAREO),
-						"Trastorno neurológico", "0-1 días", "src/Images/Portadas/migranna.jpg"
+						"Trastorno neurológico", "0-1 días", "src/Images/Portadas/migranna.png"
 				));
 
 		// Enfermedades cr�nicas
@@ -297,7 +297,7 @@ public class Inicializar {
 				"Artritis reumatoide", Categoria.CRONICA, Gravedad.MODERADA,
 				Arrays.asList(Sintomas.DOLOR_ARTICULAR, Sintomas.RIGIDEZ, Sintomas.DOLOR_MUSCULAR,
 						Sintomas.CANSANCIO, Sintomas.FIEBRE),
-						"Enfermedad autoinmune", "Crónica", "src/Images/Portadas/artritis.jpg"
+						"Enfermedad autoinmune", "Crónica", "src/Images/Portadas/artritis.png"
 				));
 
 		// Enfermedades infecciosas espec�ficas
@@ -314,7 +314,7 @@ public class Inicializar {
 				Arrays.asList(Sintomas.ICTERICIA, Sintomas.CANSANCIO, Sintomas.NAUSEAS,
 						Sintomas.DOLOR_ABDOMINAL, Sintomas.PERDIDA_APETITO,
 						Sintomas.FIEBRE),
-						"Virus de la hepatitis", "Variable (aguda/crónica)", "src/Images/Portadas/hepatitisv.jpg"
+						"Virus de la hepatitis", "Variable (aguda/crónica)", "src/Images/Portadas/hepatitis.jpg"
 				));
 
 		// S�ndrome cl�nico

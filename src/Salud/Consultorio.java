@@ -31,6 +31,7 @@ public class Consultorio extends NodoSalud {
 	public void anadirPaciente(Paciente p ){
 		pacientes.add(p);
 	}
+	public ArrayList<Paciente> getPacientes(){ return pacientes;}
 	public int getNumero(){ return numero;}
 	public void setNumero(int numero){ this.numero = numero;}
 	

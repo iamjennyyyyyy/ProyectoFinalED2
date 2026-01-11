@@ -285,6 +285,7 @@ public class Diagnostico extends JDialog {
 
 		String nombre = textNombre.getText();
 		String idUsuario = textId.getText();
+		char[] cadena = idUsuario.toCharArray();
 		String correo = textCorreo.getText();
 		String telefono = textTelefono.getText();
 		String direccion = textDireccion.getText();
@@ -338,6 +339,11 @@ public class Diagnostico extends JDialog {
 			if(sintomasSel == null){
 				agregado = false;
 				JOptionPane.showMessageDialog(Diagnostico.this, "No ha seleccionado síntomas", "Alerta", JOptionPane.WARNING_MESSAGE);
+			}
+			if(obtenerFechaNacimiento(cadena) == null){
+				lblCi.setForeground(Color.RED);
+				textId.setText("");
+				agregado = false;
 			}
 		}
 		else

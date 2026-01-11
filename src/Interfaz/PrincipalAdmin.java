@@ -91,10 +91,10 @@ public class PrincipalAdmin extends JFrame {
 			panelLateral.setBounds(0, 0, 295, 699);
 			panelLateral.setBackground(Colores.getAzulMedio());
 			panelLateral.setLayout(null);
+			panelLateral.add(getLblNewLabel_2());
 			panelLateral.add(getBtnSesion());
 			panelLateral.add(getBtnMapa());
 			panelLateral.add(getBtnEnfermedades());
-			panelLateral.add(getLblNewLabel_2());
 			panelLateral.add(getBtnReportes());
 		}
 		return panelLateral;
@@ -234,10 +234,8 @@ public class PrincipalAdmin extends JFrame {
 	private JLabel getLblNewLabel_2() {
 		if (lblNewLabel_2 == null) {
 			lblNewLabel_2 = new JLabel("");
-			lblNewLabel_2.setVisible(false);
-			//lblNewLabel_2.setBackground(Colores.getBeigetabla());
-			lblNewLabel_2.setIcon(new ImageIcon("src/images/iconos/l2.jpg"));
-			lblNewLabel_2.setBounds(29, 97, 150, 95);
+			lblNewLabel_2.setIcon(new ImageIcon("src/Images/Posters/princp.png"));
+			lblNewLabel_2.setBounds(44, 11, 200, 189);
 		}
 		return lblNewLabel_2;
 	}

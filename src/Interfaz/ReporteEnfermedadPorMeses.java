@@ -54,7 +54,7 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         panelSuperior.setPreferredSize(new Dimension(1026, 100));
         
         // Título
-        lblTitulo = new JLabel("PACIENTES POR MESES - Consultorio " + consultorio.getNumero());
+        lblTitulo = new JLabel("PACIENTES POR MESES");
         lblTitulo.setBounds(20, 10, 600, 30);
         lblTitulo.setFont(new Font("Sylfaen", Font.BOLD, 20));
         lblTitulo.setForeground(Color.BLACK);
@@ -172,7 +172,7 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         int anioSeleccionado = (Integer) comboAnio.getSelectedItem();
         
         // Actualizar título
-        lblTitulo.setText("PACIENTES POR MESES   " + " -    Consultorio " + consultorio.getNumero());
+        lblTitulo.setText("PACIENTES POR MESES");
         
         // Obtener datos de pacientes por meses para la enfermedad seleccionada y año específico
         // Necesitarás modificar el método pacientesPorMeses para aceptar el año como parámetro

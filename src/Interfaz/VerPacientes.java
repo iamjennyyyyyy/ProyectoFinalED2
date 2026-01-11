@@ -288,7 +288,7 @@ public class VerPacientes extends JDialog {
 
     private JLabel getLblTitulo() {
         JLabel lblTitulo = new JLabel("Lista de Pacientes");
-        lblTitulo.setBounds(40, 30, 300, 35);
+        lblTitulo.setBounds(40, 15, 300, 35);
         lblTitulo.setFont(new Font("Sylfaen", Font.BOLD, 24));
         lblTitulo.setForeground(Color.BLACK);
         return lblTitulo;
@@ -314,7 +314,7 @@ public class VerPacientes extends JDialog {
     
     private JLabel getLblFiltros() {
         JLabel lblFiltros = new JLabel("Filtros:");
-        lblFiltros.setBounds(40, 85, 100, 27);
+        lblFiltros.setBounds(40, 61, 100, 27);
         lblFiltros.setFont(new Font("Sylfaen", Font.PLAIN, 19));
         lblFiltros.setForeground(Color.BLACK); // Asegurar que sea negro
         return lblFiltros;
@@ -405,7 +405,7 @@ public class VerPacientes extends JDialog {
         if (lblBuscarNombre == null) {
             lblBuscarNombre = new JLabel("Buscar por nombre:");
             lblBuscarNombre.setBounds(40, 100, 150, 20);
-            lblBuscarNombre.setFont(new Font("Sylfaen", Font.PLAIN, 14));
+            lblBuscarNombre.setFont(new Font("Sylfaen", Font.PLAIN, 18));
             lblBuscarNombre.setForeground(Color.BLACK); // Cambiado a negro
         }
         return lblBuscarNombre;
@@ -415,7 +415,7 @@ public class VerPacientes extends JDialog {
         if (lblSexo == null) {
             lblSexo = new JLabel("Sexo:");
             lblSexo.setBounds(300, 100, 150, 20);
-            lblSexo.setFont(new Font("Sylfaen", Font.PLAIN, 14));
+            lblSexo.setFont(new Font("Sylfaen", Font.PLAIN, 18));
             lblSexo.setForeground(Color.BLACK); // Cambiado a negro
         }
         return lblSexo;
@@ -425,7 +425,7 @@ public class VerPacientes extends JDialog {
         if (lblEnfermedad == null) {
             lblEnfermedad = new JLabel("Enfermedad:");
             lblEnfermedad.setBounds(470, 100, 150, 20);
-            lblEnfermedad.setFont(new Font("Sylfaen", Font.PLAIN, 14));
+            lblEnfermedad.setFont(new Font("Sylfaen", Font.PLAIN, 18));
             lblEnfermedad.setForeground(Color.BLACK); // Cambiado a negro
         }
         return lblEnfermedad;
@@ -480,7 +480,7 @@ public class VerPacientes extends JDialog {
         if (btnLimpiarFiltros == null) {
             btnLimpiarFiltros = new JButton("Limpiar Filtros");
             btnLimpiarFiltros.setBounds(690, 120, 150, 30);
-            btnLimpiarFiltros.setFont(new Font("Sylfaen", Font.PLAIN, 16));
+            btnLimpiarFiltros.setFont(new Font("Sylfaen", Font.PLAIN, 18));
             btnLimpiarFiltros.setBackground(Colores.getAzulLogin());
             btnLimpiarFiltros.setForeground(Color.BLACK); // Cambiado a negro para mejor contraste
             btnLimpiarFiltros.addActionListener(new ActionListener() {
@@ -725,7 +725,7 @@ public class VerPacientes extends JDialog {
         };
         
         tablaPacientes = new JTable(modeloTabla);
-        tablaPacientes.setFont(new Font("Sylfaen", Font.PLAIN, 14));
+        tablaPacientes.setFont(new Font("Sylfaen", Font.PLAIN, 16));
         tablaPacientes.setForeground(Color.BLACK); // Texto de la tabla en negro
         tablaPacientes.setRowHeight(25);
         
