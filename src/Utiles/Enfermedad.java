@@ -127,6 +127,10 @@ public class Enfermedad {
 		}
 		return mensaje;
 	}
+	
+	public void agregarSintomas(ArrayList<Sintomas> sint){
+		sintomasComunes.addAll(sint);
+	}
 
 	// ========== M�TODOS DE INSTANCIA ==========
 

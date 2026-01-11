@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.Arrays;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
@@ -48,18 +47,6 @@ public class Login extends JDialog {
 	private JLabel lblNewLabel_1;
 	Sistema s = Sistema.getInstancia();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			Login dialog = new Login();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Create the dialog.

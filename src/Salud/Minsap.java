@@ -27,14 +27,14 @@ public class Minsap extends NodoSalud{
 		super(codigo, nombre );
 		enfermedadesActuales = new ArrayList<Enfermedad>();
 		enfermedadesActuales = Inicializar.inicializarEnfermedadesPredefinidas();
-	
-	
-
-
 	}
 
 	public static ArrayList<Enfermedad> getEnfermedadesActuales(){
 		return enfermedadesActuales;
+	}
+	
+	public static void agregarEnfermedad(Enfermedad e){
+		enfermedadesActuales.add(e);
 	}
 	
 	public static ArrayList<Enfermedad> getEnfermedadesPorCategoria(Categoria categoria) {

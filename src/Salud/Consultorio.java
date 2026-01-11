@@ -151,7 +151,6 @@ public class Consultorio extends NodoSalud {
 				for(Enfermedad e : pacientes.get(i).getEnfermedades()){
 					System.out.println("entra al for de enfermedades");
                     if(!enfAgreg.contains(e.getNombre())){	
-                    	System.out.println("entra al if de enfermedad no agregada");
                     	enfAgreg.add(e.getNombre());
                     	list.add(new PacientesPorEnfermedad(e.getNombre()));
                     	list.get(list.size()-1).aumentarCant();
@@ -175,7 +174,25 @@ public class Consultorio extends NodoSalud {
 			if(pacientes.get(i).getFechaDiagnostico().getYear()==LocalDate.now().getYear()){
 			for(Enfermedad e: pacientes.get(i).getEnfermedades()){
 				if(e.getNombre().equalsIgnoreCase(enfermedad)){
-					array[pacientes.get(i).getFechaDiagnostico().getDayOfMonth()]++;
+					array[pacientes.get(i).getFechaDiagnostico().getMonthValue()-1]++;
+					
+				}
+			}
+		}
+			else
+				listo = true;
+		}
+		return array;
+	}
+	
+	public int [] pacientesPorMesesAnno(String enfermedad, int anno){ // para el anno 
+		int [] array = new int[12];
+		boolean listo = false;
+		for(int i=pacientes.size()-1; i>=0 && !listo ; i--){
+			if(pacientes.get(i).getFechaDiagnostico().getYear()==anno){
+			for(Enfermedad e: pacientes.get(i).getEnfermedades()){
+				if(e.getNombre().equalsIgnoreCase(enfermedad)){
+					array[pacientes.get(i).getFechaDiagnostico().getMonthValue()-1]++;
 					
 				}
 			}

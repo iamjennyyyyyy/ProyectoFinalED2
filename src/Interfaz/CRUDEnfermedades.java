@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.scene.control.ComboBox;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -30,6 +32,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import Auxiliar.Sistema;
 import Persona.Paciente;
 import Salud.Consultorio;
 import Salud.Minsap;
@@ -63,6 +66,11 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.SpinnerNumberModel;
 
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+
 public class CRUDEnfermedades extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -76,9 +84,9 @@ public class CRUDEnfermedades extends JDialog {
 	private JLabel lblSntomaspresioneCtrl;
 	private JLabel lblDatosPersonales;
 	private JButton btnSalir;
+	private DefaultListModel<String> modeloSintomas = new DefaultListModel<>();
 	private JTextPane textPaneSint;
 	private JList listSint;
-	private static Enfermedad enfAEditar = null;
 	private JButton btnRegistrar;
 	private JTextField textAgente;
 	private JButton btnReiniciar;
@@ -94,6 +102,8 @@ public class CRUDEnfermedades extends JDialog {
 	private JLabel lblCategora;
 	private JLabel lblGravedad;
 	private JButton btnEditar;
+	private JComboBox comboBoxNombre;
+	private JButton btnGuardar;
 
 
 	public static void main(String[] args) {
@@ -143,10 +153,8 @@ public class CRUDEnfermedades extends JDialog {
 		contentPanel.add(getLblCategora());
 		contentPanel.add(getLblGravedad());
 		contentPanel.add(getBtnEditar());
-	}
-	
-	private static void setEnfermedadAEditar(Enfermedad e){
-		enfAEditar = e;
+		contentPanel.add(getComboBoxNombre());
+		contentPanel.add(getBtnGuardar());
 	}
 
 	private JLabel getLblNombre() {
@@ -211,9 +219,21 @@ public class CRUDEnfermedades extends JDialog {
 		int ind = comboBox_2.getSelectedIndex();
 		String duracion = "";
 		switch(ind){
-		case 0: duracion += min + "-" + max + " " + "días";
-		case 1: duracion += min + "-" + max + " " + "semanas";
-		case 2: duracion += min + "-" + max + " " + "meses";
+		case 0: 
+		    duracion += min + "-" + max + " " + "horas";
+		    break;
+		case 1: 
+		    duracion += min + "-" + max + " " + "días";
+		    break;
+		case 2: 
+		    duracion += min + "-" + max + " " + "semanas";
+		    break;
+		case 3: 
+		    duracion += min + "-" + max + " " + "meses";
+		    break;
+		case 4: 
+			duracion = "Crónica";
+			break;
 		}
 
 		Enfermedad u = new Enfermedad();
@@ -258,11 +278,11 @@ public class CRUDEnfermedades extends JDialog {
 			u.setGravedadTipica(grav);
 			u.setCategoria(cat);
 			u.setDuracion(duracion);
-			
+
 		}
 		return u;
 	}
-	
+
 	private JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
@@ -292,28 +312,51 @@ public class CRUDEnfermedades extends JDialog {
 	private JScrollPane getScrollSintomas() {
 		if (scrollSintomas == null) {
 			// Crear lista de síntomas
-			DefaultListModel<String> modeloSintomas = new DefaultListModel<>();
+			modeloSintomas.clear();
 			for(Sintomas s : Sintomas.values()) {
 				modeloSintomas.addElement(s.getDescripcion());
 			}
 
 			listSint = new JList<>(modeloSintomas);
 			listSint.addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent arg0) {
-					String mensaje = "";
-					int[] pos = listSint.getSelectedIndices();
-					ArrayList<Sintomas> arr = Sintomas.obtenerSintomasPorIndices(pos);
-					for(int i = 0; i < arr.size(); i++){
-						if(i != arr.size()-1)
-							mensaje += arr.get(i).getDescripcion() + ", ";
-						else
-							mensaje += arr.get(i).getDescripcion() + ".";
-						sintomasSel.add(arr.get(i));
-					}
-					textPaneSint.setText(mensaje);
-					if(todosLosCamposLlenos())
-						btnRegistrar.setEnabled(true);
-				}
+			    public void valueChanged(ListSelectionEvent arg0) {
+			        
+			        if (arg0.getValueIsAdjusting()) {
+			            return;
+			        }
+			        
+			        String mensaje = "";
+			        int[] pos = listSint.getSelectedIndices();
+			        ArrayList<Sintomas> arr = new ArrayList<>();
+			        
+			        if (!btnGuardar.isVisible()) {
+			            arr = Sintomas.obtenerSintomasPorIndices(pos);
+			        } else {
+			            for (int i = 0; i < pos.length; i++) {
+			                String descripcion = modeloSintomas.getElementAt(pos[i]);
+			                for (Sintomas s : Sintomas.values()) {
+			                    if (s.getDescripcion().equals(descripcion)) {
+			                        arr.add(s);
+			                    }
+			                }
+			            }
+			        }
+			        sintomasSel.clear();
+			        for(int i = 0; i < arr.size(); i++){
+			            if(i != arr.size()-1)
+			                mensaje += arr.get(i).getDescripcion() + ", ";
+			            else
+			                mensaje += arr.get(i).getDescripcion() + ".";
+			            sintomasSel.add(arr.get(i));
+			        }
+			        textPaneSint.setText(mensaje);
+			        
+			        if(!btnGuardar.isVisible() && todosLosCamposLlenos())
+			            btnRegistrar.setEnabled(true);
+			        else if(btnGuardar.isVisible()){
+			            btnGuardar.setEnabled(!sintomasSel.isEmpty());
+			        }
+			    }
 			});
 			listSint.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 			listSint.setFont(new Font("Sylfaen", Font.PLAIN, 17));
@@ -377,12 +420,13 @@ public class CRUDEnfermedades extends JDialog {
 		if (btnRegistrar == null) {
 			btnRegistrar = new JButton("Registrar");
 			btnRegistrar.setEnabled(false);
-			btnRegistrar.setBounds(706, 470, 186, 39);
+			btnRegistrar.setBounds(737, 470, 186, 39);
 			btnRegistrar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					enf = agregarEnfermedades();
 					if(enf != null){
-						JOptionPane.showMessageDialog(CRUDEnfermedades.this, "Enfermedad " + enf.getNombre() + " agregado con éxito", "Info", JOptionPane.WARNING_MESSAGE);
+						Minsap.agregarEnfermedad(enf);
+						JOptionPane.showMessageDialog(CRUDEnfermedades.this, "Enfermedad " + enf.getNombre() + " agregado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 						reiniciar();
 					}
 				}
@@ -423,7 +467,11 @@ public class CRUDEnfermedades extends JDialog {
 
 	private void reiniciar(){
 		sintomasSel.clear();
+		
 		textPaneSint.setText("");
+		textNombre.setVisible(true);
+		separator.setVisible(true);
+		comboBoxNombre.setVisible(false);
 		textNombre.setText("");
 		textAgente.setText("");
 		spinner.setValue(0);
@@ -431,18 +479,34 @@ public class CRUDEnfermedades extends JDialog {
 		comboBox_2.setSelectedIndex(0);
 		comboCat.setSelectedIndex(0);
 		comboGrav.setSelectedIndex(0);
+		
+		ArrayList<Enfermedad> enfermedades = Minsap.getEnfermedadesActuales();
+	    String[] nombres = new String[enfermedades.size()];
+	    for(int i = 0; i < nombres.length; i++){
+	        nombres[i] = enfermedades.get(i).getNombre();
+	    }
+	    comboBoxNombre.setModel(new DefaultComboBoxModel(nombres));
+		
 		btnRegistrar.setEnabled(false);
+		btnGuardar.setVisible(false);
+		for(Sintomas s : Sintomas.values()) {
+			modeloSintomas.addElement(s.getDescripcion());
+		}
+		listSint.setModel(modeloSintomas);
+		listSint.clearSelection();
+		lblSntomaspresioneCtrl.setText("Síntomas: (Ctrl + Clic para selección múltiple)");
 	}
 
 	private JButton getBtnReiniciar() {
 		if (btnReiniciar == null) {
 			btnReiniciar = new JButton("Atras");
+			btnReiniciar.setFont(new Font("Sylfaen", Font.PLAIN, 18));
 			btnReiniciar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					reiniciar();
 				}
 			});
-			btnReiniciar.setBounds(611, 470, 65, 39);
+			btnReiniciar.setBounds(611, 470, 92, 39);
 		}
 		return btnReiniciar;
 	}
@@ -504,8 +568,20 @@ public class CRUDEnfermedades extends JDialog {
 		if (comboBox_2 == null) {
 			comboBox_2 = new JComboBox();
 			comboBox_2.setFont(new Font("Sylfaen", Font.PLAIN, 16));
-			comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"d\u00EDas", "semanas", "meses"}));
+			comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"horas", "d\u00EDas", "semanas", "meses", "cr\u00F3nica"}));
 			comboBox_2.setBounds(435, 422, 79, 27);
+			comboBox_2.addPropertyChangeListener(new PropertyChangeListener() {
+				public void propertyChange(PropertyChangeEvent arg0) {
+					if(comboBox_2.getSelectedItem().equals("Crónica")){
+						spinner.setEnabled(false);
+						spinner_1.setEnabled(false);
+					}
+					else{
+						spinner.setEnabled(true);
+						spinner_1.setEnabled(true);
+					}
+				}
+			});
 		}
 		return comboBox_2;
 	}
@@ -554,19 +630,154 @@ public class CRUDEnfermedades extends JDialog {
 			btnEditar = new JButton("Editar");
 			btnEditar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					textPaneSint.setEnabled(false);
-					textNombre.setEnabled(false);
-					textAgente.setEnabled(false);
-					spinner.setEnabled(false);
-					spinner_1.setEnabled(false);
-					comboBox_2.setEnabled(false);
-					comboCat.setEnabled(false);
-					comboGrav.setEnabled(false);
-					
+					activarEditar();
+					cargarDatosEnfermedad();
 				}
 			});
 			btnEditar.setBounds(996, 105, 50, 39);
 		}
 		return btnEditar;
+	}
+
+	public void activarEditar(){
+
+		textNombre.setVisible(false);
+		separator.setVisible(false);
+		
+		comboBoxNombre.setVisible(true);
+		
+		btnRegistrar.setVisible(false);
+		btnGuardar.setVisible(true);
+		
+		textAgente.setEnabled(false);
+		spinner.setEnabled(false);
+		spinner_1.setEnabled(false);
+		comboBox_2.setEnabled(false);
+		comboCat.setEnabled(false);
+		comboGrav.setEnabled(false);
+		sintomasSel.clear();
+		
+		listSint.clearSelection();
+		listSint.setSelectedIndex(-1);
+	}
+
+
+	private JComboBox getComboBoxNombre() {
+		if (comboBoxNombre == null) {
+			ArrayList<Enfermedad> enf = Minsap.getEnfermedadesActuales();
+			String[] arr = new String[enf.size()];
+			for(int i = 0; i < arr.length; i++){
+				arr[i] = enf.get(i).getNombre();
+			}
+			comboBoxNombre = new JComboBox(arr);
+			comboBoxNombre.addItemListener(new ItemListener() {
+				public void itemStateChanged(ItemEvent arg0) {
+					cargarDatosEnfermedad();
+				}
+			});
+			comboBoxNombre.setBackground(Color.WHITE);
+			comboBoxNombre.setFont(new Font("Sylfaen", Font.PLAIN, 17));
+			comboBoxNombre.setVisible(false);			
+			comboBoxNombre.setBounds(168, 117, 346, 31);
+		}
+		return comboBoxNombre;
+	}
+
+	public void cargarDatosEnfermedad(){
+	    
+	    int pos = comboBoxNombre.getSelectedIndex();
+	    Enfermedad e = Minsap.getEnfermedadesActuales().get(pos);
+	    textAgente.setText(e.getAgenteEtiologico());
+	    
+	    // Categoría
+	    int posCat = -1;
+	    Categoria[] cat = Enfermedad.Categoria.values();
+	    for(int i = 0; i < cat.length && posCat == -1; i++){
+	        if(cat[i].equals(e.getCategoria()))
+	            posCat = i;
+	    }
+	    comboCat.setSelectedIndex(posCat);
+	    
+	    // Gravedad
+	    int posGrav = -1;
+	    Gravedad[] grav = Enfermedad.Gravedad.values();
+	    for(int i = 0; i < grav.length && posGrav == -1; i++){
+	        if(grav[i].equals(e.getGravedadTipica()))
+	            posGrav = i;
+	    }
+	    comboGrav.setSelectedIndex(posGrav);
+	    
+	    // Duración
+	    String duracion = e.getDuracion();
+	    if(!duracion.toLowerCase().contains("crón")){
+	        String[] partes = duracion.split("-|\\s+");
+	        int inicio = Integer.parseInt(partes[0]);
+	        int ultimo = Integer.parseInt(partes[1]);
+	        String unidad = partes[2];
+	        spinner.setValue(inicio);
+	        spinner_1.setValue(ultimo);
+	        comboBox_2.setSelectedItem(unidad);
+	    }
+	    else{
+	        spinner.setEnabled(false);
+	        spinner_1.setEnabled(false);
+	        comboBox_2.setSelectedItem("crónica");
+	    }
+	    
+	    // ModoEditar
+	    if (btnGuardar.isVisible()) {
+	        modeloSintomas.clear();
+	        for(Sintomas s : Sintomas.values()) {
+	            if(!e.getSintomasComunes().contains(s))
+	                modeloSintomas.addElement(s.getDescripcion());
+	        }
+	        lblSntomaspresioneCtrl.setText("Agregar síntomas: (Ctrl + Clic para selección múltiple)");
+	    } //ModoAgregar
+	    else {
+	        modeloSintomas.clear();
+	        for(Sintomas s : Sintomas.values()) {
+	            modeloSintomas.addElement(s.getDescripcion());
+	        }
+	        lblSntomaspresioneCtrl.setText("Síntomas: (Ctrl + Clic para selección múltiple)");
+	    }
+	    
+	    listSint.setModel(modeloSintomas);
+	    
+	    sintomasSel.clear();
+	    textPaneSint.setText("");
+	    listSint.clearSelection();
+	    
+	    if (btnGuardar.isVisible()) {
+	        btnGuardar.setEnabled(false);
+	    }
+	}
+	
+	public String toStringSintomas(){
+		String mensaje = "";
+		for(int i = 0; i < sintomasSel.size(); i++){
+			if (i == sintomasSel.size()-1)
+				mensaje += sintomasSel.get(i).getDescripcion() + ".";
+			else
+				mensaje += sintomasSel.get(i).getDescripcion() + ", ";
+		}
+		return mensaje;
+	}
+	
+	private JButton getBtnGuardar() {
+		if (btnGuardar == null) {
+			btnGuardar = new JButton("Guardar");
+			btnGuardar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Minsap.getEnfermedadesActuales().get(comboBoxNombre.getSelectedIndex()).agregarSintomas(sintomasSel);;
+					JOptionPane.showMessageDialog(CRUDEnfermedades.this, comboBoxNombre.getSelectedItem().toString() + " editada con éxito.\n" + "Síntomas agregados: "+ toStringSintomas(), "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					reiniciar();
+				}
+			});
+			btnGuardar.setEnabled(false);
+			btnGuardar.setVisible(false);
+			btnGuardar.setFont(new Font("Sylfaen", Font.PLAIN, 18));
+			btnGuardar.setBounds(737, 470, 186, 39);
+		}
+		return btnGuardar;
 	}
 }

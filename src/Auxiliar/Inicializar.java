@@ -1,14 +1,18 @@
 package Auxiliar;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JDialog;
+
 import cu.edu.cujae.ceis.graph.interfaces.ILinkedNotDirectedGraph;
 import cu.edu.cujae.ceis.tree.binary.BinaryTree;
 import cu.edu.cujae.ceis.tree.binary.BinaryTreeNode;
 import cu.edu.cujae.ceis.tree.general.GeneralTree;
+import Interfaz.Login;
 import Persona.Medico;
 import Salud.AreaDeSalud;
 import Salud.ConsejoPopular;
@@ -23,6 +27,7 @@ import Sistema.Credencial;
 import Sistema.GrafoConsejos;
 import Utiles.Enfermedad;
 import Utiles.Enfermedad;
+import Utiles.MiPersonalizacion;
 import Utiles.Sintomas;
 import Utiles.Enfermedad.Categoria;
 import Utiles.Enfermedad.Gravedad;
@@ -33,6 +38,24 @@ import Auxiliar.Registro;
 
 
 public class Inicializar {
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MiPersonalizacion.aplicarTema();
+					Sistema.getInstancia();
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public static void inicializar(){
+	}
 	
 	public static GeneralTree<NodoSalud> inicializarArbol(){
 		
@@ -56,9 +79,6 @@ public class Inicializar {
 				arbol.insertNode(m, n);
 			}
 		}
-		
-		
-		
 		return arbol;
 	}
 	

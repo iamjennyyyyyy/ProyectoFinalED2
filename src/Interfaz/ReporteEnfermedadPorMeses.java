@@ -9,10 +9,10 @@ import Utiles.Enfermedad;
 import Salud.Minsap;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ReporteEnfermedadPorMeses extends JDialog {
@@ -21,6 +21,7 @@ public class ReporteEnfermedadPorMeses extends JDialog {
     private CategoryChart chart;
     private JButton btnSalir;
     private JComboBox<String> comboEnfermedades;
+    private JComboBox<Integer> comboAnio;
     private Consultorio consultorio;
     private JLabel lblTitulo;
     private JLabel lblTotalPacientes;
@@ -66,12 +67,12 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         lblTotalPacientes.setForeground(Color.BLACK);
         panelSuperior.add(lblTotalPacientes);
         
-        // Label para combo
-        JLabel lblSeleccion = new JLabel("Seleccione enfermedad:");
-        lblSeleccion.setBounds(20, 50, 150, 25);
-        lblSeleccion.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        lblSeleccion.setForeground(Color.BLACK);
-        panelSuperior.add(lblSeleccion);
+        // Label para combo enfermedad
+        JLabel lblSeleccionEnfermedad = new JLabel("Enfermedad:");
+        lblSeleccionEnfermedad.setBounds(20, 50, 100, 25);
+        lblSeleccionEnfermedad.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblSeleccionEnfermedad.setForeground(Color.BLACK);
+        panelSuperior.add(lblSeleccionEnfermedad);
         
         // ComboBox para seleccionar enfermedad
         comboEnfermedades = new JComboBox<String>();
@@ -81,7 +82,7 @@ public class ReporteEnfermedadPorMeses extends JDialog {
             nombresEnfermedades[i] = enfermedades.get(i).getNombre();
         }
         comboEnfermedades.setModel(new DefaultComboBoxModel<String>(nombresEnfermedades));
-        comboEnfermedades.setBounds(180, 50, 250, 25);
+        comboEnfermedades.setBounds(120, 50, 200, 25);
         comboEnfermedades.setBackground(Color.WHITE);
         comboEnfermedades.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         if (comboEnfermedades.getItemCount() > 0) {
@@ -96,6 +97,35 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         });
         panelSuperior.add(comboEnfermedades);
         
+        // Label para combo año
+        JLabel lblSeleccionAnio = new JLabel("Año:");
+        lblSeleccionAnio.setBounds(340, 50, 50, 25);
+        lblSeleccionAnio.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        lblSeleccionAnio.setForeground(Color.BLACK);
+        panelSuperior.add(lblSeleccionAnio);
+        
+        // ComboBox para seleccionar año
+        comboAnio = new JComboBox<Integer>();
+        int anioActual = LocalDate.now().getYear();
+        // Agregar años desde el actual hasta 5 años atrás
+        Integer[] anios = new Integer[6];
+        for (int i = 0; i < 6; i++) {
+            anios[i] = anioActual - i;
+        }
+        comboAnio.setModel(new DefaultComboBoxModel<Integer>(anios));
+        comboAnio.setBounds(390, 50, 100, 25);
+        comboAnio.setBackground(Color.WHITE);
+        comboAnio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        comboAnio.setSelectedIndex(0); // Año actual por defecto
+        
+        comboAnio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                actualizarGrafico();
+            }
+        });
+        panelSuperior.add(comboAnio);
+        
         // Botón salir
         panelSuperior.add(getBtnSalir());
         
@@ -107,7 +137,7 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         chart = new CategoryChartBuilder()
                 .width(900)
                 .height(600)
-                .title("Pacientes por Mes - Año Actual")
+                .title("Pacientes por Mes - Año " + comboAnio.getSelectedItem())
                 .xAxisTitle("Meses")
                 .yAxisTitle("Cantidad de Pacientes")
                 .build();
@@ -134,31 +164,40 @@ public class ReporteEnfermedadPorMeses extends JDialog {
     }
 
     private void actualizarGrafico() {
-        if (comboEnfermedades.getSelectedIndex() == -1) {
+        if (comboEnfermedades.getSelectedIndex() == -1 || comboAnio.getSelectedIndex() == -1) {
             return;
         }
         
         String enfermedadSeleccionada = (String) comboEnfermedades.getSelectedItem();
+        int anioSeleccionado = (Integer) comboAnio.getSelectedItem();
         
         // Actualizar título
-        lblTitulo.setText("PACIENTES POR MESES - " + enfermedadSeleccionada + " - Consultorio " + consultorio.getNumero());
+        lblTitulo.setText("PACIENTES POR MESES   " + " -    Consultorio " + consultorio.getNumero());
         
-        // Obtener datos de pacientes por meses para la enfermedad seleccionada
-        int[] pacientesPorMesArray = consultorio.pacientesPorMeses(enfermedadSeleccionada);
+        // Obtener datos de pacientes por meses para la enfermedad seleccionada y año específico
+        // Necesitarás modificar el método pacientesPorMeses para aceptar el año como parámetro
+        int[] pacientesPorMesArray = null;
+        
+        try {
+            // Intenta llamar al método con parámetro de año
+            // Si el método no existe con este parámetro, necesitarás crearlo
+            pacientesPorMesArray = consultorio.pacientesPorMesesAnno(enfermedadSeleccionada, anioSeleccionado);
+        } catch (Exception e) {
+            // Si el método no acepta año, usa el método existente (que probablemente muestra el año actual)
+            System.out.println("Usando método sin parámetro de año: " + e.getMessage());
+            pacientesPorMesArray = consultorio.pacientesPorMeses(enfermedadSeleccionada);
+        }
         
         // Crear un nuevo gráfico
         chart = new CategoryChartBuilder()
                 .width(900)
                 .height(600)
-                .title("Pacientes por Mes - " + enfermedadSeleccionada)
+                .title(enfermedadSeleccionada + "   -   Año " + anioSeleccionado)
                 .xAxisTitle("Meses")
                 .yAxisTitle("Cantidad de Pacientes")
                 .build();
         
         personalizarGrafico(chart);
-        
-        // En XChart 3.8.5 para CategoryChart, necesitamos usar double[] para ambos ejes
-        // Los meses se representan como números (0-11) y luego se personalizan las etiquetas
         
         // Datos para el gráfico - eje X: números del 0 al 11 (representan los meses)
         double[] mesesNumeros = new double[12];
@@ -177,13 +216,12 @@ public class ReporteEnfermedadPorMeses extends JDialog {
             }
             
             // Actualizar label de total
-            lblTotalPacientes.setText("Total pacientes año: " + totalPacientes);
+            lblTotalPacientes.setText("Total pacientes año " + anioSeleccionado + ": " + totalPacientes);
             
-            // Agregar serie al gráfico - EN XChart 3.8.5: addSeries(String, double[], double[])
+            // Agregar serie al gráfico
             chart.addSeries(enfermedadSeleccionada, mesesNumeros, datosPacientes);
             
             // Configurar etiquetas personalizadas para los meses
-            // En XChart 3.8.5, podemos usar setCustomXAxisTickLabels para personalizar las etiquetas
             String[] mesesLabels = {"Ene", "Feb", "Mar", "Abr", "May", "Jun", 
                                    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"};
             
@@ -217,9 +255,10 @@ public class ReporteEnfermedadPorMeses extends JDialog {
             
             // Actualizar título del gráfico
             if (totalPacientes > 0) {
-                chart.setTitle("Pacientes por Mes - " + enfermedadSeleccionada + "\nTotal año: " + totalPacientes + " pacientes");
+                chart.setTitle("Pacientes por Mes - " + enfermedadSeleccionada + 
+                              "\nAño " + anioSeleccionado + " - Total: " + totalPacientes + " pacientes");
             } else {
-                chart.setTitle("No hay pacientes registrados para " + enfermedadSeleccionada);
+                chart.setTitle("No hay pacientes registrados para " + enfermedadSeleccionada + " en " + anioSeleccionado);
             }
         } else {
             // Si no hay datos
@@ -227,9 +266,9 @@ public class ReporteEnfermedadPorMeses extends JDialog {
                 datosPacientes[i] = 0;
             }
             
-            lblTotalPacientes.setText("Total pacientes año: 0");
+            lblTotalPacientes.setText("Total pacientes año " + anioSeleccionado + ": 0");
             chart.addSeries(enfermedadSeleccionada, mesesNumeros, datosPacientes);
-            chart.setTitle("No hay datos disponibles para " + enfermedadSeleccionada);
+            chart.setTitle("No hay datos disponibles para " + enfermedadSeleccionada + " en " + anioSeleccionado);
         }
         
         // Actualizar el panel del gráfico
@@ -306,6 +345,14 @@ public class ReporteEnfermedadPorMeses extends JDialog {
         // Configurar que el eje Y empiece en 0
         try {
             ((AxesChartStyler) styler).setYAxisMin(0.0);
+        } catch (Exception e) {
+            // Método puede no existir
+        }
+        
+        // Color de la serie (azul)
+        try {
+            Color colorAzul = new Color(70, 130, 180);
+            styler.setSeriesColors(new Color[]{colorAzul});
         } catch (Exception e) {
             // Método puede no existir
         }

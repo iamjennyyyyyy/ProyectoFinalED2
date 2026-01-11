@@ -57,7 +57,7 @@ public class InfoEnfermedad extends JDialog {
 	public InfoEnfermedad(Enfermedad e) {
 		setTitle("Informaci\u00F3n Enfermedad");
 		setModal(true);
-		setBounds(350, 190, 799, 494);
+		setBounds(350, 190, 799, 554);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Colores.getAzulLogin());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,7 +92,7 @@ public class InfoEnfermedad extends JDialog {
 		if (labelImagen == null) {
 			labelImagen = new JLabel("");
 			labelImagen.setBorder(new LineBorder(Colores.getAzulMedio()));
-			labelImagen.setBounds(463, 29, 294, 401);
+			labelImagen.setBounds(464, 53, 294, 401);
 		}
 		return labelImagen;
 	}
@@ -162,7 +162,7 @@ public class InfoEnfermedad extends JDialog {
 			textPaneSintomas.setFocusable(false);
 			textPaneSintomas.setEditable(false);
 			textPaneSintomas.setBackground(Colores.getAzulLogin());
-			textPaneSintomas.setBounds(50, 308, 379, 122);
+			textPaneSintomas.setBounds(50, 308, 379, 183);
 		}
 		return textPaneSintomas;
 	}
